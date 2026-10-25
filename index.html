@@ -66,9 +66,11 @@ main { max-width: 980px; margin: 0 auto; padding-block: 28px 56px; display: flex
 
 .card { background: var(--white); border: 1px solid var(--line); border-radius: 14px; padding: 22px; min-width: 0; }
 .steps { display: flex; flex-direction: column; gap: 22px; }
-.step { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 4px 14px; }
-.step > :not(.num) { grid-column: 2; }
-.num { grid-row: 1 / span 4; width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--gold); color: var(--gold-deep); display: flex; align-items: center; justify-content: center; font-weight: 600; background: var(--cream); }
+.step { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 5px 14px; }
+.step > :not(.ico) { grid-column: 2; }
+.ico { grid-row: 1 / span 5; width: 44px; height: 44px; border-radius: 50%; background: var(--gold-soft); border: 1.5px solid var(--gold); color: var(--gold-deep); display: flex; align-items: center; justify-content: center; }
+.ico .i { width: 22px; height: 22px; margin: 0; }
+.stepno { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600; color: var(--gold-deep); }
 .step label, .step .lbl { font-weight: 600; font-size: 1.05rem; }
 .hint { color: var(--brown-soft); font-size: 0.92rem; margin: 0; }
 .row { display: flex; gap: 8px; align-items: stretch; }
@@ -79,8 +81,8 @@ select { width: auto; min-width: 5.6rem; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .chip { font: inherit; font-size: 0.9rem; color: var(--brown); background: var(--white); border: 1.5px solid var(--line); border-radius: 999px; padding: 4px 12px; cursor: pointer; font-variant-numeric: tabular-nums; }
 .chip[aria-pressed="true"] { background: var(--gold-soft); border-color: var(--gold); }
-.syr-opts { display: grid; gap: 8px; }
-.syr-opts label { display: flex; gap: 10px; align-items: center; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; cursor: pointer; font-weight: 400; font-size: 1rem; }
+.syr-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.syr-opts label { display: flex; gap: 10px; align-items: center; justify-content: center; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; cursor: pointer; font-weight: 400; font-size: 1rem; }
 .syr-opts label:has(input:checked) { border-color: var(--gold); background: var(--gold-soft); }
 .syr-opts input { accent-color: var(--gold-deep); width: 18px; height: 18px; }
 
@@ -102,7 +104,7 @@ dl.facts dd { margin: 0; text-align: right; font-weight: 500; font-variant-numer
 
 .syringe { overflow-x: auto; }
 .syringe h2, .waters h2 { font-family: var(--serif); font-size: 1.5rem; margin: 0 0 6px; }
-.syringe svg { display: block; width: 100%; min-width: 540px; height: auto; }
+.syringe svg#syr { display: block; width: 100%; min-width: 540px; height: auto; }
 .s-barrel { fill: var(--cream); stroke: var(--brown); stroke-width: 1.5; }
 .s-liquid { fill: var(--gold); opacity: 0.9; }
 .s-liquid.over { fill: var(--warn); opacity: 0.8; }
@@ -112,6 +114,7 @@ dl.facts dd { margin: 0; text-align: right; font-weight: 500; font-variant-numer
 .s-text { fill: var(--brown-soft); font-family: var(--sans); font-size: 12px; }
 .s-mark { stroke: var(--brown); stroke-width: 2; }
 .s-solid { fill: var(--brown); }
+.s-lab { fill: var(--brown); font-weight: 600; font-size: 13px; text-anchor: middle; }
 
 .waters summary { cursor: pointer; font-family: var(--serif); font-weight: 700; font-size: 1.5rem; }
 .waters p { margin: 6px 0 12px; }
@@ -126,16 +129,70 @@ table.wt { width: 100%; border-collapse: collapse; font-variant-numeric: tabular
 
 .foot { color: var(--brown-soft); font-size: 0.88rem; max-width: 80ch; margin: 0; }
 footer { text-align: center; color: var(--brown-soft); font-size: 0.85rem; padding-bottom: 28px; }
+
+/* icons */
+.i { width: 1.15em; height: 1.15em; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.tabs button { display: inline-flex; align-items: center; gap: 8px; }
+.waters summary { display: flex; align-items: center; gap: 10px; }
+.waters summary .i { color: var(--gold-deep); width: 1.3rem; height: 1.3rem; }
+.syringe h2 { display: flex; align-items: center; gap: 10px; }
+.syringe h2 .i { color: var(--gold-deep); width: 1.5rem; height: 1.5rem; }
+.ahead { display: flex; align-items: center; gap: 12px; }
+.ahead .ico { width: 38px; height: 38px; grid-row: auto; }
+.ahead .ico .i { width: 20px; height: 20px; }
+
+@media (max-width: 520px) {
+  .tabs { display: flex; align-self: stretch; flex-wrap: nowrap; }
+  .tabs button { flex: 1 1 0; justify-content: center; padding-inline: 8px; gap: 6px; white-space: nowrap; }
+  .menu .btn { font-size: 0.86rem; gap: 6px; padding-inline: 8px; white-space: nowrap; }
+  .syr-opts label { padding: 10px 8px; gap: 6px; white-space: nowrap; }
+}
+
+/* light motion */
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes pop { from { opacity: 0.3; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+.hero { animation: rise 0.5s ease both; }
+.tabs { animation: rise 0.5s 0.06s ease both; }
+.steps { animation: rise 0.5s 0.12s ease both; }
+.answer { animation: rise 0.5s 0.18s ease both; }
+.syringe { animation: rise 0.5s 0.24s ease both; }
+.waters { animation: rise 0.5s 0.3s ease both; }
+#s-dose, #s-units { animation: fadein 0.3s ease both; }
+.note { animation: rise 0.3s ease both; }
+.pulse { animation: pop 0.35s ease both; }
+.btn, .chip, .tabs button, .syr-opts label, .wt button, input[type="number"], select { transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease; }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(143, 106, 28, 0.18); }
+.btn:active { transform: translateY(0); box-shadow: none; }
+.chip:hover { border-color: var(--gold); background: var(--gold-soft); }
+input[type="number"]:focus, select:focus { box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.25); }
+.s-liquid { transition: fill 0.3s ease; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-vial" viewBox="0 0 24 24"><path d="M9 3h6M10 3v2.5M14 3v2.5"/><path d="M8.5 5.5h7a1 1 0 0 1 1 1V19a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2V6.5a1 1 0 0 1 1-1z"/><path d="M7.5 12h9"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3.2c3.2 4 5.5 6.9 5.5 10a5.5 5.5 0 0 1-11 0c0-3.1 2.3-6 5.5-10z"/><path d="M9.5 14a2.6 2.6 0 0 0 2 2.4"/></symbol>
+  <symbol id="i-pill" viewBox="0 0 24 24"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7z"/><path d="m8.5 8.5 7 7"/></symbol>
+  <symbol id="i-syringe" viewBox="0 0 24 24"><path d="M2 12h4"/><path d="M6 9.5v5"/><path d="M8 9h10v6H8z"/><path d="M11 9v2.5M14 9v2.5"/><path d="M18 12h3.5"/><path d="M21.5 9.5v5"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7V6a3 3 0 0 1 6 0v1"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 13h6M10 17h6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20.5 20.5-4.8-4.8"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m4.5 12.5 5 5L19.5 6.5"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><path d="M9 9h10.5v11.5H9z"/><path d="M5 15.5V4h10.5"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.5 4v5h5"/></symbol>
+</svg>
 
 <header class="top">
   <div class="in gutter">
     <a class="brand" href="./">Chichi<small>Peptide Calculator</small></a>
     <nav class="menu" aria-label="TBT menu">
-      <a class="btn solid" href="https://take.app/thebeautytrends" target="_blank" rel="noopener">Shop TBT Peptides</a>
-      <a class="btn" href="https://drive.google.com/drive/folders/1M6MaC1nrQzh3Zt-wwRJ4JjC2zTTr_MYH?usp=drive_link" target="_blank" rel="noopener">Peptide Protocols</a>
+      <a class="btn solid" href="https://take.app/thebeautytrends" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>Shop TBT Peptides</a>
+      <a class="btn" href="https://drive.google.com/drive/folders/1M6MaC1nrQzh3Zt-wwRJ4JjC2zTTr_MYH?usp=drive_link" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-doc"/></svg>Peptide Protocols</a>
     </nav>
   </div>
 </header>
@@ -147,41 +204,45 @@ footer { text-align: center; color: var(--brown-soft); font-size: 0.85rem; paddi
   </section>
 
   <div class="tabs" role="tablist" aria-label="What do you want to do?">
-    <button type="button" role="tab" id="tab-dose" aria-selected="true">Find my units</button>
-    <button type="button" role="tab" id="tab-units" aria-selected="false">Check my units</button>
+    <button type="button" role="tab" id="tab-dose" aria-selected="true"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg>Find my units</button>
+    <button type="button" role="tab" id="tab-units" aria-selected="false"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Check my units</button>
   </div>
 
   <div class="grid">
     <section class="card steps" aria-label="Your numbers">
       <div class="step">
-        <span class="num" aria-hidden="true">1</span>
-        <label for="vial">How many mg are in your vial?</label>
+        <span class="ico" aria-hidden="true"><svg class="i"><use href="#i-vial"/></svg></span>
+        <span class="stepno">Step 1</span>
+        <label for="vial">How many mg are in your peptide vial?</label>
         <div class="row"><input id="vial" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 10"><span class="unit">mg</span></div>
         <div class="chips" data-for="vial" aria-label="Common vial sizes"></div>
         <p class="hint">Find the mg number on your vial label.</p>
       </div>
 
       <div class="step">
-        <span class="num" aria-hidden="true">2</span>
-        <label for="water">How much water did you add?</label>
+        <span class="ico" aria-hidden="true"><svg class="i"><use href="#i-drop"/></svg></span>
+        <span class="stepno">Step 2</span>
+        <label for="water">How much BAC water or pharma BAC water did you add?</label>
         <div class="row"><input id="water" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 2"><span class="unit">mL</span></div>
         <div class="chips" data-for="water" aria-label="Common water amounts"></div>
-        <p class="hint">Count only the water you mixed into the vial.</p>
+        <p class="hint">BAC water is bacteriostatic water. Count only the amount you mixed into the vial.</p>
       </div>
 
       <div class="step" id="s-dose">
-        <span class="num" aria-hidden="true">3</span>
-        <label for="dose">How much do you want to take?</label>
+        <span class="ico" aria-hidden="true"><svg class="i"><use href="#i-pill"/></svg></span>
+        <span class="stepno">Step 3</span>
+        <label for="dose">How many mg or mcg do you want to take?</label>
         <div class="row">
           <input id="dose" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 250">
-          <select id="doseUnit" aria-label="Unit for your dose"><option value="mcg">mcg</option><option value="mg">mg</option></select>
+          <select id="doseUnit" aria-label="mcg or mg"><option value="mcg">mcg</option><option value="mg">mg</option></select>
         </div>
         <div class="chips" data-for="dose" aria-label="Common amounts"></div>
-        <p class="hint">Type the amount you plan to take. 1 mg = 1,000 mcg.</p>
+        <p class="hint">Pick mcg or mg next to the number. 1 mg = 1,000 mcg.</p>
       </div>
 
       <div class="step" id="s-units" hidden>
-        <span class="num" aria-hidden="true">3</span>
+        <span class="ico" aria-hidden="true"><svg class="i"><use href="#i-pill"/></svg></span>
+        <span class="stepno">Step 3</span>
         <label for="units">How many units did you draw?</label>
         <div class="row"><input id="units" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 10"><span class="unit">units</span></div>
         <div class="chips" data-for="units" aria-label="Common draws"></div>
@@ -189,39 +250,39 @@ footer { text-align: center; color: var(--brown-soft); font-size: 0.85rem; paddi
       </div>
 
       <div class="step">
-        <span class="num" aria-hidden="true">4</span>
+        <span class="ico" aria-hidden="true"><svg class="i"><use href="#i-syringe"/></svg></span>
+        <span class="stepno">Step 4</span>
         <span class="lbl" id="syr-lbl">Which syringe are you using?</span>
         <div class="syr-opts" role="radiogroup" aria-labelledby="syr-lbl">
-          <label><input type="radio" name="syr" value="1" checked> 1 mL (100 units)</label>
-          <label><input type="radio" name="syr" value="0.5"> 0.5 mL (50 units)</label>
-          <label><input type="radio" name="syr" value="0.3"> 0.3 mL (30 units)</label>
+          <label><input type="radio" name="syr" value="1" checked><svg class="i" aria-hidden="true"><use href="#i-syringe"/></svg><span>1 mL</span></label>
+          <label><input type="radio" name="syr" value="0.5"><svg class="i" aria-hidden="true"><use href="#i-syringe"/></svg><span>0.5 mL</span></label>
         </div>
-        <p class="hint">Most insulin syringes are 1 mL with 100 units.</p>
+        <p class="hint">1 mL has 100 units. 0.5 mL has 50 units.</p>
       </div>
 
-      <div class="actions"><button type="button" class="btn" id="clear">Clear all</button></div>
+      <div class="actions"><button type="button" class="btn" id="clear"><svg class="i" aria-hidden="true"><use href="#i-reset"/></svg><span class="t">Clear all</span></button></div>
     </section>
 
     <section class="card answer" aria-live="polite" aria-label="Your answer">
-      <span class="k" id="mainK">Draw to</span>
+      <div class="ahead"><span class="ico" aria-hidden="true"><svg class="i"><use href="#i-syringe"/></svg></span><span class="k" id="mainK">Draw to</span></div>
       <span class="big" id="mainV">-</span>
       <p class="say" id="mainSay"></p>
       <hr class="rule">
       <dl class="facts" id="facts"></dl>
       <div class="notes" id="notes"></div>
-      <div class="actions"><button type="button" class="btn solid" id="copy">Copy my answer</button></div>
+      <div class="actions"><button type="button" class="btn solid" id="copy"><svg class="i" aria-hidden="true"><use href="#i-copy"/></svg><span class="t">Copy my answer</span></button></div>
     </section>
   </div>
 
   <section class="card syringe" aria-label="Syringe picture">
-    <h2>Where to pull the plunger</h2>
+    <h2><svg class="i" aria-hidden="true"><use href="#i-syringe"/></svg>Where to pull the plunger</h2>
     <svg id="syr" viewBox="0 0 680 110" role="img" aria-label="Syringe showing the draw line"></svg>
   </section>
 
   <details class="card waters" id="waterBox">
-    <summary>Not sure how much water to add?</summary>
-    <p class="hint">This shows where you would draw for the same dose with different amounts of water. Tap a row to try it. It does not pick one for you.</p>
-    <div class="tablewrap"><table class="wt"><thead><tr><th>Water</th><th>Draw to</th><th>Note</th></tr></thead><tbody id="wbody"></tbody></table></div>
+    <summary><svg class="i" aria-hidden="true"><use href="#i-drop"/></svg>Not sure how much BAC water to add?</summary>
+    <p class="hint">This shows where you would draw for the same dose with different amounts of BAC water. Tap a row to try it. It does not pick one for you.</p>
+    <div class="tablewrap"><table class="wt"><thead><tr><th>BAC water</th><th>Draw to</th><th>Note</th></tr></thead><tbody id="wbody"></tbody></table></div>
   </details>
 
   <p class="foot">This calculator only does the math. It does not tell you how much to take. Follow the instructions that came with your product, and talk to your healthcare provider about your own plan. If your product is measured in IU, use the conversion from the product's own instructions. The numbers at the start are an example, replace them with yours.</p>
@@ -334,34 +395,77 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
     $('facts').appendChild(d);
   }
 
-  function drawSyringe(units, capacity) {
-    var svg = $('syr');
-    var x0 = 90, x1 = 610, y0 = 34, h = 36, len = x1 - x0, mid = y0 + h / 2;
-    var over = units > capacity;
-    var shown = Math.max(0, Math.min(isFinite(units) ? units : 0, capacity));
-    var tipX = x0 + (shown / capacity) * len;
+  var REDUCED = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var SX0 = 90, SX1 = 610, SY0 = 34, SH = 36, SLEN = SX1 - SX0, SMID = SY0 + SH / 2;
+  var syr = { cap: 0, shown: 0, raf: 0 };
+
+  function buildSyringe(capacity) {
     var major = capacity <= 30 ? 5 : 10;
     var minor = capacity <= 50 ? 1 : 2;
     var p = [];
-    p.push('<line class="s-line" x1="22" y1="' + mid + '" x2="' + (x0 - 8) + '" y2="' + mid + '"/>');
-    p.push('<rect class="s-barrel" x="' + (x0 - 8) + '" y="' + (y0 + 10) + '" width="8" height="' + (h - 20) + '"/>');
-    p.push('<rect class="s-barrel" x="' + x0 + '" y="' + y0 + '" width="' + len + '" height="' + h + '" rx="3"/>');
-    if (shown > 0) p.push('<rect class="s-liquid' + (over ? ' over' : '') + '" x="' + x0 + '" y="' + (y0 + 1) + '" width="' + (tipX - x0) + '" height="' + (h - 2) + '"/>');
-    p.push('<line class="s-line" x1="' + tipX + '" y1="' + mid + '" x2="' + (x1 + 40) + '" y2="' + mid + '"/>');
-    p.push('<rect class="s-solid" x="' + tipX + '" y="' + (y0 + 2) + '" width="6" height="' + (h - 4) + '"/>');
-    p.push('<rect class="s-barrel" x="' + (x1 + 40) + '" y="' + (y0 + 6) + '" width="10" height="' + (h - 12) + '"/>');
+    p.push('<line class="s-line" x1="22" y1="' + SMID + '" x2="' + (SX0 - 8) + '" y2="' + SMID + '"/>');
+    p.push('<rect class="s-barrel" x="' + (SX0 - 8) + '" y="' + (SY0 + 10) + '" width="8" height="' + (SH - 20) + '"/>');
+    p.push('<rect class="s-barrel" x="' + SX0 + '" y="' + SY0 + '" width="' + SLEN + '" height="' + SH + '" rx="3"/>');
+    p.push('<rect id="s-liq" class="s-liquid" x="' + SX0 + '" y="' + (SY0 + 1) + '" width="0" height="' + (SH - 2) + '"/>');
+    p.push('<line id="s-rod" class="s-line" x1="' + SX0 + '" y1="' + SMID + '" x2="' + (SX1 + 40) + '" y2="' + SMID + '"/>');
+    p.push('<rect id="s-tip" class="s-solid" x="' + SX0 + '" y="' + (SY0 + 2) + '" width="6" height="' + (SH - 4) + '"/>');
+    p.push('<rect class="s-barrel" x="' + (SX1 + 40) + '" y="' + (SY0 + 6) + '" width="10" height="' + (SH - 12) + '"/>');
     for (var u = 0; u <= capacity + 0.0001; u += minor) {
-      var x = x0 + (u / capacity) * len;
+      var x = SX0 + (u / capacity) * SLEN;
       var isMaj = Math.abs(u % major) < 0.0001;
-      p.push('<line class="s-tick' + (isMaj ? ' maj' : '') + '" x1="' + x + '" y1="' + (y0 + h) + '" x2="' + x + '" y2="' + (y0 + h + (isMaj ? 12 : 6)) + '"/>');
-      if (isMaj) p.push('<text class="s-text" x="' + x + '" y="' + (y0 + h + 28) + '" text-anchor="middle">' + u + '</text>');
+      p.push('<line class="s-tick' + (isMaj ? ' maj' : '') + '" x1="' + x + '" y1="' + (SY0 + SH) + '" x2="' + x + '" y2="' + (SY0 + SH + (isMaj ? 12 : 6)) + '"/>');
+      if (isMaj) p.push('<text class="s-text" x="' + x + '" y="' + (SY0 + SH + 28) + '" text-anchor="middle">' + u + '</text>');
     }
-    if (isFinite(units) && units > 0) {
-      p.push('<line class="s-mark" x1="' + tipX + '" y1="' + (y0 - 8) + '" x2="' + tipX + '" y2="' + (y0 + h + 4) + '"/>');
-      var lx = Math.min(Math.max(tipX, x0 + 34), x1 - 34);
-      p.push('<text class="s-text" x="' + lx + '" y="' + (y0 - 14) + '" text-anchor="middle" style="fill:#3a2a1e;font-weight:600;font-size:13px">' + trim(units, 2) + ' units</text>');
+    p.push('<line id="s-mark" class="s-mark" x1="' + SX0 + '" y1="' + (SY0 - 8) + '" x2="' + SX0 + '" y2="' + (SY0 + SH + 4) + '"/>');
+    p.push('<text id="s-lab" class="s-lab" x="' + SX0 + '" y="' + (SY0 - 14) + '"></text>');
+    $('syr').innerHTML = p.join('');
+    syr.cap = capacity;
+  }
+
+  function paintSyringe(shown, capacity) {
+    var tipX = SX0 + (shown / capacity) * SLEN;
+    $('s-liq').setAttribute('width', Math.max(0, tipX - SX0));
+    $('s-rod').setAttribute('x1', tipX);
+    $('s-tip').setAttribute('x', tipX);
+    $('s-mark').setAttribute('x1', tipX);
+    $('s-mark').setAttribute('x2', tipX);
+    $('s-lab').setAttribute('x', Math.min(Math.max(tipX, SX0 + 34), SX1 - 34));
+  }
+
+  /* the plunger slides to the new draw line */
+  function drawSyringe(units, capacity) {
+    var want = isFinite(units) && units > 0;
+    var target = Math.max(0, Math.min(want ? units : 0, capacity));
+    if (syr.cap !== capacity) {
+      var frac = syr.cap ? syr.shown / syr.cap : 0;
+      buildSyringe(capacity);
+      syr.shown = frac * capacity;
     }
-    svg.innerHTML = p.join('');
+    $('s-liq').setAttribute('class', 's-liquid' + (units > capacity ? ' over' : ''));
+    $('s-mark').style.visibility = want ? 'visible' : 'hidden';
+    $('s-lab').textContent = want ? trim(units, 2) + ' units' : '';
+    cancelAnimationFrame(syr.raf);
+    var from = syr.shown, to = target;
+    if (REDUCED || Math.abs(to - from) < 0.001) { syr.shown = to; paintSyringe(to, capacity); return; }
+    var t0 = null, dur = 520;
+    function step(ts) {
+      if (t0 === null) t0 = ts;
+      var k = Math.min(1, (ts - t0) / dur);
+      var e = 1 - Math.pow(1 - k, 3);
+      syr.shown = from + (to - from) * e;
+      paintSyringe(syr.shown, capacity);
+      if (k < 1) syr.raf = requestAnimationFrame(step);
+    }
+    syr.raf = requestAnimationFrame(step);
+  }
+
+  /* big number: short fade and rise when it changes */
+  var lastBig = '';
+  function showBig(html) {
+    var el = $('mainV');
+    el.innerHTML = html;
+    if (html !== lastBig && !REDUCED) { el.classList.remove('pulse'); void el.offsetWidth; el.classList.add('pulse'); }
+    lastBig = html;
   }
 
   function drawWaters(vial, doseMg, capacityMl, waterNow) {
@@ -401,7 +505,7 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
     drawWaters(vial, mode === 'dose' ? doseMg : NaN, syr, water);
 
     function empty(k, msg) {
-      $('mainK').textContent = k; $('mainV').textContent = '-'; $('mainSay').textContent = msg;
+      $('mainK').textContent = k; showBig('-'); $('mainSay').textContent = msg;
       drawSyringe(0, capacity); lastSummary = '';
     }
     if (!ok) { empty(mode === 'dose' ? 'Draw to' : 'You took', 'Fill in steps 1 and 2 to start.'); return; }
@@ -416,7 +520,7 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
       }
       var r = doseToDraw(vial, water, doseMg, syr);
       $('mainK').textContent = 'Draw to';
-      $('mainV').innerHTML = trim(r.units, 2) + '<small>units</small>';
+      showBig(trim(r.units, 2) + '<small>units</small>');
       $('mainSay').textContent = 'Pull the plunger to ' + trim(r.units, 2) + ' on your ' + syr + ' mL syringe. That is ' + trim(r.drawMl, 4) + ' mL, which gives you ' + fmtDose(doseMg) + '.';
       fact('Your mix', trim(vial, 3) + ' mg in ' + trim(water, 3) + ' mL');
       fact('Strength', trim(r.conc, 4) + ' mg per mL');
@@ -443,7 +547,7 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
       var q = unitsToDose(vial, water, u, syr);
       $('mainK').textContent = 'You took';
       var big = q.doseMg < 1 ? trim(q.doseMg * 1000, 2) : trim(q.doseMg, 3);
-      $('mainV').innerHTML = big + '<small>' + (q.doseMg < 1 ? 'mcg' : 'mg') + '</small>';
+      showBig(big + '<small>' + (q.doseMg < 1 ? 'mcg' : 'mg') + '</small>');
       $('mainSay').textContent = trim(u, 2) + ' units is ' + trim(q.drawMl, 4) + ' mL, which is ' + fmtDose(q.doseMg) + ' from this vial.';
       fact('Your mix', trim(vial, 3) + ' mg in ' + trim(water, 3) + ' mL');
       fact('Strength', trim(q.conc, 4) + ' mg per mL');
@@ -483,7 +587,7 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
   $('copy').addEventListener('click', function () {
     var btn = $('copy');
     if (!lastSummary) return;
-    function done(t) { btn.textContent = t; setTimeout(function () { btn.textContent = 'Copy my answer'; }, 1600); }
+    function done(t) { var s = btn.querySelector('.t'); s.textContent = t; setTimeout(function () { s.textContent = 'Copy my answer'; }, 1600); }
     try {
       navigator.clipboard.writeText(lastSummary).then(function () { done('Copied'); }, function () { done('Copy not available'); });
     } catch (e) { done('Copy not available'); }
