@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Jost:wght@400;500;600&display=swap">
 <style>
-/* Layout: white and gold, brown text. A top menu with the two TBT links, then four simple steps on the left, the answer on the right. */
+
 :root {
   color-scheme: light;
   --cream: #fcfaf5;
@@ -40,7 +40,6 @@ body {
 }
 .gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 
-/* top menu */
 .top { background: var(--white); border-bottom: 2px solid var(--gold); }
 .top .in { max-width: 980px; margin: 0 auto; padding-block: 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; }
 .brand { font-family: var(--serif); font-weight: 700; font-size: 1.55rem; line-height: 1; color: var(--gold-deep); letter-spacing: 0.01em; text-decoration: none; }
@@ -130,7 +129,6 @@ table.wt { width: 100%; border-collapse: collapse; font-variant-numeric: tabular
 .foot { color: var(--brown-soft); font-size: 0.88rem; max-width: 80ch; margin: 0; }
 footer { text-align: center; color: var(--brown-soft); font-size: 0.85rem; padding-bottom: 28px; }
 
-/* icons */
 .i { width: 1.15em; height: 1.15em; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
 .tabs button { display: inline-flex; align-items: center; gap: 8px; }
@@ -149,7 +147,6 @@ footer { text-align: center; color: var(--brown-soft); font-size: 0.85rem; paddi
   .syr-opts label { padding: 10px 8px; gap: 6px; white-space: nowrap; }
 }
 
-/* light motion */
 @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @keyframes pop { from { opacity: 0.3; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
@@ -168,6 +165,31 @@ footer { text-align: center; color: var(--brown-soft); font-size: 0.85rem; paddi
 .chip:hover { border-color: var(--gold); background: var(--gold-soft); }
 input[type="number"]:focus, select:focus { box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.25); }
 .s-liquid { transition: fill 0.3s ease; }
+.verse { position: relative; isolation: isolate; overflow: hidden; text-align: center; color: var(--cream); background: radial-gradient(ellipse at 50% 0%, #5c4229 0%, var(--brown) 60%, #2a1d13 100%); border: 1px solid var(--gold); border-radius: 18px; padding: 64px 28px 52px; margin-top: 12px; box-shadow: 0 0 0 5px var(--cream), 0 0 0 6px var(--gold), 0 20px 44px rgba(58, 42, 30, 0.24); }
+.verse::before { content: ""; position: absolute; inset: -30% -10% auto; height: 80%; z-index: -1; background: radial-gradient(ellipse at 50% 0%, rgba(232, 196, 108, 0.42), rgba(232, 196, 108, 0) 68%); animation: glow 7s ease-in-out infinite alternate; }
+.verse::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(105deg, transparent 35%, rgba(255, 233, 170, 0.2) 50%, transparent 65%); transform: translateX(-120%); animation: sweep 2.2s 0.5s ease-out both; }
+.verse .mark { position: absolute; top: 14px; left: 50%; translate: -50% 0; font-family: var(--serif); font-weight: 700; font-size: 7rem; line-height: 1; color: var(--gold); opacity: 0.22; animation: markin 1.2s ease both; }
+.verse .vlabel { margin: 0 0 14px; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); animation: fadein 0.9s ease both; }
+.orn { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 28px; color: var(--gold); }
+.orn span { width: 72px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); transform-origin: right center; animation: draw 1s 0.2s ease-out both; }
+.orn span:last-child { background: linear-gradient(270deg, transparent, var(--gold)); transform-origin: left center; }
+.orn svg { width: 12px; height: 12px; fill: currentColor; animation: diamond 0.9s 0.1s cubic-bezier(0.3, 1.4, 0.5, 1) both; }
+.verse figure { margin: 0 auto; max-width: 34rem; }
+.verse blockquote { margin: 0; font-family: var(--serif); font-weight: 600; font-size: 1.95rem; line-height: 1.38; text-wrap: balance; }
+.verse .w { display: inline-block; animation: wordin 0.8s calc(0.9s + var(--i, 0) * 0.075s) ease both; }
+.verse .ref { margin-top: 26px; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); animation: fadein 1s calc(1.3s + var(--n, 30) * 0.075s) ease both; }
+.verse.armed:not(.in) :is(.mark, .vlabel, .orn span, .orn svg, .w, .ref), .verse.armed:not(.in)::after { animation-play-state: paused; }
+@media (max-width: 520px) {
+  .verse { padding: 56px 20px 44px; }
+  .verse blockquote { font-size: 1.55rem; }
+  .verse .mark { font-size: 5.5rem; }
+}
+@keyframes glow { from { opacity: 0.55; transform: scale(0.96); } to { opacity: 1; transform: scale(1.04); } }
+@keyframes sweep { to { transform: translateX(120%); } }
+@keyframes markin { from { opacity: 0; transform: translateY(14px) scale(0.85); } to { opacity: 0.22; transform: none; } }
+@keyframes draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes diamond { from { opacity: 0; transform: rotate(-90deg) scale(0); } to { opacity: 1; transform: none; } }
+@keyframes wordin { from { opacity: 0; transform: translateY(12px); color: #ecc96f; } to { opacity: 1; transform: none; color: var(--cream); } }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
@@ -200,8 +222,7 @@ input[type="number"]:focus, select:focus { box-shadow: 0 0 0 3px rgba(201, 162, 
 <main class="gutter">
   <section class="hero">
     <h1>TBT Peptide Calculator</h1>
-    <p>Hosea 13:5-6 "I knew you in the wilderness, in the land of drought. When they had pasture, they became satisfied; they were satisfied, and their hearts became proud. Therefore they forgot me."</p>
-      <p></p>Tell us what is on your vial and how much water you mixed in. We show you exactly where to draw on your syringe.</p>
+    <p>Tell us what is on your vial and how much water you mixed in. We show you exactly where to draw on your syringe.</p>
   </section>
 
   <div class="tabs" role="tablist" aria-label="What do you want to do?">
@@ -287,12 +308,22 @@ input[type="number"]:focus, select:focus { box-shadow: 0 0 0 3px rgba(201, 162, 
   </details>
 
   <p class="foot">This calculator only does the math. It does not tell you how much to take. Follow the instructions that came with your product, and talk to your healthcare provider about your own plan. If your product is measured in IU, use the conversion from the product's own instructions. The numbers at the start are an example, replace them with yours.</p>
+
+  <section class="verse" id="verse" aria-labelledby="verse-label">
+    <span class="mark" aria-hidden="true">&ldquo;</span>
+    <p class="vlabel" id="verse-label">Scripture</p>
+    <div class="orn" aria-hidden="true"><span></span><svg viewBox="0 0 12 12"><path d="M6 .5 11.5 6 6 11.5.5 6z"/></svg><span></span></div>
+    <figure>
+      <blockquote id="vtext">I knew you in the wilderness, in the land of drought. When they had pasture, they became satisfied; they were satisfied, and their hearts became proud. Therefore they forgot me.</blockquote>
+      <figcaption class="ref">Hosea 13:5&ndash;6</figcaption>
+    </figure>
+  </section>
 </main>
 
 <footer>Chichi Peptide Calculator &middot; The Beauty Trends (TBT)</footer>
 
 <script>
-/* CORE START */
+
 function round(n, d) { var m = Math.pow(10, d); return Math.round((n + Number.EPSILON) * m) / m; }
 function trim(n, d) { return String(round(n, d)); }
 function toMg(value, unit) { return unit === 'mcg' ? value / 1000 : value; }
@@ -331,14 +362,13 @@ function unitsToDose(vialMg, waterMl, units, syringeMl) {
     mcgPerUnit: (conc / 100) * 1000
   };
 }
-/* units for the same dose across different water amounts */
+
 function waterOptions(vialMg, doseMg, waters, syringeMl) {
   return waters.map(function (w) {
     var units = (doseMg * w / vialMg) * 100;
     return { water: w, units: units, tooBig: units > syringeMl * 100, hard: units < 5, whole: Math.abs(units - Math.round(units)) < 0.005 };
   });
 }
-/* CORE END */
 
 (function () {
   var $ = function (id) { return document.getElementById(id); };
@@ -368,7 +398,7 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
   function save() {
     try {
       localStorage.setItem(STORE, JSON.stringify({ vial: els.vial.value, water: els.water.value, dose: els.dose.value, units: els.units.value, doseUnit: els.doseUnit.value, syr: syringe() }));
-    } catch (e) { /* storage not available */ }
+    } catch (e) {}
   }
 
   function buildChips() {
@@ -433,7 +463,6 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
     $('s-lab').setAttribute('x', Math.min(Math.max(tipX, SX0 + 34), SX1 - 34));
   }
 
-  /* the plunger slides to the new draw line */
   function drawSyringe(units, capacity) {
     var want = isFinite(units) && units > 0;
     var target = Math.max(0, Math.min(want ? units : 0, capacity));
@@ -460,7 +489,6 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
     syr.raf = requestAnimationFrame(step);
   }
 
-  /* big number: short fade and rise when it changes */
   var lastBig = '';
   function showBig(html) {
     var el = $('mainV');
@@ -596,6 +624,30 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
 
   load();
   render();
+})();
+(function () {
+  var box = document.getElementById('verse');
+  var q = document.getElementById('vtext');
+  if (!box || !q) return;
+  var words = q.textContent.trim().split(/\s+/);
+  q.textContent = '';
+  words.forEach(function (w, i) {
+    var span = document.createElement('span');
+    span.className = 'w';
+    span.style.setProperty('--i', i);
+    span.textContent = w;
+    q.appendChild(span);
+    if (i < words.length - 1) q.appendChild(document.createTextNode(' '));
+  });
+  box.style.setProperty('--n', words.length);
+  if (!('IntersectionObserver' in window)) return;
+  box.classList.add('armed');
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { box.classList.add('in'); io.disconnect(); }
+    });
+  }, { threshold: 0.25 });
+  io.observe(box);
 })();
 </script>
 </body>
