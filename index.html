@@ -178,12 +178,12 @@ input[type="number"]:focus, select:focus { box-shadow: 0 0 0 3px rgba(201, 162, 
   .verse blockquote { font-size: 1.5rem; }
   .syringe { padding: 18px 12px; }
   .syringe h2 { padding-inline: 6px; font-size: 1.3rem; }
-  .s-text { font-size: 24px; }
-  .s-lab { font-size: 26px; }
-  .s-tick { stroke-width: 2; }
-  .s-tick.maj { stroke-width: 2.5; }
-  .s-barrel, .s-line { stroke-width: 2.5; }
-  .s-mark { stroke-width: 3.5; }
+  .s-text { font-size: 29px; }
+  .s-lab { font-size: 31px; }
+  .s-tick { stroke-width: 2.5; }
+  .s-tick.maj { stroke-width: 3; }
+  .s-barrel, .s-line { stroke-width: 3; }
+  .s-mark { stroke-width: 4; }
   .verse .mark { font-size: 5.5rem; }
 }
 @keyframes glow { from { opacity: 0.55; transform: scale(0.96); } to { opacity: 1; transform: scale(1.04); } }
@@ -407,40 +407,53 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
   }
 
   var REDUCED = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  var SX0 = 90, SX1 = 610, SY0 = 34, SH = 36, SLEN = SX1 - SX0, SMID = SY0 + SH / 2;
-  var syr = { cap: 0, shown: 0, raf: 0 };
+  var MQ = window.matchMedia ? window.matchMedia('(max-width: 520px)') : null;
+  var syr = { cap: 0, shown: 0, raf: 0, g: null };
+
+  function geo() {
+    var g = MQ && MQ.matches
+      ? { mob: true, w: 600, h: 182, x0: 44, x1: 530, y0: 54, sh: 64, nx: 8, hub: 8, rod: 36, fl: 14, tip: 8, tM: 18, tm: 9, txt: 52, mt: 12, mb: 6, lab: 20, rx: 7, pad: 70 }
+      : { mob: false, w: 680, h: 110, x0: 90, x1: 610, y0: 34, sh: 36, nx: 22, hub: 8, rod: 40, fl: 10, tip: 6, tM: 12, tm: 6, txt: 28, mt: 8, mb: 4, lab: 14, rx: 3, pad: 34 };
+    g.len = g.x1 - g.x0;
+    g.mid = g.y0 + g.sh / 2;
+    return g;
+  }
 
   function buildSyringe(capacity) {
-    var major = capacity <= 30 ? 5 : 10;
+    var g = geo();
+    var major = capacity <= 30 ? 5 : (g.mob && capacity > 50 ? 20 : 10);
     var minor = capacity <= 50 ? 1 : 2;
     var p = [];
-    p.push('<line class="s-line" x1="22" y1="' + SMID + '" x2="' + (SX0 - 8) + '" y2="' + SMID + '"/>');
-    p.push('<rect class="s-barrel" x="' + (SX0 - 8) + '" y="' + (SY0 + 10) + '" width="8" height="' + (SH - 20) + '"/>');
-    p.push('<rect class="s-barrel" x="' + SX0 + '" y="' + SY0 + '" width="' + SLEN + '" height="' + SH + '" rx="3"/>');
-    p.push('<rect id="s-liq" class="s-liquid" x="' + SX0 + '" y="' + (SY0 + 1) + '" width="0" height="' + (SH - 2) + '"/>');
-    p.push('<line id="s-rod" class="s-line" x1="' + SX0 + '" y1="' + SMID + '" x2="' + (SX1 + 40) + '" y2="' + SMID + '"/>');
-    p.push('<rect id="s-tip" class="s-solid" x="' + SX0 + '" y="' + (SY0 + 2) + '" width="6" height="' + (SH - 4) + '"/>');
-    p.push('<rect class="s-barrel" x="' + (SX1 + 40) + '" y="' + (SY0 + 6) + '" width="10" height="' + (SH - 12) + '"/>');
+    p.push('<line class="s-line" x1="' + g.nx + '" y1="' + g.mid + '" x2="' + (g.x0 - g.hub) + '" y2="' + g.mid + '"/>');
+    p.push('<rect class="s-barrel" x="' + (g.x0 - g.hub) + '" y="' + (g.y0 + g.sh * 0.28) + '" width="' + g.hub + '" height="' + (g.sh * 0.44) + '"/>');
+    p.push('<rect class="s-barrel" x="' + g.x0 + '" y="' + g.y0 + '" width="' + g.len + '" height="' + g.sh + '" rx="' + g.rx + '"/>');
+    p.push('<rect id="s-liq" class="s-liquid" x="' + g.x0 + '" y="' + (g.y0 + 1) + '" width="0" height="' + (g.sh - 2) + '"/>');
+    p.push('<line id="s-rod" class="s-line" x1="' + g.x0 + '" y1="' + g.mid + '" x2="' + (g.x1 + g.rod) + '" y2="' + g.mid + '"/>');
+    p.push('<rect id="s-tip" class="s-solid" x="' + g.x0 + '" y="' + (g.y0 + 2) + '" width="' + g.tip + '" height="' + (g.sh - 4) + '"/>');
+    p.push('<rect class="s-barrel" x="' + (g.x1 + g.rod) + '" y="' + (g.y0 + g.sh * 0.17) + '" width="' + g.fl + '" height="' + (g.sh * 0.66) + '"/>');
     for (var u = 0; u <= capacity + 0.0001; u += minor) {
-      var x = SX0 + (u / capacity) * SLEN;
+      var x = g.x0 + (u / capacity) * g.len;
       var isMaj = Math.abs(u % major) < 0.0001;
-      p.push('<line class="s-tick' + (isMaj ? ' maj' : '') + '" x1="' + x + '" y1="' + (SY0 + SH) + '" x2="' + x + '" y2="' + (SY0 + SH + (isMaj ? 12 : 6)) + '"/>');
-      if (isMaj) p.push('<text class="s-text" x="' + x + '" y="' + (SY0 + SH + 28) + '" text-anchor="middle">' + u + '</text>');
+      p.push('<line class="s-tick' + (isMaj ? ' maj' : '') + '" x1="' + x + '" y1="' + (g.y0 + g.sh) + '" x2="' + x + '" y2="' + (g.y0 + g.sh + (isMaj ? g.tM : g.tm)) + '"/>');
+      if (isMaj) p.push('<text class="s-text" x="' + x + '" y="' + (g.y0 + g.sh + g.txt) + '" text-anchor="middle">' + u + '</text>');
     }
-    p.push('<line id="s-mark" class="s-mark" x1="' + SX0 + '" y1="' + (SY0 - 8) + '" x2="' + SX0 + '" y2="' + (SY0 + SH + 4) + '"/>');
-    p.push('<text id="s-lab" class="s-lab" x="' + SX0 + '" y="' + (SY0 - 14) + '"></text>');
+    p.push('<line id="s-mark" class="s-mark" x1="' + g.x0 + '" y1="' + (g.y0 - g.mt) + '" x2="' + g.x0 + '" y2="' + (g.y0 + g.sh + g.mb) + '"/>');
+    p.push('<text id="s-lab" class="s-lab" x="' + g.x0 + '" y="' + (g.y0 - g.lab) + '"></text>');
+    $('syr').setAttribute('viewBox', '0 0 ' + g.w + ' ' + g.h);
     $('syr').innerHTML = p.join('');
     syr.cap = capacity;
+    syr.g = g;
   }
 
   function paintSyringe(shown, capacity) {
-    var tipX = SX0 + (shown / capacity) * SLEN;
-    $('s-liq').setAttribute('width', Math.max(0, tipX - SX0));
+    var g = syr.g;
+    var tipX = g.x0 + (shown / capacity) * g.len;
+    $('s-liq').setAttribute('width', Math.max(0, tipX - g.x0));
     $('s-rod').setAttribute('x1', tipX);
     $('s-tip').setAttribute('x', tipX);
     $('s-mark').setAttribute('x1', tipX);
     $('s-mark').setAttribute('x2', tipX);
-    $('s-lab').setAttribute('x', Math.min(Math.max(tipX, SX0 + 34), SX1 - 34));
+    $('s-lab').setAttribute('x', Math.min(Math.max(tipX, g.x0 + g.pad), g.x1 - g.pad));
   }
 
   function drawSyringe(units, capacity) {
@@ -600,6 +613,11 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
       navigator.clipboard.writeText(lastSummary).then(function () { done('Copied'); }, function () { done('Copy not available'); });
     } catch (e) { done('Copy not available'); }
   });
+
+  if (MQ) {
+    var rebuild = function () { syr.cap = 0; render(); };
+    if (MQ.addEventListener) MQ.addEventListener('change', rebuild); else if (MQ.addListener) MQ.addListener(rebuild);
+  }
 
   load();
   render();
