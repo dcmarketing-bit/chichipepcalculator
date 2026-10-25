@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chichi Peptide Calculator</title>
+<meta name="description" content="Chichi Peptide Calculator by The Beauty Trends (TBT). Enter your vial, your water and your syringe to see exactly where to draw.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Jost:wght@400;500;600&display=swap">
+<style>
+/* Layout: white and gold, brown text. A top menu with the two TBT links, then four simple steps on the left, the answer on the right. */
+:root {
+  color-scheme: light;
+  --cream: #fcfaf5;
+  --white: #ffffff;
+  --brown: #3a2a1e;
+  --brown-soft: #6e5a47;
+  --gold: #c9a24b;
+  --gold-deep: #8f6a1c;
+  --gold-soft: #f6ebd0;
+  --line: #eadfc9;
+  --warn: #9a4a12;
+  --warn-bg: #fbeedb;
+  --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --sans: "Jost", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { background: var(--cream); }
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--brown);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.5;
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+.gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* top menu */
+.top { background: var(--white); border-bottom: 2px solid var(--gold); }
+.top .in { max-width: 980px; margin: 0 auto; padding-block: 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; }
+.brand { font-family: var(--serif); font-weight: 700; font-size: 1.55rem; line-height: 1; color: var(--gold-deep); letter-spacing: 0.01em; text-decoration: none; }
+.brand small { display: block; font-family: var(--sans); font-weight: 500; font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brown-soft); margin-top: 4px; }
+.menu { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn { font: inherit; font-weight: 500; font-size: 0.95rem; text-decoration: none; padding: 10px 18px; border-radius: 999px; border: 1.5px solid var(--gold); color: var(--brown); background: var(--white); cursor: pointer; display: inline-block; text-align: center; }
+.btn.solid { background: var(--gold); }
+.btn:hover { background: var(--gold-soft); }
+.btn.solid:hover { background: #d6b25f; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline: 3px solid var(--gold-deep); outline-offset: 2px; }
+@media (max-width: 520px) { .menu { width: 100%; } .menu .btn { flex: 1 1 0; padding-inline: 10px; } }
+
+main { max-width: 980px; margin: 0 auto; padding-block: 28px 56px; display: flex; flex-direction: column; gap: 22px; }
+.hero h1 { font-family: var(--serif); font-weight: 700; font-size: 2.6rem; line-height: 1.05; margin: 0 0 8px; color: var(--brown); text-wrap: balance; }
+.hero p { margin: 0; color: var(--brown-soft); max-width: 56ch; font-size: 1.05rem; }
+
+.tabs { display: inline-flex; background: var(--white); border: 1.5px solid var(--line); border-radius: 999px; padding: 4px; gap: 4px; align-self: flex-start; max-width: 100%; flex-wrap: wrap; }
+.tabs button { font: inherit; font-weight: 500; color: var(--brown-soft); background: transparent; border: 0; padding: 9px 18px; border-radius: 999px; cursor: pointer; }
+.tabs button[aria-selected="true"] { background: var(--gold); color: var(--brown); }
+
+.grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+@media (max-width: 760px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+
+.card { background: var(--white); border: 1px solid var(--line); border-radius: 14px; padding: 22px; min-width: 0; }
+.steps { display: flex; flex-direction: column; gap: 22px; }
+.step { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 4px 14px; }
+.step > :not(.num) { grid-column: 2; }
+.num { grid-row: 1 / span 4; width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--gold); color: var(--gold-deep); display: flex; align-items: center; justify-content: center; font-weight: 600; background: var(--cream); }
+.step label, .step .lbl { font-weight: 600; font-size: 1.05rem; }
+.hint { color: var(--brown-soft); font-size: 0.92rem; margin: 0; }
+.row { display: flex; gap: 8px; align-items: stretch; }
+input[type="number"], select { font: inherit; font-size: 1.2rem; color: var(--brown); background: var(--cream); border: 1.5px solid var(--line); border-radius: 10px; padding: 11px 12px; min-width: 0; width: 100%; font-variant-numeric: tabular-nums; }
+input[type="number"]:focus, select:focus { border-color: var(--gold); background: var(--white); }
+select { width: auto; min-width: 5.6rem; }
+.unit { display: flex; align-items: center; color: var(--brown-soft); font-weight: 500; padding-right: 2px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: inherit; font-size: 0.9rem; color: var(--brown); background: var(--white); border: 1.5px solid var(--line); border-radius: 999px; padding: 4px 12px; cursor: pointer; font-variant-numeric: tabular-nums; }
+.chip[aria-pressed="true"] { background: var(--gold-soft); border-color: var(--gold); }
+.syr-opts { display: grid; gap: 8px; }
+.syr-opts label { display: flex; gap: 10px; align-items: center; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; cursor: pointer; font-weight: 400; font-size: 1rem; }
+.syr-opts label:has(input:checked) { border-color: var(--gold); background: var(--gold-soft); }
+.syr-opts input { accent-color: var(--gold-deep); width: 18px; height: 18px; }
+
+.answer { position: sticky; top: 14px; display: flex; flex-direction: column; gap: 14px; border-color: var(--gold); border-width: 1.5px; }
+@media (max-width: 760px) { .answer { position: static; } }
+.answer .k { font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brown-soft); font-weight: 600; }
+.answer .big { font-family: var(--sans); font-weight: 500; font-size: 3.6rem; line-height: 1.05; color: var(--gold-deep); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.answer .big small { font-size: 1.3rem; color: var(--brown-soft); font-weight: 400; margin-left: 0.3em; }
+.answer .say { margin: 0; font-size: 1.05rem; }
+.rule { border: 0; border-top: 1px solid var(--line); margin: 0; }
+dl.facts { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px; margin: 0; }
+dl.facts > div { display: contents; }
+dl.facts dt { color: var(--brown-soft); }
+dl.facts dd { margin: 0; text-align: right; font-weight: 500; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.note { background: var(--warn-bg); color: var(--warn); border-radius: 10px; padding: 10px 12px; font-size: 0.95rem; }
+.notes { display: grid; gap: 8px; }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.actions .btn { padding: 8px 16px; font-size: 0.9rem; }
+
+.syringe { overflow-x: auto; }
+.syringe h2, .waters h2 { font-family: var(--serif); font-size: 1.5rem; margin: 0 0 6px; }
+.syringe svg { display: block; width: 100%; min-width: 540px; height: auto; }
+.s-barrel { fill: var(--cream); stroke: var(--brown); stroke-width: 1.5; }
+.s-liquid { fill: var(--gold); opacity: 0.9; }
+.s-liquid.over { fill: var(--warn); opacity: 0.8; }
+.s-line { stroke: var(--brown); stroke-width: 1.5; fill: none; }
+.s-tick { stroke: var(--brown-soft); stroke-width: 1; }
+.s-tick.maj { stroke: var(--brown); stroke-width: 1.5; }
+.s-text { fill: var(--brown-soft); font-family: var(--sans); font-size: 12px; }
+.s-mark { stroke: var(--brown); stroke-width: 2; }
+.s-solid { fill: var(--brown); }
+
+.waters summary { cursor: pointer; font-family: var(--serif); font-weight: 700; font-size: 1.5rem; }
+.waters p { margin: 6px 0 12px; }
+table.wt { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.wt th { text-align: left; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brown-soft); font-weight: 600; padding: 6px 10px; border-bottom: 1px solid var(--line); }
+.wt td { padding: 0; border-bottom: 1px solid var(--line); }
+.wt button { font: inherit; color: inherit; background: transparent; border: 0; width: 100%; text-align: left; padding: 10px; cursor: pointer; display: block; }
+.wt tr.cur button { background: var(--gold-soft); }
+.wt button:hover { background: var(--gold-soft); }
+.wt .tag { color: var(--brown-soft); font-size: 0.9rem; }
+.tablewrap { overflow-x: auto; }
+
+.foot { color: var(--brown-soft); font-size: 0.88rem; max-width: 80ch; margin: 0; }
+footer { text-align: center; color: var(--brown-soft); font-size: 0.85rem; padding-bottom: 28px; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="in gutter">
+    <a class="brand" href="./">Chichi<small>Peptide Calculator</small></a>
+    <nav class="menu" aria-label="TBT menu">
+      <a class="btn solid" href="https://take.app/thebeautytrends" target="_blank" rel="noopener">Shop TBT Peptides</a>
+      <a class="btn" href="https://drive.google.com/drive/folders/1M6MaC1nrQzh3Zt-wwRJ4JjC2zTTr_MYH?usp=drive_link" target="_blank" rel="noopener">Peptide Protocols</a>
+    </nav>
+  </div>
+</header>
+
+<main class="gutter">
+  <section class="hero">
+    <h1>Chichi Peptide Calculator</h1>
+    <p>From The Beauty Trends (TBT). Tell us what is on your vial and how much water you mixed in. We show you exactly where to draw on your syringe.</p>
+  </section>
+
+  <div class="tabs" role="tablist" aria-label="What do you want to do?">
+    <button type="button" role="tab" id="tab-dose" aria-selected="true">Find my units</button>
+    <button type="button" role="tab" id="tab-units" aria-selected="false">Check my units</button>
+  </div>
+
+  <div class="grid">
+    <section class="card steps" aria-label="Your numbers">
+      <div class="step">
+        <span class="num" aria-hidden="true">1</span>
+        <label for="vial">How many mg are in your vial?</label>
+        <div class="row"><input id="vial" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 10"><span class="unit">mg</span></div>
+        <div class="chips" data-for="vial" aria-label="Common vial sizes"></div>
+        <p class="hint">Find the mg number on your vial label.</p>
+      </div>
+
+      <div class="step">
+        <span class="num" aria-hidden="true">2</span>
+        <label for="water">How much water did you add?</label>
+        <div class="row"><input id="water" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 2"><span class="unit">mL</span></div>
+        <div class="chips" data-for="water" aria-label="Common water amounts"></div>
+        <p class="hint">Count only the water you mixed into the vial.</p>
+      </div>
+
+      <div class="step" id="s-dose">
+        <span class="num" aria-hidden="true">3</span>
+        <label for="dose">How much do you want to take?</label>
+        <div class="row">
+          <input id="dose" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 250">
+          <select id="doseUnit" aria-label="Unit for your dose"><option value="mcg">mcg</option><option value="mg">mg</option></select>
+        </div>
+        <div class="chips" data-for="dose" aria-label="Common amounts"></div>
+        <p class="hint">Type the amount you plan to take. 1 mg = 1,000 mcg.</p>
+      </div>
+
+      <div class="step" id="s-units" hidden>
+        <span class="num" aria-hidden="true">3</span>
+        <label for="units">How many units did you draw?</label>
+        <div class="row"><input id="units" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 10"><span class="unit">units</span></div>
+        <div class="chips" data-for="units" aria-label="Common draws"></div>
+        <p class="hint">This is the number on the syringe line you pulled to.</p>
+      </div>
+
+      <div class="step">
+        <span class="num" aria-hidden="true">4</span>
+        <span class="lbl" id="syr-lbl">Which syringe are you using?</span>
+        <div class="syr-opts" role="radiogroup" aria-labelledby="syr-lbl">
+          <label><input type="radio" name="syr" value="1" checked> 1 mL (100 units)</label>
+          <label><input type="radio" name="syr" value="0.5"> 0.5 mL (50 units)</label>
+          <label><input type="radio" name="syr" value="0.3"> 0.3 mL (30 units)</label>
+        </div>
+        <p class="hint">Most insulin syringes are 1 mL with 100 units.</p>
+      </div>
+
+      <div class="actions"><button type="button" class="btn" id="clear">Clear all</button></div>
+    </section>
+
+    <section class="card answer" aria-live="polite" aria-label="Your answer">
+      <span class="k" id="mainK">Draw to</span>
+      <span class="big" id="mainV">-</span>
+      <p class="say" id="mainSay"></p>
+      <hr class="rule">
+      <dl class="facts" id="facts"></dl>
+      <div class="notes" id="notes"></div>
+      <div class="actions"><button type="button" class="btn solid" id="copy">Copy my answer</button></div>
+    </section>
+  </div>
+
+  <section class="card syringe" aria-label="Syringe picture">
+    <h2>Where to pull the plunger</h2>
+    <svg id="syr" viewBox="0 0 680 110" role="img" aria-label="Syringe showing the draw line"></svg>
+  </section>
+
+  <details class="card waters" id="waterBox">
+    <summary>Not sure how much water to add?</summary>
+    <p class="hint">This shows where you would draw for the same dose with different amounts of water. Tap a row to try it. It does not pick one for you.</p>
+    <div class="tablewrap"><table class="wt"><thead><tr><th>Water</th><th>Draw to</th><th>Note</th></tr></thead><tbody id="wbody"></tbody></table></div>
+  </details>
+
+  <p class="foot">This calculator only does the math. It does not tell you how much to take. Follow the instructions that came with your product, and talk to your healthcare provider about your own plan. If your product is measured in IU, use the conversion from the product's own instructions. The numbers at the start are an example, replace them with yours.</p>
+</main>
+
+<footer>Chichi Peptide Calculator &middot; The Beauty Trends (TBT)</footer>
+
+<script>
+/* CORE START */
+function round(n, d) { var m = Math.pow(10, d); return Math.round((n + Number.EPSILON) * m) / m; }
+function trim(n, d) { return String(round(n, d)); }
+function toMg(value, unit) { return unit === 'mcg' ? value / 1000 : value; }
+function fmtDose(mg) {
+  if (mg < 1) return trim(mg * 1000, 2) + ' mcg';
+  return trim(mg, 3) + ' mg';
+}
+function concentration(vialMg, waterMl) { return vialMg / waterMl; }
+function doseToDraw(vialMg, waterMl, doseMg, syringeMl) {
+  var conc = concentration(vialMg, waterMl);
+  var drawMl = doseMg / conc;
+  var units = drawMl * 100;
+  var whole = Math.round(units);
+  return {
+    conc: conc,
+    drawMl: drawMl,
+    units: units,
+    wholeUnits: whole,
+    wholeDoseMg: (whole / 100) * conc,
+    capacityUnits: syringeMl * 100,
+    dosesPerVial: vialMg / doseMg,
+    mcgPerUnit: (conc / 100) * 1000
+  };
+}
+function unitsToDose(vialMg, waterMl, units, syringeMl) {
+  var conc = concentration(vialMg, waterMl);
+  var drawMl = units / 100;
+  var doseMg = drawMl * conc;
+  return {
+    conc: conc,
+    drawMl: drawMl,
+    doseMg: doseMg,
+    capacityUnits: syringeMl * 100,
+    pctOfVial: (doseMg / vialMg) * 100,
+    dosesPerVial: vialMg / doseMg,
+    mcgPerUnit: (conc / 100) * 1000
+  };
+}
+/* units for the same dose across different water amounts */
+function waterOptions(vialMg, doseMg, waters, syringeMl) {
+  return waters.map(function (w) {
+    var units = (doseMg * w / vialMg) * 100;
+    return { water: w, units: units, tooBig: units > syringeMl * 100, hard: units < 5, whole: Math.abs(units - Math.round(units)) < 0.005 };
+  });
+}
+/* CORE END */
+
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var els = { vial: $('vial'), water: $('water'), dose: $('dose'), doseUnit: $('doseUnit'), units: $('units') };
+  var mode = 'dose';
+  var STORE = 'chichi-peptide-calc-v1';
+  var lastSummary = '';
+  var WATERS = [0.5, 1, 1.5, 2, 2.5, 3, 4, 5];
+  var CHIPS = { vial: [1, 5, 10, 15, 20, 50, 100], water: [0.5, 1, 1.5, 2, 2.5, 3, 5], units: [5, 10, 20, 25, 50] };
+  var DOSE_CHIPS = { mcg: [100, 250, 500, 1000], mg: [1, 2, 2.5, 4, 5, 10] };
+
+  function num(el) { var v = parseFloat(el.value); return isFinite(v) ? v : NaN; }
+  function syringe() { return document.querySelector('input[name="syr"]:checked').value; }
+
+  function load() {
+    var s = null;
+    try { s = JSON.parse(localStorage.getItem(STORE) || 'null'); } catch (e) { s = null; }
+    if (s && typeof s === 'object') {
+      els.vial.value = s.vial || ''; els.water.value = s.water || '';
+      els.dose.value = s.dose || ''; els.units.value = s.units || '';
+      if (s.doseUnit === 'mg' || s.doseUnit === 'mcg') els.doseUnit.value = s.doseUnit;
+      if (s.syr) { var r = document.querySelector('input[name="syr"][value="' + s.syr + '"]'); if (r) r.checked = true; }
+    } else {
+      els.vial.value = 10; els.water.value = 2; els.dose.value = 250; els.units.value = 10;
+    }
+  }
+  function save() {
+    try {
+      localStorage.setItem(STORE, JSON.stringify({ vial: els.vial.value, water: els.water.value, dose: els.dose.value, units: els.units.value, doseUnit: els.doseUnit.value, syr: syringe() }));
+    } catch (e) { /* storage not available */ }
+  }
+
+  function buildChips() {
+    document.querySelectorAll('.chips').forEach(function (box) {
+      var key = box.getAttribute('data-for');
+      var list = key === 'dose' ? DOSE_CHIPS[els.doseUnit.value] : CHIPS[key];
+      var target = key === 'dose' ? els.dose : els[key];
+      var current = num(target);
+      box.innerHTML = '';
+      list.forEach(function (v) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'chip'; b.textContent = v;
+        b.setAttribute('aria-pressed', String(current === v));
+        b.addEventListener('click', function () { target.value = v; render(); });
+        box.appendChild(b);
+      });
+    });
+  }
+
+  function fact(k, v) {
+    var d = document.createElement('div');
+    var dt = document.createElement('dt'); dt.textContent = k;
+    var dd = document.createElement('dd'); dd.textContent = v;
+    d.appendChild(dt); d.appendChild(dd);
+    $('facts').appendChild(d);
+  }
+
+  function drawSyringe(units, capacity) {
+    var svg = $('syr');
+    var x0 = 90, x1 = 610, y0 = 34, h = 36, len = x1 - x0, mid = y0 + h / 2;
+    var over = units > capacity;
+    var shown = Math.max(0, Math.min(isFinite(units) ? units : 0, capacity));
+    var tipX = x0 + (shown / capacity) * len;
+    var major = capacity <= 30 ? 5 : 10;
+    var minor = capacity <= 50 ? 1 : 2;
+    var p = [];
+    p.push('<line class="s-line" x1="22" y1="' + mid + '" x2="' + (x0 - 8) + '" y2="' + mid + '"/>');
+    p.push('<rect class="s-barrel" x="' + (x0 - 8) + '" y="' + (y0 + 10) + '" width="8" height="' + (h - 20) + '"/>');
+    p.push('<rect class="s-barrel" x="' + x0 + '" y="' + y0 + '" width="' + len + '" height="' + h + '" rx="3"/>');
+    if (shown > 0) p.push('<rect class="s-liquid' + (over ? ' over' : '') + '" x="' + x0 + '" y="' + (y0 + 1) + '" width="' + (tipX - x0) + '" height="' + (h - 2) + '"/>');
+    p.push('<line class="s-line" x1="' + tipX + '" y1="' + mid + '" x2="' + (x1 + 40) + '" y2="' + mid + '"/>');
+    p.push('<rect class="s-solid" x="' + tipX + '" y="' + (y0 + 2) + '" width="6" height="' + (h - 4) + '"/>');
+    p.push('<rect class="s-barrel" x="' + (x1 + 40) + '" y="' + (y0 + 6) + '" width="10" height="' + (h - 12) + '"/>');
+    for (var u = 0; u <= capacity + 0.0001; u += minor) {
+      var x = x0 + (u / capacity) * len;
+      var isMaj = Math.abs(u % major) < 0.0001;
+      p.push('<line class="s-tick' + (isMaj ? ' maj' : '') + '" x1="' + x + '" y1="' + (y0 + h) + '" x2="' + x + '" y2="' + (y0 + h + (isMaj ? 12 : 6)) + '"/>');
+      if (isMaj) p.push('<text class="s-text" x="' + x + '" y="' + (y0 + h + 28) + '" text-anchor="middle">' + u + '</text>');
+    }
+    if (isFinite(units) && units > 0) {
+      p.push('<line class="s-mark" x1="' + tipX + '" y1="' + (y0 - 8) + '" x2="' + tipX + '" y2="' + (y0 + h + 4) + '"/>');
+      var lx = Math.min(Math.max(tipX, x0 + 34), x1 - 34);
+      p.push('<text class="s-text" x="' + lx + '" y="' + (y0 - 14) + '" text-anchor="middle" style="fill:#3a2a1e;font-weight:600;font-size:13px">' + trim(units, 2) + ' units</text>');
+    }
+    svg.innerHTML = p.join('');
+  }
+
+  function drawWaters(vial, doseMg, capacityMl, waterNow) {
+    var body = $('wbody');
+    body.innerHTML = '';
+    if (!(vial > 0) || !(doseMg > 0)) {
+      var tr0 = document.createElement('tr'); var td0 = document.createElement('td');
+      td0.colSpan = 3; td0.style.padding = '12px 10px'; td0.className = 'tag';
+      td0.textContent = 'Fill in steps 1 and 3 to see this.';
+      tr0.appendChild(td0); body.appendChild(tr0); return;
+    }
+    waterOptions(vial, doseMg, WATERS, capacityMl).forEach(function (o) {
+      var tr = document.createElement('tr');
+      if (o.water === waterNow) tr.className = 'cur';
+      var tag = o.tooBig ? 'Too big for your syringe' : (o.hard ? 'Under 5 units, hard to read' : (o.whole ? 'Whole number of units' : ''));
+      [[trim(o.water, 2) + ' mL', ''], [trim(o.units, 2) + ' units', ''], [tag, 'tag']].forEach(function (c, i) {
+        var td = document.createElement('td');
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = c[1]; b.textContent = c[0] || ' ';
+        b.setAttribute('aria-label', 'Use ' + trim(o.water, 2) + ' mL of water');
+        b.addEventListener('click', function () { els.water.value = o.water; render(); });
+        td.appendChild(b); tr.appendChild(td);
+      });
+      body.appendChild(tr);
+    });
+  }
+
+  function render() {
+    var vial = num(els.vial), water = num(els.water), syr = parseFloat(syringe());
+    var capacity = syr * 100;
+    $('facts').innerHTML = ''; $('notes').innerHTML = '';
+    buildChips();
+    var notes = [], summary = [];
+    var ok = vial > 0 && water > 0;
+    var doseMg = toMg(num(els.dose), els.doseUnit.value);
+
+    drawWaters(vial, mode === 'dose' ? doseMg : NaN, syr, water);
+
+    function empty(k, msg) {
+      $('mainK').textContent = k; $('mainV').textContent = '-'; $('mainSay').textContent = msg;
+      drawSyringe(0, capacity); lastSummary = '';
+    }
+    if (!ok) { empty(mode === 'dose' ? 'Draw to' : 'You took', 'Fill in steps 1 and 2 to start.'); return; }
+
+    var conc = concentration(vial, water);
+    if (mode === 'dose') {
+      if (!(doseMg > 0)) {
+        empty('Draw to', 'Now tell us how much you want to take (step 3).');
+        fact('Your mix', trim(vial, 3) + ' mg in ' + trim(water, 3) + ' mL');
+        fact('Each unit holds', trim((conc / 100) * 1000, 3) + ' mcg');
+        return;
+      }
+      var r = doseToDraw(vial, water, doseMg, syr);
+      $('mainK').textContent = 'Draw to';
+      $('mainV').innerHTML = trim(r.units, 2) + '<small>units</small>';
+      $('mainSay').textContent = 'Pull the plunger to ' + trim(r.units, 2) + ' on your ' + syr + ' mL syringe. That is ' + trim(r.drawMl, 4) + ' mL, which gives you ' + fmtDose(doseMg) + '.';
+      fact('Your mix', trim(vial, 3) + ' mg in ' + trim(water, 3) + ' mL');
+      fact('Strength', trim(r.conc, 4) + ' mg per mL');
+      fact('Each unit holds', trim(r.mcgPerUnit, 3) + ' mcg');
+      fact('Doses in this vial', trim(Math.floor(r.dosesPerVial + 1e-9), 0) + (r.dosesPerVial % 1 > 1e-9 ? ' (' + trim(r.dosesPerVial, 2) + ' exactly)' : ''));
+      if (r.units > r.capacityUnits) notes.push('This is more than your syringe holds (' + r.capacityUnits + ' units). Use a bigger syringe, or add less water.');
+      if (r.units > 0 && r.units < 5) notes.push('Under 5 units is hard to read. Adding more water makes the same dose a bigger, easier draw.');
+      if (doseMg > vial) notes.push('That dose is more than the whole vial (' + trim(vial, 3) + ' mg).');
+      if (Math.abs(r.units - r.wholeUnits) > 0.005 && r.units <= r.capacityUnits) {
+        var diff = ((r.wholeDoseMg - doseMg) / doseMg) * 100;
+        notes.push('Exact draw is ' + trim(r.units, 2) + ' units. If your syringe only shows whole lines, ' + r.wholeUnits + ' units gives you ' + fmtDose(r.wholeDoseMg) + ' (' + (diff >= 0 ? '+' : '') + trim(diff, 1) + '% from what you wanted).');
+      }
+      summary.push(trim(vial, 3) + ' mg vial + ' + trim(water, 3) + ' mL water = ' + trim(r.conc, 4) + ' mg/mL');
+      summary.push('For ' + fmtDose(doseMg) + ': draw to ' + trim(r.units, 2) + ' units (' + trim(r.drawMl, 4) + ' mL) on a ' + syr + ' mL syringe');
+      drawSyringe(r.units, r.capacityUnits);
+    } else {
+      var u = num(els.units);
+      if (!(u > 0)) {
+        empty('You took', 'Now tell us how many units you drew (step 3).');
+        fact('Your mix', trim(vial, 3) + ' mg in ' + trim(water, 3) + ' mL');
+        fact('Each unit holds', trim((conc / 100) * 1000, 3) + ' mcg');
+        return;
+      }
+      var q = unitsToDose(vial, water, u, syr);
+      $('mainK').textContent = 'You took';
+      var big = q.doseMg < 1 ? trim(q.doseMg * 1000, 2) : trim(q.doseMg, 3);
+      $('mainV').innerHTML = big + '<small>' + (q.doseMg < 1 ? 'mcg' : 'mg') + '</small>';
+      $('mainSay').textContent = trim(u, 2) + ' units is ' + trim(q.drawMl, 4) + ' mL, which is ' + fmtDose(q.doseMg) + ' from this vial.';
+      fact('Your mix', trim(vial, 3) + ' mg in ' + trim(water, 3) + ' mL');
+      fact('Strength', trim(q.conc, 4) + ' mg per mL');
+      fact('Each unit holds', trim(q.mcgPerUnit, 3) + ' mcg');
+      fact('Share of the vial', trim(q.pctOfVial, 2) + '%');
+      fact('Doses at this draw', trim(Math.floor(q.dosesPerVial + 1e-9), 0));
+      if (u > q.capacityUnits) notes.push('That is more than your syringe holds (' + q.capacityUnits + ' units).');
+      if (q.doseMg > vial) notes.push('That is more than the whole vial (' + trim(vial, 3) + ' mg).');
+      summary.push(trim(vial, 3) + ' mg vial + ' + trim(water, 3) + ' mL water = ' + trim(q.conc, 4) + ' mg/mL');
+      summary.push(trim(u, 2) + ' units = ' + fmtDose(q.doseMg));
+      drawSyringe(u, q.capacityUnits);
+    }
+    notes.forEach(function (t) { var d = document.createElement('div'); d.className = 'note'; d.textContent = t; $('notes').appendChild(d); });
+    lastSummary = summary.join('\n');
+    save();
+  }
+
+  function setMode(m) {
+    mode = m;
+    $('tab-dose').setAttribute('aria-selected', String(m === 'dose'));
+    $('tab-units').setAttribute('aria-selected', String(m === 'units'));
+    $('s-dose').hidden = m !== 'dose';
+    $('s-units').hidden = m !== 'units';
+    $('waterBox').hidden = m !== 'dose';
+    render();
+  }
+
+  $('tab-dose').addEventListener('click', function () { setMode('dose'); });
+  $('tab-units').addEventListener('click', function () { setMode('units'); });
+  ['vial', 'water', 'dose', 'units'].forEach(function (k) { els[k].addEventListener('input', render); });
+  els.doseUnit.addEventListener('change', render);
+  document.querySelectorAll('input[name="syr"]').forEach(function (r) { r.addEventListener('change', render); });
+  $('clear').addEventListener('click', function () {
+    els.vial.value = ''; els.water.value = ''; els.dose.value = ''; els.units.value = '';
+    render(); els.vial.focus();
+  });
+  $('copy').addEventListener('click', function () {
+    var btn = $('copy');
+    if (!lastSummary) return;
+    function done(t) { btn.textContent = t; setTimeout(function () { btn.textContent = 'Copy my answer'; }, 1600); }
+    try {
+      navigator.clipboard.writeText(lastSummary).then(function () { done('Copied'); }, function () { done('Copy not available'); });
+    } catch (e) { done('Copy not available'); }
+  });
+
+  load();
+  render();
+})();
+</script>
+</body>
+</html>
