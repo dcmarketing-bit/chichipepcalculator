@@ -1,0 +1,22 @@
+{
+  "name": "chichipepcalculator",
+  "version": "1.0.0",
+  "description": "Peptide Calculator by Chichi from The Beauty Trends (TBT)",
+  "scripts": {
+    "test": "echo \"No tests specified\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dcmarketing-bit/chichipepcalculator.git"
+  },
+  "keywords": ["peptide", "calculator", "health", "vercel"],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dcmarketing-bit/chichipepcalculator/issues"
+  },
+  "homepage": "https://github.com/dcmarketing-bit/chichipepcalculator#readme",
+  "dependencies": {
+    "@vercel/speed-insights": "^2.0.0"
+  }
+}
