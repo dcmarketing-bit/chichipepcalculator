@@ -162,6 +162,7 @@ footer { text-align: center; color: var(--brown-soft); font-size: 0.85rem; paddi
 .shop-head { text-align: center; max-width: 620px; margin: 0 auto; }
 .shop-head h2 { font-family: var(--serif); font-weight: 700; font-size: 2.2rem; line-height: 1.1; margin: 0 0 6px; }
 .shop-head p { margin: 0; color: var(--brown-soft); text-wrap: pretty; }
+.slider-wrap { position: relative; }
 .slider { position: relative; }
 .shop.ready .slider { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%); }
 .track { position: relative; display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; padding: 14px calc(50% - var(--cw) / 2) 22px; }
@@ -187,6 +188,9 @@ footer { text-align: center; color: var(--brown-soft); font-size: 0.85rem; paddi
 .arrow .i { width: 22px; height: 22px; }
 .arrow:hover:not(:disabled) { background: var(--gold-soft); transform: translateY(-1px); }
 .arrow:disabled { opacity: 0.35; cursor: default; }
+.arrow.side { position: absolute; top: 112px; z-index: 2; background: rgba(255, 255, 255, 0.96); box-shadow: 0 4px 14px rgba(58, 42, 30, 0.2); }
+.arrow.prev { left: 6px; }
+.arrow.next { right: 6px; }
 .count { min-width: 4.5rem; text-align: center; color: var(--brown-soft); font-weight: 500; font-variant-numeric: tabular-nums; }
 
 .verse { position: relative; isolation: isolate; overflow: hidden; text-align: center; color: var(--cream); background: radial-gradient(ellipse at 50% 0%, #5c4229 0%, var(--brown) 60%, #2a1d13 100%); border: 1px solid var(--gold); border-radius: 18px; padding: 64px 28px 52px; margin-top: 12px; box-shadow: 0 0 0 5px var(--cream), 0 0 0 6px var(--gold), 0 20px 44px rgba(58, 42, 30, 0.24); }
@@ -246,7 +250,10 @@ input[type="number"]:focus { box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.25); }
   .ct th, .ct td { padding-inline: 6px; }
   .ct td { font-size: 0.92rem; }
   .syr-opts label { padding: 10px 8px; gap: 6px; white-space: nowrap; }
-  .slider { margin-inline: -16px; }
+  .slider-wrap { margin-inline: -16px; }
+  .arrow.side { width: 40px; height: 40px; top: 96px; }
+  .arrow.prev { left: 8px; }
+  .arrow.next { right: 8px; }
   .shop-head h2 { font-size: 1.9rem; }
   .verse { padding: 56px 18px 44px; }
   .verse blockquote { font-size: 1.5rem; }
@@ -418,6 +425,7 @@ input[type="number"]:focus { box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.25); }
       <h2 id="shop-title">Starter essentials</h2>
       <p>Things you may need when you start your peptide journey. Swipe or use the arrows to see more.</p>
     </div>
+    <div class="slider-wrap">
     <div class="slider">
       <div class="track" id="track" tabindex="0" role="group" aria-roledescription="carousel" aria-label="Starter essentials">
       <article class="item" aria-roledescription="slide" aria-label="1 of 20">
@@ -582,10 +590,11 @@ input[type="number"]:focus { box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.25); }
       </article>
       </div>
     </div>
+    <button type="button" class="arrow side prev" id="prev" aria-label="Previous item"><svg class="i" aria-hidden="true"><use href="#i-left"/></svg></button>
+    <button type="button" class="arrow side next" id="next" aria-label="Next item"><svg class="i" aria-hidden="true"><use href="#i-right"/></svg></button>
+    </div>
     <div class="slider-ctl">
-      <button type="button" class="arrow" id="prev" aria-label="Previous item"><svg class="i" aria-hidden="true"><use href="#i-left"/></svg></button>
       <span class="count" id="count" aria-live="polite">1 / 20</span>
-      <button type="button" class="arrow" id="next" aria-label="Next item"><svg class="i" aria-hidden="true"><use href="#i-right"/></svg></button>
     </div>
   </section>
 
@@ -958,11 +967,34 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
   var shop = document.getElementById('shop');
   var track = document.getElementById('track');
   if (!shop || !track) return;
-  var items = Array.prototype.slice.call(track.children);
+  var base = Array.prototype.slice.call(track.children);
+  var N = base.length;
   var prev = document.getElementById('prev'), next = document.getElementById('next'), count = document.getElementById('count');
   var reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  var cur = 0, raf = 0;
 
+  function copy(c) {
+    var n = c.cloneNode(true);
+    n.setAttribute('aria-hidden', 'true');
+    n.removeAttribute('aria-label');
+    n.classList.add('clone');
+    Array.prototype.forEach.call(n.querySelectorAll('a, button'), function (x) { x.tabIndex = -1; });
+    return n;
+  }
+  var before = document.createDocumentFragment(), after = document.createDocumentFragment();
+  base.forEach(function (c) { before.appendChild(copy(c)); after.appendChild(copy(c)); });
+  track.insertBefore(before, track.firstChild);
+  track.appendChild(after);
+  var items = Array.prototype.slice.call(track.children);
+  var cur = N, raf = 0, timer = 0;
+
+  function setWidth() { return items[N].offsetLeft - items[0].offsetLeft; }
+  function leftFor(i) { var it = items[i]; return it.offsetLeft - (track.clientWidth - it.offsetWidth) / 2; }
+  function jump(left) {
+    track.style.scrollSnapType = 'none';
+    track.scrollLeft = left;
+    void track.offsetWidth;
+    track.style.scrollSnapType = '';
+  }
   function nearest() {
     var mid = track.scrollLeft + track.clientWidth / 2, best = 0, gap = Infinity;
     items.forEach(function (it, i) {
@@ -974,18 +1006,24 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
   function mark() {
     cur = nearest();
     items.forEach(function (it, i) { it.classList.toggle('on', i === cur); });
-    count.textContent = (cur + 1) + ' / ' + items.length;
-    prev.disabled = cur === 0;
-    next.disabled = cur === items.length - 1;
+    count.textContent = (cur % N + 1) + ' / ' + N;
+  }
+  function recenter() {
+    var k = nearest();
+    if (k < N) jump(track.scrollLeft + setWidth());
+    else if (k >= 2 * N) jump(track.scrollLeft - setWidth());
+    mark();
   }
   function go(i) {
     i = Math.max(0, Math.min(items.length - 1, i));
-    var it = items[i];
-    track.scrollTo({ left: it.offsetLeft - (track.clientWidth - it.offsetWidth) / 2, behavior: reduced ? 'auto' : 'smooth' });
+    track.scrollTo({ left: leftFor(i), behavior: reduced ? 'auto' : 'smooth' });
+    if (reduced) { clearTimeout(timer); timer = setTimeout(recenter, 30); }
   }
+
   track.addEventListener('scroll', function () {
-    if (raf) return;
-    raf = requestAnimationFrame(function () { raf = 0; mark(); });
+    if (!raf) raf = requestAnimationFrame(function () { raf = 0; mark(); });
+    clearTimeout(timer);
+    timer = setTimeout(recenter, 140);
   }, { passive: true });
   track.addEventListener('keydown', function (e) {
     if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1); }
@@ -993,8 +1031,10 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
   });
   prev.addEventListener('click', function () { go(cur - 1); });
   next.addEventListener('click', function () { go(cur + 1); });
-  window.addEventListener('resize', mark);
+  window.addEventListener('resize', function () { jump(leftFor(N + (cur % N))); mark(); });
+
   shop.classList.add('ready');
+  jump(leftFor(N));
   mark();
 })();
 
