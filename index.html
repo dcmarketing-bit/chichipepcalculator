@@ -54,7 +54,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 main { max-width: 980px; margin: 0 auto; padding-block: 28px 56px; display: flex; flex-direction: column; gap: 22px; }
 .hero h1 { font-family: var(--serif); font-weight: 700; font-size: 2.6rem; line-height: 1.05; margin: 0 0 8px; color: var(--brown); text-wrap: balance; }
-.hero p { margin: 0; color: var(--brown-soft); max-width: 56ch; font-size: 1.05rem; }
+.hero p { margin: 0; color: var(--brown-soft); font-size: 1.05rem; text-wrap: pretty; }
 
 .tabs { display: inline-flex; background: var(--white); border: 1.5px solid var(--line); border-radius: 999px; padding: 4px; gap: 4px; align-self: flex-start; max-width: 100%; flex-wrap: wrap; }
 .tabs button { font: inherit; font-weight: 500; color: var(--brown-soft); background: transparent; border: 0; padding: 9px 18px; border-radius: 999px; cursor: pointer; }
@@ -77,9 +77,6 @@ input[type="number"], select { font: inherit; font-size: 1.2rem; color: var(--br
 input[type="number"]:focus, select:focus { border-color: var(--gold); background: var(--white); }
 select { width: auto; min-width: 5.6rem; }
 .unit { display: flex; align-items: center; color: var(--brown-soft); font-weight: 500; padding-right: 2px; }
-.chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip { font: inherit; font-size: 0.9rem; color: var(--brown); background: var(--white); border: 1.5px solid var(--line); border-radius: 999px; padding: 4px 12px; cursor: pointer; font-variant-numeric: tabular-nums; }
-.chip[aria-pressed="true"] { background: var(--gold-soft); border-color: var(--gold); }
 .syr-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .syr-opts label { display: flex; gap: 10px; align-items: center; justify-content: center; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; cursor: pointer; font-weight: 400; font-size: 1rem; }
 .syr-opts label:has(input:checked) { border-color: var(--gold); background: var(--gold-soft); }
@@ -101,9 +98,8 @@ dl.facts dd { margin: 0; text-align: right; font-weight: 500; font-variant-numer
 .actions { display: flex; gap: 8px; flex-wrap: wrap; }
 .actions .btn { padding: 8px 16px; font-size: 0.9rem; }
 
-.syringe { overflow-x: auto; }
 .syringe h2, .waters h2 { font-family: var(--serif); font-size: 1.5rem; margin: 0 0 6px; }
-.syringe svg#syr { display: block; width: 100%; min-width: 540px; height: auto; }
+.syringe svg#syr { display: block; width: 100%; height: auto; }
 .s-barrel { fill: var(--cream); stroke: var(--brown); stroke-width: 1.5; }
 .s-liquid { fill: var(--gold); opacity: 0.9; }
 .s-liquid.over { fill: var(--warn); opacity: 0.8; }
@@ -126,7 +122,7 @@ table.wt { width: 100%; border-collapse: collapse; font-variant-numeric: tabular
 .wt .tag { color: var(--brown-soft); font-size: 0.9rem; }
 .tablewrap { overflow-x: auto; }
 
-.foot { color: var(--brown-soft); font-size: 0.88rem; max-width: 80ch; margin: 0; }
+.foot { color: var(--brown-soft); font-size: 0.88rem; margin: 0; text-wrap: pretty; }
 footer { text-align: center; color: var(--brown-soft); font-size: 0.85rem; padding-bottom: 28px; }
 
 .i { width: 1.15em; height: 1.15em; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex: none; }
@@ -159,29 +155,35 @@ footer { text-align: center; color: var(--brown-soft); font-size: 0.85rem; paddi
 #s-dose, #s-units { animation: fadein 0.3s ease both; }
 .note { animation: rise 0.3s ease both; }
 .pulse { animation: pop 0.35s ease both; }
-.btn, .chip, .tabs button, .syr-opts label, .wt button, input[type="number"], select { transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease; }
+.btn, .tabs button, .syr-opts label, .wt button, input[type="number"], select { transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease; }
 .btn:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(143, 106, 28, 0.18); }
 .btn:active { transform: translateY(0); box-shadow: none; }
-.chip:hover { border-color: var(--gold); background: var(--gold-soft); }
 input[type="number"]:focus, select:focus { box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.25); }
 .s-liquid { transition: fill 0.3s ease; }
 .verse { position: relative; isolation: isolate; overflow: hidden; text-align: center; color: var(--cream); background: radial-gradient(ellipse at 50% 0%, #5c4229 0%, var(--brown) 60%, #2a1d13 100%); border: 1px solid var(--gold); border-radius: 18px; padding: 64px 28px 52px; margin-top: 12px; box-shadow: 0 0 0 5px var(--cream), 0 0 0 6px var(--gold), 0 20px 44px rgba(58, 42, 30, 0.24); }
 .verse::before { content: ""; position: absolute; inset: -30% -10% auto; height: 80%; z-index: -1; background: radial-gradient(ellipse at 50% 0%, rgba(232, 196, 108, 0.42), rgba(232, 196, 108, 0) 68%); animation: glow 7s ease-in-out infinite alternate; }
 .verse::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(105deg, transparent 35%, rgba(255, 233, 170, 0.2) 50%, transparent 65%); transform: translateX(-120%); animation: sweep 2.2s 0.5s ease-out both; }
 .verse .mark { position: absolute; top: 14px; left: 50%; translate: -50% 0; font-family: var(--serif); font-weight: 700; font-size: 7rem; line-height: 1; color: var(--gold); opacity: 0.22; animation: markin 1.2s ease both; }
-.verse .vlabel { margin: 0 0 14px; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); animation: fadein 0.9s ease both; }
-.orn { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 28px; color: var(--gold); }
+.verse .vlabel { margin: 0 0 14px; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); animation: fadein 0.9s ease both; }
+.orn { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 24px; color: var(--gold); }
 .orn span { width: 72px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); transform-origin: right center; animation: draw 1s 0.2s ease-out both; }
 .orn span:last-child { background: linear-gradient(270deg, transparent, var(--gold)); transform-origin: left center; }
 .orn svg { width: 12px; height: 12px; fill: currentColor; animation: diamond 0.9s 0.1s cubic-bezier(0.3, 1.4, 0.5, 1) both; }
 .verse figure { margin: 0 auto; max-width: 34rem; }
 .verse blockquote { margin: 0; font-family: var(--serif); font-weight: 600; font-size: 1.95rem; line-height: 1.38; text-wrap: balance; }
 .verse .w { display: inline-block; animation: wordin 0.8s calc(0.9s + var(--i, 0) * 0.075s) ease both; }
-.verse .ref { margin-top: 26px; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); animation: fadein 1s calc(1.3s + var(--n, 30) * 0.075s) ease both; }
-.verse.armed:not(.in) :is(.mark, .vlabel, .orn span, .orn svg, .w, .ref), .verse.armed:not(.in)::after { animation-play-state: paused; }
+.verse.armed:not(.in) :is(.mark, .vlabel, .orn span, .orn svg, .w), .verse.armed:not(.in)::after { animation-play-state: paused; }
 @media (max-width: 520px) {
-  .verse { padding: 56px 20px 44px; }
-  .verse blockquote { font-size: 1.55rem; }
+  .verse { padding: 56px 18px 44px; }
+  .verse blockquote { font-size: 1.5rem; }
+  .syringe { padding: 18px 12px; }
+  .syringe h2 { padding-inline: 6px; font-size: 1.3rem; }
+  .s-text { font-size: 24px; }
+  .s-lab { font-size: 26px; }
+  .s-tick { stroke-width: 2; }
+  .s-tick.maj { stroke-width: 2.5; }
+  .s-barrel, .s-line { stroke-width: 2.5; }
+  .s-mark { stroke-width: 3.5; }
   .verse .mark { font-size: 5.5rem; }
 }
 @keyframes glow { from { opacity: 0.55; transform: scale(0.96); } to { opacity: 1; transform: scale(1.04); } }
@@ -225,6 +227,7 @@ input[type="number"]:focus, select:focus { box-shadow: 0 0 0 3px rgba(201, 162, 
     <p>Tell us what is on your vial and how much water you mixed in. We show you exactly where to draw on your syringe.</p>
   </section>
 
+
   <div class="tabs" role="tablist" aria-label="What do you want to do?">
     <button type="button" role="tab" id="tab-dose" aria-selected="true"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg>Find my units</button>
     <button type="button" role="tab" id="tab-units" aria-selected="false"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Check my units</button>
@@ -237,7 +240,6 @@ input[type="number"]:focus, select:focus { box-shadow: 0 0 0 3px rgba(201, 162, 
         <span class="stepno">Step 1</span>
         <label for="vial">How many mg are in your peptide vial?</label>
         <div class="row"><input id="vial" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 10"><span class="unit">mg</span></div>
-        <div class="chips" data-for="vial" aria-label="Common vial sizes"></div>
         <p class="hint">Find the mg number on your vial label.</p>
       </div>
 
@@ -246,7 +248,6 @@ input[type="number"]:focus, select:focus { box-shadow: 0 0 0 3px rgba(201, 162, 
         <span class="stepno">Step 2</span>
         <label for="water">How much BAC water or pharma BAC water did you add?</label>
         <div class="row"><input id="water" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 2"><span class="unit">mL</span></div>
-        <div class="chips" data-for="water" aria-label="Common water amounts"></div>
         <p class="hint">BAC water is bacteriostatic water. Count only the amount you mixed into the vial.</p>
       </div>
 
@@ -258,7 +259,6 @@ input[type="number"]:focus, select:focus { box-shadow: 0 0 0 3px rgba(201, 162, 
           <input id="dose" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 250">
           <select id="doseUnit" aria-label="mcg or mg"><option value="mcg">mcg</option><option value="mg">mg</option></select>
         </div>
-        <div class="chips" data-for="dose" aria-label="Common amounts"></div>
         <p class="hint">Pick mcg or mg next to the number. 1 mg = 1,000 mcg.</p>
       </div>
 
@@ -267,7 +267,6 @@ input[type="number"]:focus, select:focus { box-shadow: 0 0 0 3px rgba(201, 162, 
         <span class="stepno">Step 3</span>
         <label for="units">How many units did you draw?</label>
         <div class="row"><input id="units" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 10"><span class="unit">units</span></div>
-        <div class="chips" data-for="units" aria-label="Common draws"></div>
         <p class="hint">This is the number on the syringe line you pulled to.</p>
       </div>
 
@@ -311,11 +310,10 @@ input[type="number"]:focus, select:focus { box-shadow: 0 0 0 3px rgba(201, 162, 
 
   <section class="verse" id="verse" aria-labelledby="verse-label">
     <span class="mark" aria-hidden="true">&ldquo;</span>
-    <p class="vlabel" id="verse-label">Scripture</p>
+    <p class="vlabel" id="verse-label">Hosea 13:5&ndash;6</p>
     <div class="orn" aria-hidden="true"><span></span><svg viewBox="0 0 12 12"><path d="M6 .5 11.5 6 6 11.5.5 6z"/></svg><span></span></div>
     <figure>
       <blockquote id="vtext">I knew you in the wilderness, in the land of drought. When they had pasture, they became satisfied; they were satisfied, and their hearts became proud. Therefore they forgot me.</blockquote>
-      <figcaption class="ref">Hosea 13:5&ndash;6</figcaption>
     </figure>
   </section>
 </main>
@@ -377,8 +375,6 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
   var STORE = 'chichi-peptide-calc-v1';
   var lastSummary = '';
   var WATERS = [0.5, 1, 1.5, 2, 2.5, 3, 4, 5];
-  var CHIPS = { vial: [1, 5, 10, 15, 20, 50, 100], water: [0.5, 1, 1.5, 2, 2.5, 3, 5], units: [5, 10, 20, 25, 50] };
-  var DOSE_CHIPS = { mcg: [100, 250, 500, 1000], mg: [1, 2, 2.5, 4, 5, 10] };
 
   function num(el) { var v = parseFloat(el.value); return isFinite(v) ? v : NaN; }
   function syringe() { return document.querySelector('input[name="syr"]:checked').value; }
@@ -401,22 +397,6 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
     } catch (e) {}
   }
 
-  function buildChips() {
-    document.querySelectorAll('.chips').forEach(function (box) {
-      var key = box.getAttribute('data-for');
-      var list = key === 'dose' ? DOSE_CHIPS[els.doseUnit.value] : CHIPS[key];
-      var target = key === 'dose' ? els.dose : els[key];
-      var current = num(target);
-      box.innerHTML = '';
-      list.forEach(function (v) {
-        var b = document.createElement('button');
-        b.type = 'button'; b.className = 'chip'; b.textContent = v;
-        b.setAttribute('aria-pressed', String(current === v));
-        b.addEventListener('click', function () { target.value = v; render(); });
-        box.appendChild(b);
-      });
-    });
-  }
 
   function fact(k, v) {
     var d = document.createElement('div');
@@ -526,7 +506,6 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
     var vial = num(els.vial), water = num(els.water), syr = parseFloat(syringe());
     var capacity = syr * 100;
     $('facts').innerHTML = ''; $('notes').innerHTML = '';
-    buildChips();
     var notes = [], summary = [];
     var ok = vial > 0 && water > 0;
     var doseMg = toMg(num(els.dose), els.doseUnit.value);
@@ -639,7 +618,6 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
     q.appendChild(span);
     if (i < words.length - 1) q.appendChild(document.createTextNode(' '));
   });
-  box.style.setProperty('--n', words.length);
   if (!('IntersectionObserver' in window)) return;
   box.classList.add('armed');
   var io = new IntersectionObserver(function (entries) {
