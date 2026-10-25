@@ -9,7 +9,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Jost:wght@400;500;600&display=swap">
 <style>
-
 :root {
   color-scheme: light;
   --cream: #fcfaf5;
@@ -41,125 +40,155 @@ body {
 .gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 
 .top { background: var(--white); border-bottom: 2px solid var(--gold); }
-.top .in { max-width: 980px; margin: 0 auto; padding-block: 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; }
+.top .in { max-width: 1040px; margin: 0 auto; padding-block: 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; }
 .brand { font-family: var(--serif); font-weight: 700; font-size: 1.55rem; line-height: 1; color: var(--gold-deep); letter-spacing: 0.01em; text-decoration: none; }
 .brand small { display: block; font-family: var(--sans); font-weight: 500; font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brown-soft); margin-top: 4px; }
 .menu { display: flex; gap: 10px; flex-wrap: wrap; }
-.btn { font: inherit; font-weight: 500; font-size: 0.95rem; text-decoration: none; padding: 10px 18px; border-radius: 999px; border: 1.5px solid var(--gold); color: var(--brown); background: var(--white); cursor: pointer; display: inline-block; text-align: center; }
+.btn { font: inherit; font-weight: 500; font-size: 0.95rem; text-decoration: none; padding: 10px 18px; border-radius: 999px; border: 1.5px solid var(--gold); color: var(--brown); background: var(--white); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-align: center; }
 .btn.solid { background: var(--gold); }
 .btn:hover { background: var(--gold-soft); }
 .btn.solid:hover { background: #d6b25f; }
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline: 3px solid var(--gold-deep); outline-offset: 2px; }
-@media (max-width: 520px) { .menu { width: 100%; } .menu .btn { flex: 1 1 0; padding-inline: 10px; } }
 
-main { max-width: 980px; margin: 0 auto; padding-block: 28px 56px; display: flex; flex-direction: column; gap: 22px; }
-.hero h1 { font-family: var(--serif); font-weight: 700; font-size: 2.6rem; line-height: 1.05; margin: 0 0 8px; color: var(--brown); text-wrap: balance; }
+main { max-width: 1040px; margin: 0 auto; padding-block: 32px 56px; display: flex; flex-direction: column; gap: 24px; }
+
+.hero { text-align: center; max-width: 660px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 999px; background: var(--gold-soft); border: 1px solid var(--gold); color: var(--gold-deep); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; }
+.pill .i { width: 14px; height: 14px; }
+.hero h1 { font-family: var(--serif); font-weight: 700; font-size: 2.8rem; line-height: 1.05; margin: 0; color: var(--brown); text-wrap: balance; }
 .hero p { margin: 0; color: var(--brown-soft); font-size: 1.05rem; text-wrap: pretty; }
 
-.tabs { display: inline-flex; background: var(--white); border: 1.5px solid var(--line); border-radius: 999px; padding: 4px; gap: 4px; align-self: flex-start; max-width: 100%; flex-wrap: wrap; }
-.tabs button { font: inherit; font-weight: 500; color: var(--brown-soft); background: transparent; border: 0; padding: 9px 18px; border-radius: 999px; cursor: pointer; }
+.tabs { display: inline-flex; background: var(--white); border: 1.5px solid var(--line); border-radius: 999px; padding: 4px; gap: 4px; align-self: center; max-width: 100%; }
+.tabs button { font: inherit; font-weight: 500; color: var(--brown-soft); background: transparent; border: 0; padding: 9px 20px; border-radius: 999px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
 .tabs button[aria-selected="true"] { background: var(--gold); color: var(--brown); }
 
-.grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 22px; align-items: start; }
-@media (max-width: 760px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: stretch; }
 
-.card { background: var(--white); border: 1px solid var(--line); border-radius: 14px; padding: 22px; min-width: 0; }
-.steps { display: flex; flex-direction: column; gap: 22px; }
-.step { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 5px 14px; }
-.step > :not(.ico) { grid-column: 2; }
-.ico { grid-row: 1 / span 5; width: 44px; height: 44px; border-radius: 50%; background: var(--gold-soft); border: 1.5px solid var(--gold); color: var(--gold-deep); display: flex; align-items: center; justify-content: center; }
-.ico .i { width: 22px; height: 22px; margin: 0; }
-.stepno { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600; color: var(--gold-deep); }
-.step label, .step .lbl { font-weight: 600; font-size: 1.05rem; }
-.hint { color: var(--brown-soft); font-size: 0.92rem; margin: 0; }
+.panel { background: var(--white); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 6px 22px rgba(58, 42, 30, 0.07); overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+.bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 20px; background: linear-gradient(135deg, #d8b562, var(--gold)); color: var(--brown); }
+.bar h2 { margin: 0; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.04em; display: flex; align-items: center; gap: 8px; }
+.bar .btn { padding: 5px 14px; font-size: 0.82rem; background: rgba(255, 255, 255, 0.45); border-color: rgba(58, 42, 30, 0.25); }
+.bar .btn:hover { background: rgba(255, 255, 255, 0.75); }
+.pbody { padding: 22px; display: flex; flex-direction: column; gap: 20px; flex: 1; }
+
+.field { display: flex; flex-direction: column; gap: 7px; }
+.lab { display: flex; align-items: center; gap: 9px; font-weight: 600; font-size: 1rem; }
+.lab .i { width: 20px; height: 20px; color: var(--gold-deep); }
+.hint { color: var(--brown-soft); font-size: 0.9rem; margin: 0; }
 .row { display: flex; gap: 8px; align-items: stretch; }
-input[type="number"], select { font: inherit; font-size: 1.2rem; color: var(--brown); background: var(--cream); border: 1.5px solid var(--line); border-radius: 10px; padding: 11px 12px; min-width: 0; width: 100%; font-variant-numeric: tabular-nums; }
-input[type="number"]:focus, select:focus { border-color: var(--gold); background: var(--white); }
-select { width: auto; min-width: 5.6rem; }
-.unit { display: flex; align-items: center; color: var(--brown-soft); font-weight: 500; padding-right: 2px; }
+.inp { position: relative; flex: 1; min-width: 0; }
+input[type="number"] { font: inherit; font-size: 1.15rem; font-weight: 500; color: var(--brown); background: var(--cream); border: 1.5px solid var(--line); border-radius: 12px; padding: 11px 76px 11px 14px; min-width: 0; width: 100%; font-variant-numeric: tabular-nums; }
+input[type="number"]:focus { border-color: var(--gold); background: var(--white); }
+.suf { position: absolute; top: 1.5px; right: 1.5px; bottom: 1.5px; min-width: 64px; display: flex; align-items: center; justify-content: center; padding-inline: 12px; background: var(--gold-soft); border-left: 1.5px solid var(--line); border-radius: 0 10px 10px 0; color: var(--gold-deep); font-weight: 600; font-size: 0.9rem; pointer-events: none; }
+.seg { display: inline-flex; gap: 3px; background: var(--gold-soft); border: 1.5px solid var(--line); border-radius: 12px; padding: 3px; flex: none; }
+.seg button { font: inherit; font-weight: 600; font-size: 0.92rem; color: var(--brown-soft); background: transparent; border: 0; border-radius: 9px; padding: 0 14px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--gold); color: var(--brown); }
 .syr-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.syr-opts label { display: flex; gap: 10px; align-items: center; justify-content: center; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; cursor: pointer; font-weight: 400; font-size: 1rem; }
+.syr-opts label { display: flex; gap: 10px; align-items: center; justify-content: center; border: 1.5px solid var(--line); border-radius: 12px; padding: 11px 12px; cursor: pointer; font-weight: 500; font-size: 1rem; background: var(--cream); }
 .syr-opts label:has(input:checked) { border-color: var(--gold); background: var(--gold-soft); }
 .syr-opts input { accent-color: var(--gold-deep); width: 18px; height: 18px; }
 
-.answer { position: sticky; top: 14px; display: flex; flex-direction: column; gap: 14px; border-color: var(--gold); border-width: 1.5px; }
-@media (max-width: 760px) { .answer { position: static; } }
-.answer .k { font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brown-soft); font-weight: 600; }
-.answer .big { font-family: var(--sans); font-weight: 500; font-size: 3.6rem; line-height: 1.05; color: var(--gold-deep); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
-.answer .big small { font-size: 1.3rem; color: var(--brown-soft); font-weight: 400; margin-left: 0.3em; }
-.answer .say { margin: 0; font-size: 1.05rem; }
-.rule { border: 0; border-top: 1px solid var(--line); margin: 0; }
-dl.facts { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px; margin: 0; }
-dl.facts > div { display: contents; }
-dl.facts dt { color: var(--brown-soft); }
-dl.facts dd { margin: 0; text-align: right; font-weight: 500; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.res { padding: 26px 20px 24px; text-align: center; background: linear-gradient(135deg, #3a2a1e 0%, #5f4222 100%); color: var(--cream); }
+.res .k { font-size: 0.74rem; letter-spacing: 0.22em; text-transform: uppercase; color: #e6c878; font-weight: 600; }
+.res .big { display: block; font-weight: 500; font-size: 4.2rem; line-height: 1.05; color: #f6e3a8; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; margin-top: 4px; }
+.res .big small { font-size: 1.25rem; color: #e6d9b8; font-weight: 400; margin-left: 0.3em; }
+.res .say { margin: 8px auto 0; max-width: 36ch; color: #eadfc9; font-size: 1rem; }
+.sylab { display: flex; align-items: center; gap: 8px; font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: var(--brown-soft); margin-bottom: 4px; }
+.sylab .i { color: var(--gold-deep); }
+.sybox { background: var(--cream); border: 1px solid var(--line); border-radius: 14px; padding: 12px 12px 6px; }
+.sybox svg#syr { display: block; width: 100%; height: auto; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 8px; }
+.tile { background: #faf6ec; border: 1px solid var(--line); border-radius: 12px; padding: 10px 8px; text-align: center; }
+.tile.hl { background: var(--gold-soft); border-color: var(--gold); }
+.tk { font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; color: var(--brown-soft); }
+.tile.hl .tk { color: var(--gold-deep); }
+.tv { font-weight: 600; font-size: 1.02rem; margin-top: 2px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.tile.hl .tv { color: var(--gold-deep); }
 .note { background: var(--warn-bg); color: var(--warn); border-radius: 10px; padding: 10px 12px; font-size: 0.95rem; }
 .notes { display: grid; gap: 8px; }
+.notes:empty { display: none; }
 .actions { display: flex; gap: 8px; flex-wrap: wrap; }
-.actions .btn { padding: 8px 16px; font-size: 0.9rem; }
+.res-actions { margin-top: auto; }
+.res-actions .btn { flex: 1; }
 
-.syringe h2, .waters h2 { font-family: var(--serif); font-size: 1.5rem; margin: 0 0 6px; }
-.syringe svg#syr { display: block; width: 100%; height: auto; }
-.s-barrel { fill: var(--cream); stroke: var(--brown); stroke-width: 1.5; }
-.s-liquid { fill: var(--gold); opacity: 0.9; }
-.s-liquid.over { fill: var(--warn); opacity: 0.8; }
+.s-barrel { fill: url(#barG); stroke: var(--brown); stroke-width: 1.5; }
+.s-liquid { fill: url(#liqG); }
+.s-liquid.over { fill: var(--warn); opacity: 0.85; }
 .s-line { stroke: var(--brown); stroke-width: 1.5; fill: none; }
 .s-tick { stroke: var(--brown-soft); stroke-width: 1; }
 .s-tick.maj { stroke: var(--brown); stroke-width: 1.5; }
 .s-text { fill: var(--brown-soft); font-family: var(--sans); font-size: 12px; }
-.s-mark { stroke: var(--brown); stroke-width: 2; }
+.s-mark { stroke: var(--brown); stroke-width: 2; stroke-dasharray: 5 3; }
 .s-solid { fill: var(--brown); }
 .s-lab { fill: var(--brown); font-weight: 600; font-size: 13px; text-anchor: middle; }
+svg#syr.compact .s-text { font-size: 29px; }
+svg#syr.compact .s-lab { font-size: 31px; }
+svg#syr.compact .s-tick { stroke-width: 2.5; }
+svg#syr.compact .s-tick.maj { stroke-width: 3; }
+svg#syr.compact .s-barrel, svg#syr.compact .s-line { stroke-width: 3; }
+svg#syr.compact .s-mark { stroke-width: 4; }
 
-.waters summary { cursor: pointer; font-family: var(--serif); font-weight: 700; font-size: 1.5rem; }
-.waters p { margin: 6px 0 12px; }
-table.wt { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
-.wt th { text-align: left; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brown-soft); font-weight: 600; padding: 6px 10px; border-bottom: 1px solid var(--line); }
+.chart { padding: 20px 22px 12px; }
+.chart-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.chart-head h2, .waters summary { margin: 0; font-family: var(--serif); font-weight: 700; font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
+.chart-head .i, .waters summary .i { color: var(--gold-deep); width: 1.4rem; height: 1.4rem; }
+.badge { font-size: 0.78rem; font-weight: 600; padding: 4px 12px; border-radius: 999px; background: var(--gold-soft); border: 1px solid var(--gold); color: var(--gold-deep); font-variant-numeric: tabular-nums; }
+.tablewrap { overflow-x: auto; }
+table.ct, table.wt { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.ct th, .wt th { text-align: left; font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brown-soft); font-weight: 600; padding: 8px 12px; border-bottom: 1.5px solid var(--line); white-space: nowrap; }
+.ct td { padding: 10px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.ct tbody tr:last-child td { border-bottom: 0; }
+.ct tr.tgt td { background: var(--gold-soft); color: var(--gold-deep); font-weight: 600; }
+.ct td small { display: block; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; opacity: 0.85; }
+.ct td.empty { color: var(--brown-soft); white-space: normal; }
+
+.waters { padding: 18px 22px; }
+.waters summary { cursor: pointer; }
+.waters p { margin: 8px 0 12px; }
 .wt td { padding: 0; border-bottom: 1px solid var(--line); }
-.wt button { font: inherit; color: inherit; background: transparent; border: 0; width: 100%; text-align: left; padding: 10px; cursor: pointer; display: block; }
+.wt button { font: inherit; color: inherit; background: transparent; border: 0; width: 100%; text-align: left; padding: 10px 12px; cursor: pointer; display: block; }
 .wt tr.cur button { background: var(--gold-soft); }
 .wt button:hover { background: var(--gold-soft); }
 .wt .tag { color: var(--brown-soft); font-size: 0.9rem; }
-.tablewrap { overflow-x: auto; }
 
-.foot { color: var(--brown-soft); font-size: 0.88rem; margin: 0; text-wrap: pretty; }
+.callout { display: flex; gap: 12px; align-items: flex-start; background: var(--gold-soft); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; color: var(--brown-soft); font-size: 0.92rem; }
+.callout .i { width: 22px; height: 22px; color: var(--gold-deep); margin-top: 1px; }
+.callout p { margin: 0; text-wrap: pretty; }
 footer { text-align: center; color: var(--brown-soft); font-size: 0.85rem; padding-bottom: 28px; }
 
 .i { width: 1.15em; height: 1.15em; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex: none; }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
-.tabs button { display: inline-flex; align-items: center; gap: 8px; }
-.waters summary { display: flex; align-items: center; gap: 10px; }
-.waters summary .i { color: var(--gold-deep); width: 1.3rem; height: 1.3rem; }
-.syringe h2 { display: flex; align-items: center; gap: 10px; }
-.syringe h2 .i { color: var(--gold-deep); width: 1.5rem; height: 1.5rem; }
-.ahead { display: flex; align-items: center; gap: 12px; }
-.ahead .ico { width: 38px; height: 38px; grid-row: auto; }
-.ahead .ico .i { width: 20px; height: 20px; }
 
-@media (max-width: 520px) {
-  .tabs { display: flex; align-self: stretch; flex-wrap: nowrap; }
-  .tabs button { flex: 1 1 0; justify-content: center; padding-inline: 8px; gap: 6px; white-space: nowrap; }
-  .menu .btn { font-size: 0.86rem; gap: 6px; padding-inline: 8px; white-space: nowrap; }
-  .syr-opts label { padding: 10px 8px; gap: 6px; white-space: nowrap; }
-}
+.shop { display: flex; flex-direction: column; gap: 16px; --cw: 320px; }
+.shop-head { text-align: center; max-width: 620px; margin: 0 auto; }
+.shop-head h2 { font-family: var(--serif); font-weight: 700; font-size: 2.2rem; line-height: 1.1; margin: 0 0 6px; }
+.shop-head p { margin: 0; color: var(--brown-soft); text-wrap: pretty; }
+.slider { position: relative; }
+.shop.ready .slider { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%); }
+.track { position: relative; display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; padding: 14px calc(50% - var(--cw) / 2) 22px; }
+.track::-webkit-scrollbar { display: none; }
+.track:focus-visible { outline-offset: -4px; border-radius: 18px; }
+.item { flex: 0 0 var(--cw); scroll-snap-align: center; display: flex; flex-direction: column; background: var(--white); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 6px 22px rgba(58, 42, 30, 0.08); overflow: hidden; }
+.shop.ready .item { opacity: 0.6; transform: scale(0.94); transition: opacity 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease; }
+.shop.ready .item.on { opacity: 1; transform: none; box-shadow: 0 12px 30px rgba(143, 106, 28, 0.2); border-color: var(--gold); }
+.art { position: relative; aspect-ratio: 4 / 3; display: grid; place-items: center; background: radial-gradient(circle at 50% 45%, #fff7de 0%, var(--gold-soft) 70%); }
+.art:has(.pimg) { aspect-ratio: 1 / 1; background: var(--white); border-bottom: 1px solid var(--line); }
+.pimg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.art:has(.pimg) .pic { display: none; }
+.pic { width: 100%; height: 100%; font-family: var(--sans); }
+.itag { z-index: 1; }
+.art .i { width: 54px; height: 54px; color: var(--gold-deep); stroke-width: 1.4; }
+.itag { position: absolute; top: 12px; left: 12px; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; background: var(--white); border: 1px solid var(--gold); color: var(--gold-deep); }
+.ibody { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.item h3 { font-family: var(--serif); font-weight: 700; font-size: 1.4rem; line-height: 1.15; margin: 0; text-wrap: balance; }
+.item p { margin: 0; color: var(--brown-soft); font-size: 0.95rem; flex: 1; text-wrap: pretty; }
+.item .btn { margin-top: 6px; width: 100%; }
+.slider-ctl { display: flex; align-items: center; justify-content: center; gap: 18px; }
+.arrow { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--gold); background: var(--white); color: var(--gold-deep); display: grid; place-items: center; cursor: pointer; transition: background-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease; }
+.arrow .i { width: 22px; height: 22px; }
+.arrow:hover:not(:disabled) { background: var(--gold-soft); transform: translateY(-1px); }
+.arrow:disabled { opacity: 0.35; cursor: default; }
+.count { min-width: 4.5rem; text-align: center; color: var(--brown-soft); font-weight: 500; font-variant-numeric: tabular-nums; }
 
-@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-@keyframes pop { from { opacity: 0.3; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
-.hero { animation: rise 0.5s ease both; }
-.tabs { animation: rise 0.5s 0.06s ease both; }
-.steps { animation: rise 0.5s 0.12s ease both; }
-.answer { animation: rise 0.5s 0.18s ease both; }
-.syringe { animation: rise 0.5s 0.24s ease both; }
-.waters { animation: rise 0.5s 0.3s ease both; }
-#s-dose, #s-units { animation: fadein 0.3s ease both; }
-.note { animation: rise 0.3s ease both; }
-.pulse { animation: pop 0.35s ease both; }
-.btn, .tabs button, .syr-opts label, .wt button, input[type="number"], select { transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease; }
-.btn:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(143, 106, 28, 0.18); }
-.btn:active { transform: translateY(0); box-shadow: none; }
-input[type="number"]:focus, select:focus { box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.25); }
-.s-liquid { transition: fill 0.3s ease; }
 .verse { position: relative; isolation: isolate; overflow: hidden; text-align: center; color: var(--cream); background: radial-gradient(ellipse at 50% 0%, #5c4229 0%, var(--brown) 60%, #2a1d13 100%); border: 1px solid var(--gold); border-radius: 18px; padding: 64px 28px 52px; margin-top: 12px; box-shadow: 0 0 0 5px var(--cream), 0 0 0 6px var(--gold), 0 20px 44px rgba(58, 42, 30, 0.24); }
 .verse::before { content: ""; position: absolute; inset: -30% -10% auto; height: 80%; z-index: -1; background: radial-gradient(ellipse at 50% 0%, rgba(232, 196, 108, 0.42), rgba(232, 196, 108, 0) 68%); animation: glow 7s ease-in-out infinite alternate; }
 .verse::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(105deg, transparent 35%, rgba(255, 233, 170, 0.2) 50%, transparent 65%); transform: translateX(-120%); animation: sweep 2.2s 0.5s ease-out both; }
@@ -173,25 +202,56 @@ input[type="number"]:focus, select:focus { box-shadow: 0 0 0 3px rgba(201, 162, 
 .verse blockquote { margin: 0; font-family: var(--serif); font-weight: 600; font-size: 1.95rem; line-height: 1.38; text-wrap: balance; }
 .verse .w { display: inline-block; animation: wordin 0.8s calc(0.9s + var(--i, 0) * 0.075s) ease both; }
 .verse.armed:not(.in) :is(.mark, .vlabel, .orn span, .orn svg, .w), .verse.armed:not(.in)::after { animation-play-state: paused; }
-@media (max-width: 520px) {
-  .verse { padding: 56px 18px 44px; }
-  .verse blockquote { font-size: 1.5rem; }
-  .syringe { padding: 18px 12px; }
-  .syringe h2 { padding-inline: 6px; font-size: 1.3rem; }
-  .s-text { font-size: 29px; }
-  .s-lab { font-size: 31px; }
-  .s-tick { stroke-width: 2.5; }
-  .s-tick.maj { stroke-width: 3; }
-  .s-barrel, .s-line { stroke-width: 3; }
-  .s-mark { stroke-width: 4; }
-  .verse .mark { font-size: 5.5rem; }
-}
+
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes pop { from { opacity: 0.3; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
 @keyframes glow { from { opacity: 0.55; transform: scale(0.96); } to { opacity: 1; transform: scale(1.04); } }
 @keyframes sweep { to { transform: translateX(120%); } }
 @keyframes markin { from { opacity: 0; transform: translateY(14px) scale(0.85); } to { opacity: 0.22; transform: none; } }
 @keyframes draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes diamond { from { opacity: 0; transform: rotate(-90deg) scale(0); } to { opacity: 1; transform: none; } }
 @keyframes wordin { from { opacity: 0; transform: translateY(12px); color: #ecc96f; } to { opacity: 1; transform: none; color: var(--cream); } }
+
+.hero { animation: rise 0.5s ease both; }
+.tabs { animation: rise 0.5s 0.06s ease both; }
+.grid .panel:nth-child(1) { animation: rise 0.5s 0.12s ease both; }
+.grid .panel:nth-child(2) { animation: rise 0.5s 0.18s ease both; }
+.chart { animation: rise 0.5s 0.24s ease both; }
+.waters { animation: rise 0.5s 0.3s ease both; }
+#s-dose, #s-units { animation: fadein 0.3s ease both; }
+.note { animation: rise 0.3s ease both; }
+.pulse { animation: pop 0.35s ease both; }
+.btn, .tabs button, .seg button, .syr-opts label, .wt button, input[type="number"] { transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease; }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(143, 106, 28, 0.18); }
+.btn:active { transform: translateY(0); box-shadow: none; }
+input[type="number"]:focus { box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.25); }
+
+@media (max-width: 820px) {
+  .grid { grid-template-columns: minmax(0, 1fr); }
+  .shop { --cw: min(300px, 70vw); }
+}
+@media (max-width: 520px) {
+  .menu { width: 100%; }
+  .menu .btn { flex: 1 1 0; font-size: 0.86rem; gap: 6px; padding-inline: 8px; white-space: nowrap; }
+  main { padding-block: 24px 48px; }
+  .hero h1 { font-size: 2.3rem; }
+  .tabs { display: flex; align-self: stretch; }
+  .tabs button { flex: 1 1 0; justify-content: center; padding-inline: 8px; gap: 6px; white-space: nowrap; }
+  .pbody { padding: 18px 16px; }
+  .bar { padding-inline: 16px; }
+  .res .big { font-size: 3.6rem; }
+  .sybox { padding: 10px 8px 4px; }
+  .chart, .waters { padding-inline: 14px; }
+  .ct th, .ct td { padding-inline: 6px; }
+  .ct td { font-size: 0.92rem; }
+  .syr-opts label { padding: 10px 8px; gap: 6px; white-space: nowrap; }
+  .slider { margin-inline: -16px; }
+  .shop-head h2 { font-size: 1.9rem; }
+  .verse { padding: 56px 18px 44px; }
+  .verse blockquote { font-size: 1.5rem; }
+  .verse .mark { font-size: 5.5rem; }
+}
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
@@ -209,6 +269,35 @@ input[type="number"]:focus, select:focus { box-shadow: 0 0 0 3px rgba(201, 162, 
   <symbol id="i-check" viewBox="0 0 24 24"><path d="m4.5 12.5 5 5L19.5 6.5"/></symbol>
   <symbol id="i-copy" viewBox="0 0 24 24"><path d="M9 9h10.5v11.5H9z"/><path d="M5 15.5V4h10.5"/></symbol>
   <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.5 4v5h5"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><path d="M12 7.6h.01"/></symbol>
+  <symbol id="i-table" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M4 10h16M4 14.5h16M10 5v14"/></symbol>
+  <symbol id="p-syr31" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><g transform="translate(120 82) rotate(-16) scale(1.0)"><line x1="-86.0" y1="0" x2="-48.0" y2="0" stroke="#3a2a1e" stroke-width="2.2" stroke-linecap="round"/><rect x="-48.0" y="-5.6" width="10" height="11.2" rx="2" fill="#8f6a1c" stroke="#3a2a1e" stroke-width="2"/><rect x="-38.0" y="-10.0" width="92" height="20" rx="3" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="-36.5" y="-8.5" width="40.1" height="17" fill="#c9a24b"/><rect x="-36.5" y="-7.0" width="40.1" height="3" fill="#ffffff" opacity=".35"/><line x1="-28.8" y1="10.0" x2="-28.8" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="-19.6" y1="10.0" x2="-19.6" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="-10.4" y1="10.0" x2="-10.4" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="-1.2" y1="10.0" x2="-1.2" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="8.0" y1="10.0" x2="8.0" y2="4.0" stroke="#3a2a1e" stroke-width="1.3"/><line x1="17.2" y1="10.0" x2="17.2" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="26.4" y1="10.0" x2="26.4" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="35.6" y1="10.0" x2="35.6" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="44.8" y1="10.0" x2="44.8" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><rect x="3.6" y="-8.5" width="7" height="17" fill="#3a2a1e"/><line x1="10.6" y1="0" x2="80.0" y2="0" stroke="#3a2a1e" stroke-width="3" stroke-linecap="round"/><rect x="51.0" y="-15.0" width="5" height="30" rx="2" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.2"/><rect x="80.0" y="-13.0" width="6" height="26" rx="2" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2.2"/></g><text x="120" y="168" text-anchor="middle" font-size="14" font-weight="700" letter-spacing=".6" fill="#8f6a1c">31G · 8mm</text></symbol>
+  <symbol id="p-syr29" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><g transform="translate(120 82) rotate(-16) scale(1.0)"><line x1="-86.0" y1="0" x2="-48.0" y2="0" stroke="#3a2a1e" stroke-width="2.2" stroke-linecap="round"/><rect x="-48.0" y="-6.2" width="10" height="12.3" rx="2" fill="#8f6a1c" stroke="#3a2a1e" stroke-width="2"/><rect x="-38.0" y="-11.0" width="92" height="22" rx="3" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="-36.5" y="-9.5" width="55.2" height="19" fill="#c9a24b"/><rect x="-36.5" y="-8.0" width="55.2" height="3" fill="#ffffff" opacity=".35"/><line x1="-28.8" y1="11.0" x2="-28.8" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="-19.6" y1="11.0" x2="-19.6" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="-10.4" y1="11.0" x2="-10.4" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="-1.2" y1="11.0" x2="-1.2" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="8.0" y1="11.0" x2="8.0" y2="5.0" stroke="#3a2a1e" stroke-width="1.3"/><line x1="17.2" y1="11.0" x2="17.2" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="26.4" y1="11.0" x2="26.4" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="35.6" y1="11.0" x2="35.6" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="44.8" y1="11.0" x2="44.8" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><rect x="18.7" y="-9.5" width="7" height="19" fill="#3a2a1e"/><line x1="25.7" y1="0" x2="80.0" y2="0" stroke="#3a2a1e" stroke-width="3" stroke-linecap="round"/><rect x="51.0" y="-16.0" width="5" height="32" rx="2" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.2"/><rect x="80.0" y="-14.0" width="6" height="28" rx="2" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2.2"/></g><text x="120" y="168" text-anchor="middle" font-size="14" font-weight="700" letter-spacing=".6" fill="#8f6a1c">29G · 8mm</text></symbol>
+  <symbol id="p-padbox" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><ellipse cx="120" cy="152" rx="66" ry="7" fill="#3a2a1e" opacity=".13"/><g transform="rotate(-5 120 70)"><rect x="90" y="48" width="60" height="34" rx="6" fill="#f6ebd0" stroke="#3a2a1e" stroke-width="2.2"/><path d="M120 56v18M111 65h18" stroke="#8f6a1c" stroke-width="4" stroke-linecap="round"/></g><rect x="62" y="78" width="116" height="68" rx="8" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><line x1="62" y1="94" x2="178" y2="94" stroke="#3a2a1e" stroke-width="2"/><rect x="62" y="104" width="116" height="30" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2.2"/><text x="120" y="124" text-anchor="middle" font-size="12" font-weight="700" letter-spacing="1.2" fill="#3a2a1e">ALCOHOL PADS</text></symbol>
+  <symbol id="p-syr3" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><g transform="translate(120 80) rotate(-14) scale(1.0)"><line x1="-90.0" y1="0" x2="-70.0" y2="0" stroke="#3a2a1e" stroke-width="2.2" stroke-linecap="round"/><rect x="-70.0" y="-8.4" width="10" height="16.8" rx="2" fill="#8f6a1c" stroke="#3a2a1e" stroke-width="2"/><rect x="-60.0" y="-15.0" width="118" height="30" rx="3" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="-58.5" y="-13.5" width="80.5" height="27" fill="#c9a24b"/><rect x="-58.5" y="-12.0" width="80.5" height="3" fill="#ffffff" opacity=".35"/><line x1="-48.2" y1="15.0" x2="-48.2" y2="11.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="-36.4" y1="15.0" x2="-36.4" y2="11.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="-24.6" y1="15.0" x2="-24.6" y2="11.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="-12.8" y1="15.0" x2="-12.8" y2="11.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="-1.0" y1="15.0" x2="-1.0" y2="9.0" stroke="#3a2a1e" stroke-width="1.3"/><line x1="10.8" y1="15.0" x2="10.8" y2="11.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="22.6" y1="15.0" x2="22.6" y2="11.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="34.4" y1="15.0" x2="34.4" y2="11.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="46.2" y1="15.0" x2="46.2" y2="11.5" stroke="#3a2a1e" stroke-width="1.3"/><rect x="22.0" y="-13.5" width="7" height="27" fill="#3a2a1e"/><line x1="29.0" y1="0" x2="84.0" y2="0" stroke="#3a2a1e" stroke-width="3" stroke-linecap="round"/><rect x="55.0" y="-20.0" width="5" height="40" rx="2" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.2"/><rect x="84.0" y="-18.0" width="6" height="36" rx="2" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2.2"/></g><text x="120" y="168" text-anchor="middle" font-size="14" font-weight="700" letter-spacing=".6" fill="#8f6a1c">3 mL (3cc)</text></symbol>
+  <symbol id="p-syr1" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><g transform="translate(120 82) rotate(-16) scale(1.0)"><line x1="-95.0" y1="0" x2="-43.0" y2="0" stroke="#3a2a1e" stroke-width="2.2" stroke-linecap="round"/><rect x="-43.0" y="-6.2" width="10" height="12.3" rx="2" fill="#8f6a1c" stroke="#3a2a1e" stroke-width="2"/><rect x="-33.0" y="-11.0" width="96" height="22" rx="3" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="-31.5" y="-9.5" width="46.5" height="19" fill="#c9a24b"/><rect x="-31.5" y="-8.0" width="46.5" height="3" fill="#ffffff" opacity=".35"/><line x1="-23.4" y1="11.0" x2="-23.4" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="-13.8" y1="11.0" x2="-13.8" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="-4.2" y1="11.0" x2="-4.2" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="5.4" y1="11.0" x2="5.4" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="15.0" y1="11.0" x2="15.0" y2="5.0" stroke="#3a2a1e" stroke-width="1.3"/><line x1="24.6" y1="11.0" x2="24.6" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="34.2" y1="11.0" x2="34.2" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="43.8" y1="11.0" x2="43.8" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="53.4" y1="11.0" x2="53.4" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><rect x="15.0" y="-9.5" width="7" height="19" fill="#3a2a1e"/><line x1="22.0" y1="0" x2="89.0" y2="0" stroke="#3a2a1e" stroke-width="3" stroke-linecap="round"/><rect x="60.0" y="-16.0" width="5" height="32" rx="2" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.2"/><rect x="89.0" y="-14.0" width="6" height="28" rx="2" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2.2"/></g><text x="120" y="168" text-anchor="middle" font-size="14" font-weight="700" letter-spacing=".6" fill="#8f6a1c">1 mL · IM</text></symbol>
+  <symbol id="p-syr2" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><g transform="translate(118 54) rotate(-9) scale(0.86)"><line x1="-88.0" y1="0" x2="-46.0" y2="0" stroke="#3a2a1e" stroke-width="2.2" stroke-linecap="round"/><rect x="-46.0" y="-5.6" width="10" height="11.2" rx="2" fill="#8f6a1c" stroke="#3a2a1e" stroke-width="2"/><rect x="-36.0" y="-10.0" width="92" height="20" rx="3" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="-34.5" y="-8.5" width="49.0" height="17" fill="#c9a24b"/><rect x="-34.5" y="-7.0" width="49.0" height="3" fill="#ffffff" opacity=".35"/><line x1="-26.8" y1="10.0" x2="-26.8" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="-17.6" y1="10.0" x2="-17.6" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="-8.4" y1="10.0" x2="-8.4" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="0.8" y1="10.0" x2="0.8" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="10.0" y1="10.0" x2="10.0" y2="4.0" stroke="#3a2a1e" stroke-width="1.3"/><line x1="19.2" y1="10.0" x2="19.2" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="28.4" y1="10.0" x2="28.4" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="37.6" y1="10.0" x2="37.6" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="46.8" y1="10.0" x2="46.8" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><rect x="14.5" y="-8.5" width="7" height="17" fill="#3a2a1e"/><line x1="21.5" y1="0" x2="82.0" y2="0" stroke="#3a2a1e" stroke-width="3" stroke-linecap="round"/><rect x="53.0" y="-15.0" width="5" height="30" rx="2" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.2"/><rect x="82.0" y="-13.0" width="6" height="26" rx="2" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2.2"/></g><g transform="translate(122 104) rotate(9) scale(0.86)"><line x1="-88.0" y1="0" x2="-46.0" y2="0" stroke="#3a2a1e" stroke-width="2.2" stroke-linecap="round"/><rect x="-46.0" y="-5.6" width="10" height="11.2" rx="2" fill="#8f6a1c" stroke="#3a2a1e" stroke-width="2"/><rect x="-36.0" y="-10.0" width="92" height="20" rx="3" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="-34.5" y="-8.5" width="31.1" height="17" fill="#c9a24b"/><rect x="-34.5" y="-7.0" width="31.1" height="3" fill="#ffffff" opacity=".35"/><line x1="-26.8" y1="10.0" x2="-26.8" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="-17.6" y1="10.0" x2="-17.6" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="-8.4" y1="10.0" x2="-8.4" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="0.8" y1="10.0" x2="0.8" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="10.0" y1="10.0" x2="10.0" y2="4.0" stroke="#3a2a1e" stroke-width="1.3"/><line x1="19.2" y1="10.0" x2="19.2" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="28.4" y1="10.0" x2="28.4" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="37.6" y1="10.0" x2="37.6" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="46.8" y1="10.0" x2="46.8" y2="6.5" stroke="#3a2a1e" stroke-width="1.3"/><rect x="-3.4" y="-8.5" width="7" height="17" fill="#3a2a1e"/><line x1="3.6" y1="0" x2="82.0" y2="0" stroke="#3a2a1e" stroke-width="3" stroke-linecap="round"/><rect x="53.0" y="-15.0" width="5" height="30" rx="2" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.2"/><rect x="82.0" y="-13.0" width="6" height="26" rx="2" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2.2"/></g><text x="120" y="168" text-anchor="middle" font-size="14" font-weight="700" letter-spacing=".6" fill="#8f6a1c">IM syringes</text></symbol>
+  <symbol id="p-whey" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><ellipse cx="120" cy="152" rx="66" ry="7" fill="#3a2a1e" opacity=".13"/><rect x="78" y="56" width="84" height="92" rx="10" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="78" y="80" width="84" height="52" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2.2"/><rect x="73" y="42" width="94" height="20" rx="6" fill="#3a2a1e"/><line x1="82" y1="48" x2="158" y2="48" stroke="#ffffff" opacity=".25" stroke-width="2"/><text x="120" y="110" text-anchor="middle" font-size="21" font-weight="700" letter-spacing="1.5" fill="#3a2a1e">WHEY</text><text x="120" y="124" text-anchor="middle" font-size="8.5" font-weight="600" letter-spacing="2.5" fill="#3a2a1e">PROTEIN</text><ellipse cx="190" cy="142" rx="14" ry="6" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2.2"/><path d="M198 138 208 114" stroke="#3a2a1e" stroke-width="3" stroke-linecap="round"/></symbol>
+  <symbol id="p-collagen" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><ellipse cx="120" cy="152" rx="66" ry="7" fill="#3a2a1e" opacity=".13"/><rect x="80" y="78" width="80" height="70" rx="13" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="76" y="60" width="88" height="22" rx="6" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2.5"/><path d="M92 66v10M104 66v10M116 66v10M128 66v10M140 66v10M152 66v10" stroke="#3a2a1e" stroke-width="1.5" opacity=".5"/><rect x="80" y="96" width="80" height="38" fill="#f6ebd0" stroke="#3a2a1e" stroke-width="2"/><path d="M120 100c4 5 6.5 8 6.5 11a6.5 6.5 0 0 1-13 0c0-3 2.5-6 6.5-11z" fill="#8f6a1c"/><text x="120" y="130" text-anchor="middle" font-size="10.5" font-weight="700" letter-spacing="1.2" fill="#3a2a1e">COLLAGEN</text></symbol>
+  <symbol id="p-elec" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><ellipse cx="120" cy="152" rx="66" ry="7" fill="#3a2a1e" opacity=".13"/><g transform="rotate(-25 120 150)"><rect x="103" y="56" width="34" height="94" rx="4" fill="#f6ebd0" stroke="#3a2a1e" stroke-width="2.3"/><path d="M103 64l4 -4 4 4 4 -4 4 4 4 -4 4 4 4 -4 4 4 2 -2" fill="none" stroke="#3a2a1e" stroke-width="1.6"/></g><g transform="rotate(25 120 150)"><rect x="103" y="56" width="34" height="94" rx="4" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2.3"/><path d="M103 64l4 -4 4 4 4 -4 4 4 4 -4 4 4 4 -4 4 4 2 -2" fill="none" stroke="#3a2a1e" stroke-width="1.6"/></g><rect x="103" y="56" width="34" height="94" rx="4" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><path d="M103 64l4 -4 4 4 4 -4 4 4 4 -4 4 4 4 -4 4 4 2 -2" fill="none" stroke="#3a2a1e" stroke-width="1.6"/><path d="M122 82l-10 19h8l-3 15 11-20h-8z" fill="#8f6a1c" stroke="#3a2a1e" stroke-width="1.4" stroke-linejoin="round"/></symbol>
+  <symbol id="p-calmag" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><ellipse cx="120" cy="152" rx="66" ry="7" fill="#3a2a1e" opacity=".13"/><rect x="100" y="38" width="40" height="20" rx="4" fill="#3a2a1e"/><path d="M107 42v12M114 42v12M121 42v12M128 42v12M135 42v12" stroke="#ffffff" opacity=".22" stroke-width="1.5"/><rect x="104" y="58" width="32" height="10" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.2"/><rect x="82" y="68" width="76" height="82" rx="14" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="82" y="88" width="76" height="46" fill="#f6ebd0" stroke="#3a2a1e" stroke-width="2"/><text x="120" y="108" text-anchor="middle" font-size="10.5" font-weight="700" fill="#3a2a1e">Ca · Mg · Zn</text><text x="120" y="124" text-anchor="middle" font-size="7.5" font-weight="600" letter-spacing="2" fill="#8f6a1c">SUPPLEMENT</text></symbol>
+  <symbol id="p-syrim" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><g transform="translate(120 82) rotate(-16) scale(1.0)"><line x1="-95.0" y1="0" x2="-43.0" y2="0" stroke="#3a2a1e" stroke-width="2.2" stroke-linecap="round"/><rect x="-43.0" y="-6.2" width="10" height="12.3" rx="2" fill="#8f6a1c" stroke="#3a2a1e" stroke-width="2"/><rect x="-33.0" y="-11.0" width="96" height="22" rx="3" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="-31.5" y="-9.5" width="46.5" height="19" fill="#c9a24b"/><rect x="-31.5" y="-8.0" width="46.5" height="3" fill="#ffffff" opacity=".35"/><line x1="-23.4" y1="11.0" x2="-23.4" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="-13.8" y1="11.0" x2="-13.8" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="-4.2" y1="11.0" x2="-4.2" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="5.4" y1="11.0" x2="5.4" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="15.0" y1="11.0" x2="15.0" y2="5.0" stroke="#3a2a1e" stroke-width="1.3"/><line x1="24.6" y1="11.0" x2="24.6" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="34.2" y1="11.0" x2="34.2" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="43.8" y1="11.0" x2="43.8" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><line x1="53.4" y1="11.0" x2="53.4" y2="7.5" stroke="#3a2a1e" stroke-width="1.3"/><rect x="15.0" y="-9.5" width="7" height="19" fill="#3a2a1e"/><line x1="22.0" y1="0" x2="89.0" y2="0" stroke="#3a2a1e" stroke-width="3" stroke-linecap="round"/><rect x="60.0" y="-16.0" width="5" height="32" rx="2" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.2"/><rect x="89.0" y="-14.0" width="6" height="28" rx="2" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2.2"/></g><text x="120" y="168" text-anchor="middle" font-size="14" font-weight="700" letter-spacing=".6" fill="#8f6a1c">IM syringe</text></symbol>
+  <symbol id="p-box" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><ellipse cx="120" cy="152" rx="66" ry="7" fill="#3a2a1e" opacity=".13"/><path d="M104 62a16 14 0 0 1 32 0" fill="none" stroke="#3a2a1e" stroke-width="3" stroke-linecap="round"/><rect x="48" y="62" width="144" height="24" rx="9" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2.5"/><rect x="52" y="84" width="136" height="62" rx="8" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="108" y="78" width="24" height="14" rx="3" fill="#f6ebd0" stroke="#3a2a1e" stroke-width="2.2"/><text x="120" y="124" text-anchor="middle" font-size="11.5" font-weight="700" letter-spacing="1.4" fill="#3a2a1e">PEPTIDE BOX</text><path d="M72 134h96" stroke="#c9a24b" stroke-width="3" stroke-linecap="round"/></symbol>
+  <symbol id="p-case" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><ellipse cx="120" cy="152" rx="66" ry="7" fill="#3a2a1e" opacity=".13"/><rect x="84" y="30" width="72" height="116" rx="18" fill="#f6ebd0" stroke="#3a2a1e" stroke-width="2.5"/><rect x="92" y="38" width="56" height="100" rx="12" fill="none" stroke="#c9a24b" stroke-width="2" stroke-dasharray="5 4"/><rect x="108" y="52" width="24" height="12" rx="3" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2"/><rect x="102" y="64" width="36" height="58" rx="8" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.2"/><rect x="102" y="80" width="36" height="22" fill="#c9a24b" opacity=".55"/></symbol>
+  <symbol id="p-opener" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><ellipse cx="120" cy="150" rx="66" ry="6" fill="#3a2a1e" opacity=".12"/><g transform="rotate(-20 120 100)"><rect x="104" y="92" width="76" height="18" rx="9" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2.5"/><circle cx="96" cy="101" r="22" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2.5"/><circle cx="96" cy="101" r="10" fill="#f6ebd0" stroke="#3a2a1e" stroke-width="2.2"/><path d="M160 92v-6h12v6" fill="none" stroke="#3a2a1e" stroke-width="2.2"/></g><g transform="rotate(14 176 52)"><rect x="160" y="40" width="34" height="18" rx="5" fill="#f08fb0" stroke="#3a2a1e" stroke-width="2.4"/></g></symbol>
+  <symbol id="p-caps" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><g transform="translate(86 54) scale(0.82)"><ellipse cx="0" cy="100" rx="38" ry="5" fill="#3a2a1e" opacity=".13"/><rect x="-22" y="0" width="44" height="22" rx="5" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2.5"/><path d="M-14 4v14M-7 4v14M0 4v14M7 4v14M14 4v14" stroke="#ffffff" opacity=".35" stroke-width="2"/><rect x="-17" y="22" width="34" height="9" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.2"/><rect x="-28" y="31" width="56" height="68" rx="11" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="-28" y="46" width="56" height="38" fill="#f6ebd0" stroke="#3a2a1e" stroke-width="2"/><g transform="translate(0 0)"></g></g><g transform="translate(150 40) scale(1.0)"><ellipse cx="0" cy="100" rx="38" ry="5" fill="#3a2a1e" opacity=".13"/><rect x="-22" y="0" width="44" height="22" rx="5" fill="#8f6a1c" stroke="#3a2a1e" stroke-width="2.5"/><path d="M-14 4v14M-7 4v14M0 4v14M7 4v14M14 4v14" stroke="#ffffff" opacity=".35" stroke-width="2"/><rect x="-17" y="22" width="34" height="9" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.2"/><rect x="-28" y="31" width="56" height="68" rx="11" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="-28" y="46" width="56" height="38" fill="#f6ebd0" stroke="#3a2a1e" stroke-width="2"/><g transform="translate(0 0)"></g></g><text x="86" y="170" text-anchor="middle" font-size="13" font-weight="700" fill="#8f6a1c">5 mL</text><text x="150" y="170" text-anchor="middle" font-size="13" font-weight="700" fill="#8f6a1c">10 mL</text></symbol>
+  <symbol id="p-cap-pink" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><g transform="translate(120 34) scale(1.0)"><ellipse cx="0" cy="100" rx="38" ry="5" fill="#3a2a1e" opacity=".13"/><rect x="-22" y="0" width="44" height="22" rx="5" fill="#f08fb0" stroke="#3a2a1e" stroke-width="2.5"/><path d="M-14 4v14M-7 4v14M0 4v14M7 4v14M14 4v14" stroke="#ffffff" opacity=".35" stroke-width="2"/><rect x="-17" y="22" width="34" height="9" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.2"/><rect x="-28" y="31" width="56" height="68" rx="11" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="-28" y="46" width="56" height="38" fill="#f6ebd0" stroke="#3a2a1e" stroke-width="2"/><g transform="translate(0 0)"><path d="M0 71c-12-8-14-16-8-20 4-3 8-1 8 3 0-4 4-6 8-3 6 4 4 12-8 20z" fill="#e0527f" transform="translate(0 -4) scale(.9) translate(0 4)"/></g></g></symbol>
+  <symbol id="p-cap-lilac" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><g transform="translate(120 34) scale(1.0)"><ellipse cx="0" cy="100" rx="38" ry="5" fill="#3a2a1e" opacity=".13"/><rect x="-22" y="0" width="44" height="22" rx="5" fill="#b9a3ea" stroke="#3a2a1e" stroke-width="2.5"/><path d="M-14 4v14M-7 4v14M0 4v14M7 4v14M14 4v14" stroke="#ffffff" opacity=".35" stroke-width="2"/><rect x="-17" y="22" width="34" height="9" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.2"/><rect x="-28" y="31" width="56" height="68" rx="11" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="-28" y="46" width="56" height="38" fill="#f6ebd0" stroke="#3a2a1e" stroke-width="2"/><g transform="translate(0 0)"><path d="M0 50l4.5 9.5 10.5 1.3-7.7 7.2 2 10.4L0 73l-9.3 5.4 2-10.4-7.7-7.2 10.5-1.3z" fill="#8a63d2"/></g></g></symbol>
+  <symbol id="p-cap-moon" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><g transform="translate(120 34) scale(1.0)"><ellipse cx="0" cy="100" rx="38" ry="5" fill="#3a2a1e" opacity=".13"/><rect x="-22" y="0" width="44" height="22" rx="5" fill="#e8c35a" stroke="#3a2a1e" stroke-width="2.5"/><path d="M-14 4v14M-7 4v14M0 4v14M7 4v14M14 4v14" stroke="#ffffff" opacity=".35" stroke-width="2"/><rect x="-17" y="22" width="34" height="9" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.2"/><rect x="-28" y="31" width="56" height="68" rx="11" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="-28" y="46" width="56" height="38" fill="#f6ebd0" stroke="#3a2a1e" stroke-width="2"/><g transform="translate(0 0)"><path d="M5 52a14 14 0 1 0 0 24 11 11 0 0 1 0-24z" fill="#c9a24b"/><path d="M9 56l1.8 3.6 3.9.5-2.9 2.7.8 3.9-3.6-2-3.6 2 .8-3.9-2.9-2.7 3.9-.5z" fill="#c9a24b"/></g></g></symbol>
+  <symbol id="p-cap-red" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><g transform="translate(120 34) scale(1.0)"><ellipse cx="0" cy="100" rx="38" ry="5" fill="#3a2a1e" opacity=".13"/><rect x="-22" y="0" width="44" height="22" rx="5" fill="#d9503f" stroke="#3a2a1e" stroke-width="2.5"/><path d="M-14 4v14M-7 4v14M0 4v14M7 4v14M14 4v14" stroke="#ffffff" opacity=".35" stroke-width="2"/><rect x="-17" y="22" width="34" height="9" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.2"/><rect x="-28" y="31" width="56" height="68" rx="11" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="-28" y="46" width="56" height="38" fill="#f6ebd0" stroke="#3a2a1e" stroke-width="2"/><g transform="translate(0 0)"><circle cx="0" cy="63" r="12" fill="none" stroke="#b83a2a" stroke-width="3"/><circle cx="0" cy="63" r="3" fill="#b83a2a"/><path d="M0 49v8M0 69v8M-14 63h8M6 63h8M-10 53l5.5 5.5M4.5 67.5 10 73M10 53l-5.5 5.5M-4.5 67.5-10 73" stroke="#b83a2a" stroke-width="2.4" stroke-linecap="round"/></g></g></symbol>
+  <symbol id="p-cap-green" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><g transform="translate(120 34) scale(1.0)"><ellipse cx="0" cy="100" rx="38" ry="5" fill="#3a2a1e" opacity=".13"/><rect x="-22" y="0" width="44" height="22" rx="5" fill="#2f6b4f" stroke="#3a2a1e" stroke-width="2.5"/><path d="M-14 4v14M-7 4v14M0 4v14M7 4v14M14 4v14" stroke="#ffffff" opacity=".35" stroke-width="2"/><rect x="-17" y="22" width="34" height="9" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.2"/><rect x="-28" y="31" width="56" height="68" rx="11" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="-28" y="46" width="56" height="38" fill="#f6ebd0" stroke="#3a2a1e" stroke-width="2"/><g transform="translate(0 0)"><path d="M-14 58q3.5-5 7 0t7 0 7 0 7 0M-14 66q3.5-5 7 0t7 0 7 0 7 0M-14 74q3.5-5 7 0t7 0 7 0 7 0" fill="none" stroke="#2f6b4f" stroke-width="3" stroke-linecap="round"/></g></g></symbol>
+  <symbol id="i-pad" viewBox="0 0 24 24"><rect x="3.5" y="6" width="17" height="12" rx="2.5"/><path d="M12 9.5v5M9.5 12h5"/></symbol>
+  <symbol id="i-jar" viewBox="0 0 24 24"><path d="M7 4h10v3H7z"/><path d="M6.5 7h11v11.5a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2z"/><path d="M9 12.5h6M9 15.5h6"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13.5 3 5.5 13.5h6L10.5 21l8-10.5h-6z"/></symbol>
+  <symbol id="i-bottle" viewBox="0 0 24 24"><path d="M8.5 3h7v3h-7z"/><path d="M7.5 6h9v13.5a1.5 1.5 0 0 1-1.5 1.5H9a1.5 1.5 0 0 1-1.5-1.5z"/><path d="M7.5 11h9"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="m14.5 5.5-6.5 6.5 6.5 6.5"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="m9.5 5.5 6.5 6.5-6.5 6.5"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol>
 </svg>
 
 <header class="top">
@@ -223,10 +312,10 @@ input[type="number"]:focus, select:focus { box-shadow: 0 0 0 3px rgba(201, 162, 
 
 <main class="gutter">
   <section class="hero">
+    <span class="pill"><svg class="i" aria-hidden="true"><use href="#i-syringe"/></svg>The Beauty Trends</span>
     <h1>TBT Peptide Calculator</h1>
     <p>Tell us what is on your vial and how much water you mixed in. We show you exactly where to draw on your syringe.</p>
   </section>
-
 
   <div class="tabs" role="tablist" aria-label="What do you want to do?">
     <button type="button" role="tab" id="tab-dose" aria-selected="true"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg>Find my units</button>
@@ -234,79 +323,271 @@ input[type="number"]:focus, select:focus { box-shadow: 0 0 0 3px rgba(201, 162, 
   </div>
 
   <div class="grid">
-    <section class="card steps" aria-label="Your numbers">
-      <div class="step">
-        <span class="ico" aria-hidden="true"><svg class="i"><use href="#i-vial"/></svg></span>
-        <span class="stepno">Step 1</span>
-        <label for="vial">How many mg are in your peptide vial?</label>
-        <div class="row"><input id="vial" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 10"><span class="unit">mg</span></div>
-        <p class="hint">Find the mg number on your vial label.</p>
+    <section class="panel" aria-label="Your numbers">
+      <div class="bar">
+        <h2><svg class="i" aria-hidden="true"><use href="#i-sliders"/></svg>Your numbers</h2>
+        <button type="button" class="btn" id="clear"><svg class="i" aria-hidden="true"><use href="#i-reset"/></svg><span class="t">Clear all</span></button>
       </div>
-
-      <div class="step">
-        <span class="ico" aria-hidden="true"><svg class="i"><use href="#i-drop"/></svg></span>
-        <span class="stepno">Step 2</span>
-        <label for="water">How much BAC water or pharma BAC water did you add?</label>
-        <div class="row"><input id="water" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 2"><span class="unit">mL</span></div>
-        <p class="hint">BAC water is bacteriostatic water. Count only the amount you mixed into the vial.</p>
-      </div>
-
-      <div class="step" id="s-dose">
-        <span class="ico" aria-hidden="true"><svg class="i"><use href="#i-pill"/></svg></span>
-        <span class="stepno">Step 3</span>
-        <label for="dose">How many mg or mcg do you want to take?</label>
-        <div class="row">
-          <input id="dose" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 250">
-          <select id="doseUnit" aria-label="mcg or mg"><option value="mcg">mcg</option><option value="mg">mg</option></select>
+      <div class="pbody">
+        <div class="field">
+          <label class="lab" for="vial"><svg class="i" aria-hidden="true"><use href="#i-vial"/></svg>How many mg are in your peptide vial?</label>
+          <div class="inp"><input id="vial" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 10"><span class="suf">mg</span></div>
+          <p class="hint">Find the mg number on your vial label.</p>
         </div>
-        <p class="hint">Pick mcg or mg next to the number. 1 mg = 1,000 mcg.</p>
-      </div>
 
-      <div class="step" id="s-units" hidden>
-        <span class="ico" aria-hidden="true"><svg class="i"><use href="#i-pill"/></svg></span>
-        <span class="stepno">Step 3</span>
-        <label for="units">How many units did you draw?</label>
-        <div class="row"><input id="units" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 10"><span class="unit">units</span></div>
-        <p class="hint">This is the number on the syringe line you pulled to.</p>
-      </div>
-
-      <div class="step">
-        <span class="ico" aria-hidden="true"><svg class="i"><use href="#i-syringe"/></svg></span>
-        <span class="stepno">Step 4</span>
-        <span class="lbl" id="syr-lbl">Which syringe are you using?</span>
-        <div class="syr-opts" role="radiogroup" aria-labelledby="syr-lbl">
-          <label><input type="radio" name="syr" value="1" checked><svg class="i" aria-hidden="true"><use href="#i-syringe"/></svg><span>1 mL</span></label>
-          <label><input type="radio" name="syr" value="0.5"><svg class="i" aria-hidden="true"><use href="#i-syringe"/></svg><span>0.5 mL</span></label>
+        <div class="field">
+          <label class="lab" for="water"><svg class="i" aria-hidden="true"><use href="#i-drop"/></svg>How much BAC water or pharma BAC water did you add?</label>
+          <div class="inp"><input id="water" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 2"><span class="suf">mL</span></div>
+          <p class="hint">BAC water is bacteriostatic water. Count only the amount you mixed into the vial.</p>
         </div>
-        <p class="hint">1 mL has 100 units. 0.5 mL has 50 units.</p>
-      </div>
 
-      <div class="actions"><button type="button" class="btn" id="clear"><svg class="i" aria-hidden="true"><use href="#i-reset"/></svg><span class="t">Clear all</span></button></div>
+        <div class="field" id="s-dose">
+          <label class="lab" for="dose"><svg class="i" aria-hidden="true"><use href="#i-pill"/></svg>How many mg or mcg do you want to take?</label>
+          <div class="row">
+            <div class="inp"><input id="dose" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 250"><span class="suf" id="doseSuf">mcg</span></div>
+            <div class="seg" id="unitSeg" role="group" aria-label="mcg or mg">
+              <button type="button" data-u="mcg" aria-pressed="true">mcg</button>
+              <button type="button" data-u="mg" aria-pressed="false">mg</button>
+            </div>
+          </div>
+          <select id="doseUnit" hidden aria-hidden="true" tabindex="-1"><option value="mcg">mcg</option><option value="mg">mg</option></select>
+          <p class="hint">Pick mcg or mg next to the number. 1 mg = 1,000 mcg.</p>
+        </div>
+
+        <div class="field" id="s-units" hidden>
+          <label class="lab" for="units"><svg class="i" aria-hidden="true"><use href="#i-pill"/></svg>How many units did you draw?</label>
+          <div class="inp"><input id="units" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 10"><span class="suf">units</span></div>
+          <p class="hint">This is the number on the syringe line you pulled to.</p>
+        </div>
+
+        <div class="field">
+          <span class="lab" id="syr-lbl"><svg class="i" aria-hidden="true"><use href="#i-syringe"/></svg>Which syringe are you using?</span>
+          <div class="syr-opts" role="radiogroup" aria-labelledby="syr-lbl">
+            <label><input type="radio" name="syr" value="1" checked><span>1 mL</span></label>
+            <label><input type="radio" name="syr" value="0.5"><span>0.5 mL</span></label>
+          </div>
+          <p class="hint">1 mL has 100 units. 0.5 mL has 50 units.</p>
+        </div>
+      </div>
     </section>
 
-    <section class="card answer" aria-live="polite" aria-label="Your answer">
-      <div class="ahead"><span class="ico" aria-hidden="true"><svg class="i"><use href="#i-syringe"/></svg></span><span class="k" id="mainK">Draw to</span></div>
-      <span class="big" id="mainV">-</span>
-      <p class="say" id="mainSay"></p>
-      <hr class="rule">
-      <dl class="facts" id="facts"></dl>
-      <div class="notes" id="notes"></div>
-      <div class="actions"><button type="button" class="btn solid" id="copy"><svg class="i" aria-hidden="true"><use href="#i-copy"/></svg><span class="t">Copy my answer</span></button></div>
+    <section class="panel" aria-live="polite" aria-label="Your answer">
+      <div class="res">
+        <span class="k" id="mainK">Draw to</span>
+        <span class="big" id="mainV">-</span>
+        <p class="say" id="mainSay"></p>
+      </div>
+      <div class="pbody">
+        <div>
+          <div class="sylab"><svg class="i" aria-hidden="true"><use href="#i-syringe"/></svg>Where to pull the plunger</div>
+          <div class="sybox"><svg id="syr" viewBox="0 0 680 110" role="img" aria-label="Syringe showing the draw line"></svg></div>
+        </div>
+        <div class="tiles" id="facts"></div>
+        <div class="notes" id="notes"></div>
+        <div class="actions res-actions"><button type="button" class="btn solid" id="copy"><svg class="i" aria-hidden="true"><use href="#i-copy"/></svg><span class="t">Copy my answer</span></button></div>
+      </div>
     </section>
   </div>
 
-  <section class="card syringe" aria-label="Syringe picture">
-    <h2><svg class="i" aria-hidden="true"><use href="#i-syringe"/></svg>Where to pull the plunger</h2>
-    <svg id="syr" viewBox="0 0 680 110" role="img" aria-label="Syringe showing the draw line"></svg>
+  <section class="panel chart" aria-label="Unit chart">
+    <div class="chart-head">
+      <h2><svg class="i" aria-hidden="true"><use href="#i-table"/></svg>Unit chart for your mix</h2>
+      <span class="badge" id="cmix" hidden></span>
+    </div>
+    <div class="tablewrap">
+      <table class="ct">
+        <thead><tr><th>Draw to</th><th>Volume</th><th>mg</th><th>mcg</th></tr></thead>
+        <tbody id="cbody"></tbody>
+      </table>
+    </div>
   </section>
 
-  <details class="card waters" id="waterBox">
+  <details class="panel waters" id="waterBox">
     <summary><svg class="i" aria-hidden="true"><use href="#i-drop"/></svg>Not sure how much BAC water to add?</summary>
     <p class="hint">This shows where you would draw for the same dose with different amounts of BAC water. Tap a row to try it. It does not pick one for you.</p>
     <div class="tablewrap"><table class="wt"><thead><tr><th>BAC water</th><th>Draw to</th><th>Note</th></tr></thead><tbody id="wbody"></tbody></table></div>
   </details>
 
-  <p class="foot">This calculator only does the math. It does not tell you how much to take. Follow the instructions that came with your product, and talk to your healthcare provider about your own plan. If your product is measured in IU, use the conversion from the product's own instructions. The numbers at the start are an example, replace them with yours.</p>
+  <div class="callout">
+    <svg class="i" aria-hidden="true"><use href="#i-info"/></svg>
+    <p>This calculator only does the math. It does not tell you how much to take. Follow the instructions that came with your product, and talk to your healthcare provider about your own plan. If your product is measured in IU, use the conversion from the product's own instructions. The numbers at the start are an example, replace them with yours.</p>
+  </div>
+
+  <section class="shop" id="shop" aria-labelledby="shop-title">
+    <div class="shop-head">
+      <h2 id="shop-title">Starter essentials</h2>
+      <p>Things you may need when you start your peptide journey. Swipe or use the arrows to see more.</p>
+    </div>
+    <div class="slider">
+      <div class="track" id="track" tabindex="0" role="group" aria-roledescription="carousel" aria-label="Starter essentials">
+      <article class="item" aria-roledescription="slide" aria-label="1 of 20">
+        <div class="art"><span class="itag">Chichi&#x27;s pick</span><img class="pimg" src="images/syringe-31g.jpg" alt="Sungshim 31G 8mm Insulin Syringe" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-syr31"/></svg></div>
+        <div class="ibody">
+          <h3>Sungshim 31G 8mm Insulin Syringe</h3>
+          <p>A thinner needle for under-the-skin (SUBQ) shots.</p>
+          <a class="btn solid" href="https://s.shopee.ph/70GRlHBCkK" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" aria-roledescription="slide" aria-label="2 of 20">
+        <div class="art"><span class="itag">Budget pick</span><img class="pimg" src="images/syringe-29g.jpg" alt="Indoplas 29G 8mm Insulin Syringe" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-syr29"/></svg></div>
+        <div class="ibody">
+          <h3>Indoplas 29G 8mm Insulin Syringe</h3>
+          <p>A cheaper option for under-the-skin (SUBQ) shots.</p>
+          <a class="btn solid" href="https://s.shopee.ph/4qBxBNsLjh" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" aria-roledescription="slide" aria-label="3 of 20">
+        <div class="art"><span class="itag">For IM</span><img class="pimg" src="images/syringe-cardinal.jpg" alt="Cardinal Syringe for IM" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-syrim"/></svg></div>
+        <div class="ibody">
+          <h3>Cardinal Syringe for IM</h3>
+          <p>A syringe option for intramuscular (IM) shots.</p>
+          <a class="btn solid" href="https://s.shopee.ph/4fxGleWn4d" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" aria-roledescription="slide" aria-label="4 of 20">
+        <div class="art"><span class="itag">For mixing</span><img class="pimg" src="images/syringe-3ml.jpg" alt="Indoplas 3 mL (3cc) Syringe for Reconstitution" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-syr3"/></svg></div>
+        <div class="ibody">
+          <h3>Indoplas 3 mL (3cc) Syringe for Reconstitution</h3>
+          <p>For mixing: adding BAC water to your vial.</p>
+          <a class="btn solid" href="https://s.shopee.ph/4LFgadsLyV" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" aria-roledescription="slide" aria-label="5 of 20">
+        <div class="art"><span class="itag">IM, deltoid only</span><img class="pimg" src="images/syringe-1ml.jpg" alt="Indoplas 1 mL (1cc) Syringe for IM" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-syr1"/></svg></div>
+        <div class="ibody">
+          <h3>Indoplas 1 mL (1cc) Syringe for IM</h3>
+          <p>For intramuscular (IM) shots. Deltoid only.</p>
+          <a class="btn solid" href="https://s.shopee.ph/4LFgadsLyV" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" aria-roledescription="slide" aria-label="6 of 20">
+        <div class="art"><span class="itag">For IM</span><img class="pimg" src="images/terumo-syringes.jpg" alt="Terumo Syringes" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-syr2"/></svg></div>
+        <div class="ibody">
+          <h3>Terumo Syringes</h3>
+          <p>Terumo syringes for intramuscular (IM) shots.</p>
+          <a class="btn solid" href="https://s.shopee.ph/3g4jXOZruN" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" aria-roledescription="slide" aria-label="7 of 20">
+        <div class="art"><span class="itag">Must-have</span><img class="pimg" src="images/alcohol-pads.jpg" alt="Alcohol Pads" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-padbox"/></svg></div>
+        <div class="ibody">
+          <h3>Alcohol Pads</h3>
+          <p>For cleaning the vial top and your skin before a shot.</p>
+          <a class="btn solid" href="https://s.shopee.ph/8pi5wox6JR" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" aria-roledescription="slide" aria-label="8 of 20">
+        <div class="art"><span class="itag">For beginners</span><img class="pimg" src="images/storage-box.jpg" alt="Peptide Storage Box" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-box"/></svg></div>
+        <div class="ibody">
+          <h3>Peptide Storage Box</h3>
+          <p>A storage box for your vials. Great for anyone just starting their peptide journey.</p>
+          <a class="btn solid" href="https://s.shopee.ph/5fndDSKfZd" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" aria-roledescription="slide" aria-label="9 of 20">
+        <div class="art"><span class="itag">Storage</span><img class="pimg" src="images/single-peptide-case.jpg" alt="Single Peptide Cases" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-case"/></svg></div>
+        <div class="ibody">
+          <h3>Single Peptide Cases</h3>
+          <p>A small case for one peptide vial.</p>
+          <a class="btn solid" href="https://s.shopee.ph/1qaueWePSM" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" aria-roledescription="slide" aria-label="10 of 20">
+        <div class="art"><span class="itag">Handy</span><img class="pimg" src="images/vial-opener.jpg" alt="Cute Vial Opener" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-opener"/></svg></div>
+        <div class="ibody">
+          <h3>Cute Vial Opener</h3>
+          <p>A cute tool for taking the cap off your vial.</p>
+          <a class="btn solid" href="https://s.shopee.ph/3g1wZdB3x1" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" aria-roledescription="slide" aria-label="11 of 20">
+        <div class="art"><span class="itag">Vial caps</span><img class="pimg" src="images/vial-caps-5-10ml.jpg" alt="5 mL &amp; 10 mL Vial Caps" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-caps"/></svg></div>
+        <div class="ibody">
+          <h3>5 mL &amp; 10 mL Vial Caps</h3>
+          <p>Caps for 5 mL and 10 mL vials.</p>
+          <a class="btn solid" href="https://s.shopee.ph/3qLMlvJHuV" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" aria-roledescription="slide" aria-label="12 of 20">
+        <div class="art"><span class="itag">Cute vial caps</span><img class="pimg" src="images/vial-cap-pink.jpg" alt="Cute Pink Vial Caps" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-cap-pink"/></svg></div>
+        <div class="ibody">
+          <h3>Cute Pink Vial Caps</h3>
+          <p>Pretty pink caps for your vials.</p>
+          <a class="btn solid" href="https://s.shopee.ph/7KvrCepJFS" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" aria-roledescription="slide" aria-label="13 of 20">
+        <div class="art"><span class="itag">Cute vial caps</span><img class="pimg" src="images/vial-cap-sanrio.jpg" alt="Sanrio Vial Caps" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-cap-lilac"/></svg></div>
+        <div class="ibody">
+          <h3>Sanrio Vial Caps</h3>
+          <p>Sanrio-themed caps for your vials.</p>
+          <a class="btn solid" href="https://s.shopee.ph/2BD8iq2Xh6" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" aria-roledescription="slide" aria-label="14 of 20">
+        <div class="art"><span class="itag">Cute vial caps</span><img class="pimg" src="images/vial-cap-sailor-moon.jpg" alt="Sailor Moon Vial Caps" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-cap-moon"/></svg></div>
+        <div class="ibody">
+          <h3>Sailor Moon Vial Caps</h3>
+          <p>Sailor Moon-themed caps for your vials.</p>
+          <a class="btn solid" href="https://s.shopee.ph/9AMt4a7I1v" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" aria-roledescription="slide" aria-label="15 of 20">
+        <div class="art"><span class="itag">Cute vial caps</span><img class="pimg" src="images/vial-cap-one-piece.jpg" alt="One Piece Vial Caps" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-cap-red"/></svg></div>
+        <div class="ibody">
+          <h3>One Piece Vial Caps</h3>
+          <p>One Piece-themed caps for your vials.</p>
+          <a class="btn solid" href="https://s.shopee.ph/qhl9IXsKQ" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" aria-roledescription="slide" aria-label="16 of 20">
+        <div class="art"><span class="itag">Cute vial caps</span><img class="pimg" src="images/vial-cap-demon-slayer.jpg" alt="Demon Slayer Vial Caps" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-cap-green"/></svg></div>
+        <div class="ibody">
+          <h3>Demon Slayer Vial Caps</h3>
+          <p>Demon Slayer-themed caps for your vials.</p>
+          <a class="btn solid" href="https://s.shopee.ph/AUsGiEgT6I" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" aria-roledescription="slide" aria-label="17 of 20">
+        <div class="art"><span class="itag">Gym + peptides</span><img class="pimg" src="images/whey-protein.jpg" alt="ON Whey Protein" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-whey"/></svg></div>
+        <div class="ibody">
+          <h3>ON Whey Protein</h3>
+          <p>A must-have for your weight loss journey when you do gym and peptides together.</p>
+          <a class="btn solid" href="https://s.shopee.ph/6ffTco36ST" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" aria-roledescription="slide" aria-label="18 of 20">
+        <div class="art"><span class="itag">Gym + peptides</span><img class="pimg" src="images/collagen.jpg" alt="Collagen" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-collagen"/></svg></div>
+        <div class="ibody">
+          <h3>Collagen</h3>
+          <p>Another must-have when you pair the gym with peptides.</p>
+          <a class="btn solid" href="https://s.shopee.ph/2LWUT2J9Up" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" aria-roledescription="slide" aria-label="19 of 20">
+        <div class="art"><span class="itag">Foxy&#x27;s pick</span><img class="pimg" src="images/electrolytes.jpg" alt="Foxy Electrolytes" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-elec"/></svg></div>
+        <div class="ibody">
+          <h3>Foxy Electrolytes</h3>
+          <p>Budget friendly and it works. It was Buy 1 Take 1 when we posted, so check the listing.</p>
+          <a class="btn solid" href="https://s.shopee.ph/BRztAWcH4" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" aria-roledescription="slide" aria-label="20 of 20">
+        <div class="art"><span class="itag">Gym + peptides</span><img class="pimg" src="images/calcium-magnesium-zinc.jpg" alt="Webbers Calcium Magnesium Zinc" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-calmag"/></svg></div>
+        <div class="ibody">
+          <h3>Webbers Calcium Magnesium Zinc</h3>
+          <p>Another must-have for the gym and peptides combo.</p>
+          <a class="btn solid" href="https://s.shopee.ph/2LWUTDnUhw" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      </div>
+    </div>
+    <div class="slider-ctl">
+      <button type="button" class="arrow" id="prev" aria-label="Previous item"><svg class="i" aria-hidden="true"><use href="#i-left"/></svg></button>
+      <span class="count" id="count" aria-live="polite">1 / 20</span>
+      <button type="button" class="arrow" id="next" aria-label="Next item"><svg class="i" aria-hidden="true"><use href="#i-right"/></svg></button>
+    </div>
+  </section>
 
   <section class="verse" id="verse" aria-labelledby="verse-label">
     <span class="mark" aria-hidden="true">&ldquo;</span>
@@ -321,7 +602,6 @@ input[type="number"]:focus, select:focus { box-shadow: 0 0 0 3px rgba(201, 162, 
 <footer>Chichi Peptide Calculator &middot; The Beauty Trends (TBT)</footer>
 
 <script>
-
 function round(n, d) { var m = Math.pow(10, d); return Math.round((n + Number.EPSILON) * m) / m; }
 function trim(n, d) { return String(round(n, d)); }
 function toMg(value, unit) { return unit === 'mcg' ? value / 1000 : value; }
@@ -360,7 +640,6 @@ function unitsToDose(vialMg, waterMl, units, syringeMl) {
     mcgPerUnit: (conc / 100) * 1000
   };
 }
-
 function waterOptions(vialMg, doseMg, waters, syringeMl) {
   return waters.map(function (w) {
     var units = (doseMg * w / vialMg) * 100;
@@ -397,21 +676,31 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
     } catch (e) {}
   }
 
+  function syncUnit() {
+    var u = els.doseUnit.value;
+    document.querySelectorAll('#unitSeg button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-u') === u)); });
+    $('doseSuf').textContent = u;
+  }
 
-  function fact(k, v) {
+  function fact(k, v, hl) {
     var d = document.createElement('div');
-    var dt = document.createElement('dt'); dt.textContent = k;
-    var dd = document.createElement('dd'); dd.textContent = v;
-    d.appendChild(dt); d.appendChild(dd);
+    d.className = 'tile' + (hl ? ' hl' : '');
+    var tk = document.createElement('div'); tk.className = 'tk'; tk.textContent = k;
+    var tv = document.createElement('div'); tv.className = 'tv'; tv.textContent = v;
+    d.appendChild(tk); d.appendChild(tv);
     $('facts').appendChild(d);
   }
 
   var REDUCED = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  var MQ = window.matchMedia ? window.matchMedia('(max-width: 520px)') : null;
   var syr = { cap: 0, shown: 0, raf: 0, g: null };
 
+  function compact() {
+    var box = $('syr').parentNode;
+    return box.clientWidth > 0 && box.clientWidth < 600;
+  }
+
   function geo() {
-    var g = MQ && MQ.matches
+    var g = compact()
       ? { mob: true, w: 600, h: 182, x0: 44, x1: 530, y0: 54, sh: 64, nx: 8, hub: 8, rod: 36, fl: 14, tip: 8, tM: 18, tm: 9, txt: 52, mt: 12, mb: 6, lab: 20, rx: 7, pad: 70 }
       : { mob: false, w: 680, h: 110, x0: 90, x1: 610, y0: 34, sh: 36, nx: 22, hub: 8, rod: 40, fl: 10, tip: 6, tM: 12, tm: 6, txt: 28, mt: 8, mb: 4, lab: 14, rx: 3, pad: 34 };
     g.len = g.x1 - g.x0;
@@ -424,6 +713,7 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
     var major = capacity <= 30 ? 5 : (g.mob && capacity > 50 ? 20 : 10);
     var minor = capacity <= 50 ? 1 : 2;
     var p = [];
+    p.push('<defs><linearGradient id="barG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6efdf"/><stop offset="0.5" stop-color="#ffffff"/><stop offset="1" stop-color="#f1e8d2"/></linearGradient><linearGradient id="liqG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6c878"/><stop offset="0.55" stop-color="#c9a24b"/><stop offset="1" stop-color="#a98128"/></linearGradient></defs>');
     p.push('<line class="s-line" x1="' + g.nx + '" y1="' + g.mid + '" x2="' + (g.x0 - g.hub) + '" y2="' + g.mid + '"/>');
     p.push('<rect class="s-barrel" x="' + (g.x0 - g.hub) + '" y="' + (g.y0 + g.sh * 0.28) + '" width="' + g.hub + '" height="' + (g.sh * 0.44) + '"/>');
     p.push('<rect class="s-barrel" x="' + g.x0 + '" y="' + g.y0 + '" width="' + g.len + '" height="' + g.sh + '" rx="' + g.rx + '"/>');
@@ -440,6 +730,7 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
     p.push('<line id="s-mark" class="s-mark" x1="' + g.x0 + '" y1="' + (g.y0 - g.mt) + '" x2="' + g.x0 + '" y2="' + (g.y0 + g.sh + g.mb) + '"/>');
     p.push('<text id="s-lab" class="s-lab" x="' + g.x0 + '" y="' + (g.y0 - g.lab) + '"></text>');
     $('syr').setAttribute('viewBox', '0 0 ' + g.w + ' ' + g.h);
+    $('syr').setAttribute('class', g.mob ? 'compact' : '');
     $('syr').innerHTML = p.join('');
     syr.cap = capacity;
     syr.g = g;
@@ -496,17 +787,17 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
     if (!(vial > 0) || !(doseMg > 0)) {
       var tr0 = document.createElement('tr'); var td0 = document.createElement('td');
       td0.colSpan = 3; td0.style.padding = '12px 10px'; td0.className = 'tag';
-      td0.textContent = 'Fill in steps 1 and 3 to see this.';
+      td0.textContent = 'Fill in your vial size and dose to see this.';
       tr0.appendChild(td0); body.appendChild(tr0); return;
     }
     waterOptions(vial, doseMg, WATERS, capacityMl).forEach(function (o) {
       var tr = document.createElement('tr');
       if (o.water === waterNow) tr.className = 'cur';
       var tag = o.tooBig ? 'Too big for your syringe' : (o.hard ? 'Under 5 units, hard to read' : (o.whole ? 'Whole number of units' : ''));
-      [[trim(o.water, 2) + ' mL', ''], [trim(o.units, 2) + ' units', ''], [tag, 'tag']].forEach(function (c, i) {
+      [[trim(o.water, 2) + ' mL', ''], [trim(o.units, 2) + ' units', ''], [tag, 'tag']].forEach(function (c) {
         var td = document.createElement('td');
         var b = document.createElement('button');
-        b.type = 'button'; b.className = c[1]; b.textContent = c[0] || ' ';
+        b.type = 'button'; b.className = c[1]; b.textContent = c[0] || ' ';
         b.setAttribute('aria-label', 'Use ' + trim(o.water, 2) + ' mL of water');
         b.addEventListener('click', function () { els.water.value = o.water; render(); });
         td.appendChild(b); tr.appendChild(td);
@@ -515,37 +806,75 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
     });
   }
 
+  function drawChart(vial, water, capacity, target, ok) {
+    var body = $('cbody');
+    body.innerHTML = '';
+    $('cmix').hidden = !ok;
+    if (!ok) {
+      var tr0 = document.createElement('tr'); var td0 = document.createElement('td');
+      td0.colSpan = 4; td0.className = 'empty';
+      td0.textContent = 'Fill in your vial size and water amount to see this.';
+      tr0.appendChild(td0); body.appendChild(tr0); return;
+    }
+    $('cmix').textContent = trim(vial, 3) + ' mg in ' + trim(water, 3) + ' mL';
+    var conc = concentration(vial, water);
+    var base = capacity > 50 ? [5, 10, 20, 25, 50, 75, 100] : [5, 10, 20, 25, 30, 40, 50];
+    var list = base.filter(function (u) { return u <= capacity; }).map(function (u) { return { u: u, t: false }; });
+    if (target > 0 && target <= capacity) {
+      var hit = list.filter(function (x) { return Math.abs(x.u - target) < 0.005; })[0];
+      if (hit) hit.t = true; else { list.push({ u: target, t: true }); list.sort(function (a, b) { return a.u - b.u; }); }
+    }
+    list.forEach(function (x) {
+      var mg = (x.u / 100) * conc;
+      var tr = document.createElement('tr');
+      if (x.t) tr.className = 'tgt';
+      [trim(x.u, 2) + ' units', trim(x.u / 100, 3) + ' mL', trim(mg, 3), trim(mg * 1000, 2)].forEach(function (t, i) {
+        var td = document.createElement('td'); td.textContent = t;
+        if (i === 0 && x.t) { var sm = document.createElement('small'); sm.textContent = 'your draw'; td.appendChild(sm); }
+        tr.appendChild(td);
+      });
+      body.appendChild(tr);
+    });
+  }
+
   function render() {
-    var vial = num(els.vial), water = num(els.water), syr = parseFloat(syringe());
-    var capacity = syr * 100;
+    var vial = num(els.vial), water = num(els.water), sMl = parseFloat(syringe());
+    var capacity = sMl * 100;
     $('facts').innerHTML = ''; $('notes').innerHTML = '';
+    syncUnit();
     var notes = [], summary = [];
     var ok = vial > 0 && water > 0;
     var doseMg = toMg(num(els.dose), els.doseUnit.value);
+    var u = num(els.units);
 
-    drawWaters(vial, mode === 'dose' ? doseMg : NaN, syr, water);
+    drawWaters(vial, mode === 'dose' ? doseMg : NaN, sMl, water);
+
+    var target = NaN;
+    if (ok && mode === 'dose' && doseMg > 0) target = doseToDraw(vial, water, doseMg, sMl).units;
+    if (ok && mode === 'units' && u > 0) target = u;
+    drawChart(vial, water, capacity, target, ok);
 
     function empty(k, msg) {
       $('mainK').textContent = k; showBig('-'); $('mainSay').textContent = msg;
       drawSyringe(0, capacity); lastSummary = '';
     }
-    if (!ok) { empty(mode === 'dose' ? 'Draw to' : 'You took', 'Fill in steps 1 and 2 to start.'); return; }
+    if (!ok) { empty(mode === 'dose' ? 'Draw to' : 'You took', 'Fill in your vial size and water amount to start.'); return; }
 
     var conc = concentration(vial, water);
     if (mode === 'dose') {
       if (!(doseMg > 0)) {
-        empty('Draw to', 'Now tell us how much you want to take (step 3).');
-        fact('Your mix', trim(vial, 3) + ' mg in ' + trim(water, 3) + ' mL');
-        fact('Each unit holds', trim((conc / 100) * 1000, 3) + ' mcg');
+        empty('Draw to', 'Now tell us how much you want to take.');
+        fact('Strength', trim(conc, 4) + ' mg per mL');
+        fact('Each unit holds', trim((conc / 100) * 1000, 3) + ' mcg', true);
         return;
       }
-      var r = doseToDraw(vial, water, doseMg, syr);
+      var r = doseToDraw(vial, water, doseMg, sMl);
       $('mainK').textContent = 'Draw to';
       showBig(trim(r.units, 2) + '<small>units</small>');
-      $('mainSay').textContent = 'Pull the plunger to ' + trim(r.units, 2) + ' on your ' + syr + ' mL syringe. That is ' + trim(r.drawMl, 4) + ' mL, which gives you ' + fmtDose(doseMg) + '.';
-      fact('Your mix', trim(vial, 3) + ' mg in ' + trim(water, 3) + ' mL');
+      $('mainSay').textContent = 'Pull the plunger to ' + trim(r.units, 2) + ' on your ' + sMl + ' mL syringe. That is ' + trim(r.drawMl, 4) + ' mL, which gives you ' + fmtDose(doseMg) + '.';
+      fact('Volume', trim(r.drawMl, 4) + ' mL');
       fact('Strength', trim(r.conc, 4) + ' mg per mL');
-      fact('Each unit holds', trim(r.mcgPerUnit, 3) + ' mcg');
+      fact('Each unit holds', trim(r.mcgPerUnit, 3) + ' mcg', true);
       fact('Doses in this vial', trim(Math.floor(r.dosesPerVial + 1e-9), 0) + (r.dosesPerVial % 1 > 1e-9 ? ' (' + trim(r.dosesPerVial, 2) + ' exactly)' : ''));
       if (r.units > r.capacityUnits) notes.push('This is more than your syringe holds (' + r.capacityUnits + ' units). Use a bigger syringe, or add less water.');
       if (r.units > 0 && r.units < 5) notes.push('Under 5 units is hard to read. Adding more water makes the same dose a bigger, easier draw.');
@@ -555,24 +884,23 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
         notes.push('Exact draw is ' + trim(r.units, 2) + ' units. If your syringe only shows whole lines, ' + r.wholeUnits + ' units gives you ' + fmtDose(r.wholeDoseMg) + ' (' + (diff >= 0 ? '+' : '') + trim(diff, 1) + '% from what you wanted).');
       }
       summary.push(trim(vial, 3) + ' mg vial + ' + trim(water, 3) + ' mL water = ' + trim(r.conc, 4) + ' mg/mL');
-      summary.push('For ' + fmtDose(doseMg) + ': draw to ' + trim(r.units, 2) + ' units (' + trim(r.drawMl, 4) + ' mL) on a ' + syr + ' mL syringe');
+      summary.push('For ' + fmtDose(doseMg) + ': draw to ' + trim(r.units, 2) + ' units (' + trim(r.drawMl, 4) + ' mL) on a ' + sMl + ' mL syringe');
       drawSyringe(r.units, r.capacityUnits);
     } else {
-      var u = num(els.units);
       if (!(u > 0)) {
-        empty('You took', 'Now tell us how many units you drew (step 3).');
-        fact('Your mix', trim(vial, 3) + ' mg in ' + trim(water, 3) + ' mL');
-        fact('Each unit holds', trim((conc / 100) * 1000, 3) + ' mcg');
+        empty('You took', 'Now tell us how many units you drew.');
+        fact('Strength', trim(conc, 4) + ' mg per mL');
+        fact('Each unit holds', trim((conc / 100) * 1000, 3) + ' mcg', true);
         return;
       }
-      var q = unitsToDose(vial, water, u, syr);
+      var q = unitsToDose(vial, water, u, sMl);
       $('mainK').textContent = 'You took';
       var big = q.doseMg < 1 ? trim(q.doseMg * 1000, 2) : trim(q.doseMg, 3);
       showBig(big + '<small>' + (q.doseMg < 1 ? 'mcg' : 'mg') + '</small>');
       $('mainSay').textContent = trim(u, 2) + ' units is ' + trim(q.drawMl, 4) + ' mL, which is ' + fmtDose(q.doseMg) + ' from this vial.';
-      fact('Your mix', trim(vial, 3) + ' mg in ' + trim(water, 3) + ' mL');
+      fact('Volume', trim(q.drawMl, 4) + ' mL');
       fact('Strength', trim(q.conc, 4) + ' mg per mL');
-      fact('Each unit holds', trim(q.mcgPerUnit, 3) + ' mcg');
+      fact('Each unit holds', trim(q.mcgPerUnit, 3) + ' mcg', true);
       fact('Share of the vial', trim(q.pctOfVial, 2) + '%');
       fact('Doses at this draw', trim(Math.floor(q.dosesPerVial + 1e-9), 0));
       if (u > q.capacityUnits) notes.push('That is more than your syringe holds (' + q.capacityUnits + ' units).');
@@ -599,7 +927,9 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
   $('tab-dose').addEventListener('click', function () { setMode('dose'); });
   $('tab-units').addEventListener('click', function () { setMode('units'); });
   ['vial', 'water', 'dose', 'units'].forEach(function (k) { els[k].addEventListener('input', render); });
-  els.doseUnit.addEventListener('change', render);
+  document.querySelectorAll('#unitSeg button').forEach(function (b) {
+    b.addEventListener('click', function () { els.doseUnit.value = b.getAttribute('data-u'); render(); });
+  });
   document.querySelectorAll('input[name="syr"]').forEach(function (r) { r.addEventListener('change', render); });
   $('clear').addEventListener('click', function () {
     els.vial.value = ''; els.water.value = ''; els.dose.value = ''; els.units.value = '';
@@ -614,14 +944,60 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
     } catch (e) { done('Copy not available'); }
   });
 
-  if (MQ) {
-    var rebuild = function () { syr.cap = 0; render(); };
-    if (MQ.addEventListener) MQ.addEventListener('change', rebuild); else if (MQ.addListener) MQ.addListener(rebuild);
+  function relayout() {
+    if (syr.g && syr.g.mob !== compact()) { syr.cap = 0; render(); }
   }
+  if (window.ResizeObserver) new ResizeObserver(relayout).observe($('syr').parentNode);
+  else window.addEventListener('resize', relayout);
 
   load();
   render();
 })();
+
+(function () {
+  var shop = document.getElementById('shop');
+  var track = document.getElementById('track');
+  if (!shop || !track) return;
+  var items = Array.prototype.slice.call(track.children);
+  var prev = document.getElementById('prev'), next = document.getElementById('next'), count = document.getElementById('count');
+  var reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var cur = 0, raf = 0;
+
+  function nearest() {
+    var mid = track.scrollLeft + track.clientWidth / 2, best = 0, gap = Infinity;
+    items.forEach(function (it, i) {
+      var d = Math.abs(it.offsetLeft + it.offsetWidth / 2 - mid);
+      if (d < gap) { gap = d; best = i; }
+    });
+    return best;
+  }
+  function mark() {
+    cur = nearest();
+    items.forEach(function (it, i) { it.classList.toggle('on', i === cur); });
+    count.textContent = (cur + 1) + ' / ' + items.length;
+    prev.disabled = cur === 0;
+    next.disabled = cur === items.length - 1;
+  }
+  function go(i) {
+    i = Math.max(0, Math.min(items.length - 1, i));
+    var it = items[i];
+    track.scrollTo({ left: it.offsetLeft - (track.clientWidth - it.offsetWidth) / 2, behavior: reduced ? 'auto' : 'smooth' });
+  }
+  track.addEventListener('scroll', function () {
+    if (raf) return;
+    raf = requestAnimationFrame(function () { raf = 0; mark(); });
+  }, { passive: true });
+  track.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1); }
+  });
+  prev.addEventListener('click', function () { go(cur - 1); });
+  next.addEventListener('click', function () { go(cur + 1); });
+  window.addEventListener('resize', mark);
+  shop.classList.add('ready');
+  mark();
+})();
+
 (function () {
   var box = document.getElementById('verse');
   var q = document.getElementById('vtext');
@@ -646,5 +1022,11 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
   io.observe(box);
 })();
 </script>
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
 </body>
 </html>
