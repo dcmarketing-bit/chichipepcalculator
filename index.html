@@ -129,7 +129,13 @@ svg#syr.compact .s-barrel, svg#syr.compact .s-line { stroke-width: 3; }
 svg#syr.compact .s-mark { stroke-width: 4; }
 
 .chart { padding: 20px 22px 12px; }
-.chart-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.chart-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; cursor: pointer; list-style: none; margin-bottom: 10px; }
+.chart-head::-webkit-details-marker, .waters summary::-webkit-details-marker { display: none; }
+.chart-head::after, .waters summary::after { content: ""; width: 10px; height: 10px; margin-left: auto; border-right: 2px solid var(--gold-deep); border-bottom: 2px solid var(--gold-deep); transform: rotate(45deg) translate(-2px, -2px); transition: transform 0.25s ease; flex: none; }
+details[open] > .chart-head::after, details[open] > summary::after { transform: rotate(-135deg) translate(-2px, -2px); }
+.chart:not([open]) .chart-head { margin-bottom: 0; }
+.chart > .badge { display: inline-block; margin: 0 0 10px; }
+.chart > .badge[hidden] { display: none; }
 .chart-head h2, .waters summary { margin: 0; font-family: var(--serif); font-weight: 700; font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
 .chart-head .i, .waters summary .i { color: var(--gold-deep); width: 1.4rem; height: 1.4rem; }
 .badge { font-size: 0.78rem; font-weight: 600; padding: 4px 12px; border-radius: 999px; background: var(--gold-soft); border: 1px solid var(--gold); color: var(--gold-deep); font-variant-numeric: tabular-nums; }
@@ -143,7 +149,7 @@ table.ct, table.wt { width: 100%; border-collapse: collapse; font-variant-numeri
 .ct td.empty { color: var(--brown-soft); white-space: normal; }
 
 .waters { padding: 18px 22px; }
-.waters summary { cursor: pointer; }
+.waters summary { cursor: pointer; list-style: none; }
 .waters p { margin: 8px 0 12px; }
 .wt td { padding: 0; border-bottom: 1px solid var(--line); }
 .wt button { font: inherit; color: inherit; background: transparent; border: 0; width: 100%; text-align: left; padding: 10px 12px; cursor: pointer; display: block; }
@@ -162,6 +168,12 @@ footer { text-align: center; color: var(--brown-soft); font-size: 0.85rem; paddi
 .shop-head { text-align: center; max-width: 620px; margin: 0 auto; }
 .shop-head h2 { font-family: var(--serif); font-weight: 700; font-size: 2.2rem; line-height: 1.1; margin: 0 0 6px; }
 .shop-head p { margin: 0; color: var(--brown-soft); text-wrap: pretty; }
+.cats { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 18px; }
+.cat { font: inherit; font-weight: 500; font-size: 0.95rem; padding: 9px 18px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--white); color: var(--brown); cursor: pointer; transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; }
+.cat:hover { border-color: var(--gold); background: var(--gold-soft); }
+.cat[aria-pressed="true"] { background: var(--gold); border-color: var(--gold); color: var(--brown); font-weight: 600; }
+.shop-head .cat-note { margin: 14px auto 0; max-width: 46ch; font-size: 0.92rem; min-height: 2.8em; }
+.track.swap { animation: fadein 0.35s ease both; }
 .slider-wrap { position: relative; }
 .slider { position: relative; }
 .shop.ready .slider { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%); }
@@ -183,6 +195,9 @@ footer { text-align: center; color: var(--brown-soft); font-size: 0.85rem; paddi
 .item h3 { font-family: var(--serif); font-weight: 700; font-size: 1.4rem; line-height: 1.15; margin: 0; text-wrap: balance; }
 .item p { margin: 0; color: var(--brown-soft); font-size: 0.95rem; flex: 1; text-wrap: pretty; }
 .item .btn { margin-top: 6px; width: 100%; }
+.uses { display: flex; flex-wrap: wrap; gap: 6px; }
+.uses span { font-size: 0.74rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: var(--gold-soft); border: 1px solid var(--gold); color: var(--gold-deep); }
+.uses span.no { background: #f4efe6; border-color: var(--line); color: var(--brown-soft); }
 .slider-ctl { display: flex; align-items: center; justify-content: center; gap: 18px; }
 .arrow { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--gold); background: var(--white); color: var(--gold-deep); display: grid; place-items: center; cursor: pointer; transition: background-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease; }
 .arrow .i { width: 22px; height: 22px; }
@@ -236,17 +251,28 @@ input[type="number"]:focus { box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.25); }
   .shop { --cw: min(300px, 70vw); }
 }
 @media (max-width: 520px) {
+  main { gap: 32px; }
+  .pbody { gap: 26px; }
+  .field { gap: 10px; }
+  .lab { font-size: 1.02rem; line-height: 1.35; align-items: flex-start; }
+  .lab .i { margin-top: 2px; }
+  .hint { line-height: 1.5; }
+  .hero { gap: 14px; }
+  .hero p { font-size: 1rem; line-height: 1.55; }
+  .callout { padding: 18px; line-height: 1.55; }
+  .cats { gap: 8px; }
+  .cat { font-size: 0.9rem; padding: 9px 14px; }
   .menu { width: 100%; }
   .menu .btn { flex: 1 1 0; font-size: 0.86rem; gap: 6px; padding-inline: 8px; white-space: nowrap; }
-  main { padding-block: 24px 48px; }
+  main { padding-block: 28px 56px; }
   .hero h1 { font-size: 2.3rem; }
   .tabs { display: flex; align-self: stretch; }
   .tabs button { flex: 1 1 0; justify-content: center; padding-inline: 8px; gap: 6px; white-space: nowrap; }
-  .pbody { padding: 18px 16px; }
+  .pbody { padding: 22px 18px; }
   .bar { padding-inline: 16px; }
   .res .big { font-size: 3.6rem; }
   .sybox { padding: 10px 8px 4px; }
-  .chart, .waters { padding-inline: 14px; }
+  .chart, .waters { padding: 18px 14px; }
   .ct th, .ct td { padding-inline: 6px; }
   .ct td { font-size: 0.92rem; }
   .syr-opts label { padding: 10px 8px; gap: 6px; white-space: nowrap; }
@@ -298,6 +324,10 @@ input[type="number"]:focus { box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.25); }
   <symbol id="p-cap-moon" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><g transform="translate(120 34) scale(1.0)"><ellipse cx="0" cy="100" rx="38" ry="5" fill="#3a2a1e" opacity=".13"/><rect x="-22" y="0" width="44" height="22" rx="5" fill="#e8c35a" stroke="#3a2a1e" stroke-width="2.5"/><path d="M-14 4v14M-7 4v14M0 4v14M7 4v14M14 4v14" stroke="#ffffff" opacity=".35" stroke-width="2"/><rect x="-17" y="22" width="34" height="9" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.2"/><rect x="-28" y="31" width="56" height="68" rx="11" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="-28" y="46" width="56" height="38" fill="#f6ebd0" stroke="#3a2a1e" stroke-width="2"/><g transform="translate(0 0)"><path d="M5 52a14 14 0 1 0 0 24 11 11 0 0 1 0-24z" fill="#c9a24b"/><path d="M9 56l1.8 3.6 3.9.5-2.9 2.7.8 3.9-3.6-2-3.6 2 .8-3.9-2.9-2.7 3.9-.5z" fill="#c9a24b"/></g></g></symbol>
   <symbol id="p-cap-red" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><g transform="translate(120 34) scale(1.0)"><ellipse cx="0" cy="100" rx="38" ry="5" fill="#3a2a1e" opacity=".13"/><rect x="-22" y="0" width="44" height="22" rx="5" fill="#d9503f" stroke="#3a2a1e" stroke-width="2.5"/><path d="M-14 4v14M-7 4v14M0 4v14M7 4v14M14 4v14" stroke="#ffffff" opacity=".35" stroke-width="2"/><rect x="-17" y="22" width="34" height="9" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.2"/><rect x="-28" y="31" width="56" height="68" rx="11" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="-28" y="46" width="56" height="38" fill="#f6ebd0" stroke="#3a2a1e" stroke-width="2"/><g transform="translate(0 0)"><circle cx="0" cy="63" r="12" fill="none" stroke="#b83a2a" stroke-width="3"/><circle cx="0" cy="63" r="3" fill="#b83a2a"/><path d="M0 49v8M0 69v8M-14 63h8M6 63h8M-10 53l5.5 5.5M4.5 67.5 10 73M10 53l-5.5 5.5M-4.5 67.5-10 73" stroke="#b83a2a" stroke-width="2.4" stroke-linecap="round"/></g></g></symbol>
   <symbol id="p-cap-green" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><g transform="translate(120 34) scale(1.0)"><ellipse cx="0" cy="100" rx="38" ry="5" fill="#3a2a1e" opacity=".13"/><rect x="-22" y="0" width="44" height="22" rx="5" fill="#2f6b4f" stroke="#3a2a1e" stroke-width="2.5"/><path d="M-14 4v14M-7 4v14M0 4v14M7 4v14M14 4v14" stroke="#ffffff" opacity=".35" stroke-width="2"/><rect x="-17" y="22" width="34" height="9" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.2"/><rect x="-28" y="31" width="56" height="68" rx="11" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="-28" y="46" width="56" height="38" fill="#f6ebd0" stroke="#3a2a1e" stroke-width="2"/><g transform="translate(0 0)"><path d="M-14 58q3.5-5 7 0t7 0 7 0 7 0M-14 66q3.5-5 7 0t7 0 7 0 7 0M-14 74q3.5-5 7 0t7 0 7 0 7 0" fill="none" stroke="#2f6b4f" stroke-width="3" stroke-linecap="round"/></g></g></symbol>
+  <symbol id="p-needle" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><g transform="translate(120 80) rotate(-22)"><rect x="-34" y="-9" width="70" height="18" rx="9" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.4" opacity=".95"/><line x1="-30" y1="0" x2="34" y2="0" stroke="#3a2a1e" stroke-width="2" stroke-linecap="round"/><path d="M36 -10h8l5 6v8l-5 6h-8z" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2.4" stroke-linejoin="round"/><rect x="49" y="-7" width="26" height="14" rx="3" fill="#8f6a1c" stroke="#3a2a1e" stroke-width="2.2"/><line x1="-60" y1="0" x2="-34" y2="0" stroke="#3a2a1e" stroke-width="2.4" stroke-linecap="round"/></g><text x="120" y="168" text-anchor="middle" font-size="14" font-weight="700" letter-spacing=".6" fill="#8f6a1c">25G · 1 in</text></symbol>
+  <symbol id="p-dropper" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><ellipse cx="120" cy="152" rx="66" ry="7" fill="#3a2a1e" opacity=".13"/><ellipse cx="120" cy="46" rx="13" ry="17" fill="#3a2a1e"/><rect x="104" y="58" width="32" height="12" rx="3" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2.2"/><rect x="90" y="70" width="60" height="78" rx="13" fill="#fff3cf" stroke="#3a2a1e" stroke-width="2.5"/><rect x="90" y="94" width="60" height="38" fill="#f6ebd0" stroke="#3a2a1e" stroke-width="2"/><path d="M120 99c3.5 4.5 5.5 7 5.5 9.5a5.5 5.5 0 0 1-11 0c0-2.5 2-5 5.5-9.5z" fill="#8f6a1c"/><text x="120" y="126" text-anchor="middle" font-size="8.5" font-weight="700" letter-spacing="1.6" fill="#3a2a1e">PEPTIDE</text></symbol>
+  <symbol id="p-dropper2" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><ellipse cx="120" cy="152" rx="66" ry="7" fill="#3a2a1e" opacity=".13"/><ellipse cx="120" cy="46" rx="13" ry="17" fill="#3a2a1e"/><rect x="104" y="58" width="32" height="12" rx="3" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2.2"/><rect x="90" y="70" width="60" height="78" rx="13" fill="#ffffff" stroke="#3a2a1e" stroke-width="2.5"/><rect x="90" y="94" width="60" height="38" fill="#f6ebd0" stroke="#3a2a1e" stroke-width="2"/><text x="120" y="119" text-anchor="middle" font-size="17" font-weight="700" letter-spacing="1" fill="#3a2a1e">HA</text><text x="120" y="129" text-anchor="middle" font-size="6.5" font-weight="600" letter-spacing="1.4" fill="#8f6a1c">HYALURONIC</text></symbol>
+  <symbol id="p-pump" viewBox="0 0 240 180"><circle cx="120" cy="84" r="64" fill="#c9a24b" opacity=".14"/><ellipse cx="120" cy="152" rx="66" ry="7" fill="#3a2a1e" opacity=".13"/><rect x="100" y="38" width="40" height="10" rx="4" fill="#3a2a1e"/><rect x="132" y="42" width="26" height="6" rx="3" fill="#3a2a1e"/><rect x="114" y="48" width="12" height="14" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2.2"/><rect x="104" y="60" width="32" height="10" rx="3" fill="#c9a24b" stroke="#3a2a1e" stroke-width="2.2"/><rect x="90" y="70" width="60" height="78" rx="13" fill="#fff3cf" stroke="#3a2a1e" stroke-width="2.5"/><rect x="90" y="94" width="60" height="38" fill="#f6ebd0" stroke="#3a2a1e" stroke-width="2"/><text x="120" y="118" text-anchor="middle" font-size="13" font-weight="700" letter-spacing=".6" fill="#3a2a1e">B3 + HA</text><text x="120" y="129" text-anchor="middle" font-size="6.5" font-weight="600" letter-spacing="1.4" fill="#8f6a1c">SERUM</text></symbol>
   <symbol id="i-pad" viewBox="0 0 24 24"><rect x="3.5" y="6" width="17" height="12" rx="2.5"/><path d="M12 9.5v5M9.5 12h5"/></symbol>
   <symbol id="i-jar" viewBox="0 0 24 24"><path d="M7 4h10v3H7z"/><path d="M6.5 7h11v11.5a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2z"/><path d="M9 12.5h6M9 15.5h6"/></symbol>
   <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13.5 3 5.5 13.5h6L10.5 21l8-10.5h-6z"/></symbol>
@@ -396,18 +426,16 @@ input[type="number"]:focus { box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.25); }
     </section>
   </div>
 
-  <section class="panel chart" aria-label="Unit chart">
-    <div class="chart-head">
-      <h2><svg class="i" aria-hidden="true"><use href="#i-table"/></svg>Unit chart for your mix</h2>
-      <span class="badge" id="cmix" hidden></span>
-    </div>
+  <details class="panel chart" id="chartBox" open>
+    <summary class="chart-head"><h2><svg class="i" aria-hidden="true"><use href="#i-table"/></svg>Unit chart for your mix</h2></summary>
+    <span class="badge" id="cmix" hidden></span>
     <div class="tablewrap">
       <table class="ct">
         <thead><tr><th>Draw to</th><th>Volume</th><th>mg</th><th>mcg</th></tr></thead>
         <tbody id="cbody"></tbody>
       </table>
     </div>
-  </section>
+  </details>
 
   <details class="panel waters" id="waterBox">
     <summary><svg class="i" aria-hidden="true"><use href="#i-drop"/></svg>Not sure how much BAC water to add?</summary>
@@ -423,60 +451,82 @@ input[type="number"]:focus { box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.25); }
   <section class="shop" id="shop" aria-labelledby="shop-title">
     <div class="shop-head">
       <h2 id="shop-title">Starter essentials</h2>
-      <p>Things you may need when you start your peptide journey. Swipe or use the arrows to see more.</p>
+      <p>Things you may need when you start your peptide journey. Pick a category, then swipe or use the arrows.</p>
+      <div class="cats" role="group" aria-label="Categories">
+        <button type="button" class="cat" data-cat="syringes" aria-pressed="true">Syringes &amp; Prep</button>
+        <button type="button" class="cat" data-cat="gym" aria-pressed="false">Gym &amp; Wellness</button>
+        <button type="button" class="cat" data-cat="cases" aria-pressed="false">Cases &amp; Caps</button>
+        <button type="button" class="cat" data-cat="skin" aria-pressed="false">Skincare</button>
+      </div>
+      <p class="cat-note" id="catNote" aria-live="polite"></p>
     </div>
     <div class="slider-wrap">
     <div class="slider">
       <div class="track" id="track" tabindex="0" role="group" aria-roledescription="carousel" aria-label="Starter essentials">
-      <article class="item" aria-roledescription="slide" aria-label="1 of 20">
+      <article class="item" data-cat="syringes" aria-roledescription="slide">
         <div class="art"><span class="itag">Chichi&#x27;s pick</span><img class="pimg" src="images/syringe-31g.jpg" alt="Sungshim 31G 8mm Insulin Syringe" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-syr31"/></svg></div>
         <div class="ibody">
           <h3>Sungshim 31G 8mm Insulin Syringe</h3>
           <p>A thinner needle for under-the-skin (SUBQ) shots.</p>
+          <div class="uses"><span class="">Peptides</span><span class="">Lipovela</span><span class="">Lemon Bottle</span></div>
           <a class="btn solid" href="https://s.shopee.ph/70GRlHBCkK" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
         </div>
       </article>
-      <article class="item" aria-roledescription="slide" aria-label="2 of 20">
+      <article class="item" data-cat="syringes" aria-roledescription="slide">
         <div class="art"><span class="itag">Budget pick</span><img class="pimg" src="images/syringe-29g.jpg" alt="Indoplas 29G 8mm Insulin Syringe" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-syr29"/></svg></div>
         <div class="ibody">
           <h3>Indoplas 29G 8mm Insulin Syringe</h3>
           <p>A cheaper option for under-the-skin (SUBQ) shots.</p>
+          <div class="uses"><span class="">Peptides</span><span class="">Lipovela</span><span class="">Lemon Bottle</span></div>
           <a class="btn solid" href="https://s.shopee.ph/4qBxBNsLjh" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
         </div>
       </article>
-      <article class="item" aria-roledescription="slide" aria-label="3 of 20">
+      <article class="item" data-cat="syringes" aria-roledescription="slide">
         <div class="art"><span class="itag">For IM</span><img class="pimg" src="images/syringe-cardinal.jpg" alt="Cardinal Syringe for IM" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-syrim"/></svg></div>
         <div class="ibody">
           <h3>Cardinal Syringe for IM</h3>
           <p>A syringe option for intramuscular (IM) shots.</p>
+          <div class="uses"><span class="no">IM only</span></div>
           <a class="btn solid" href="https://s.shopee.ph/4fxGleWn4d" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
         </div>
       </article>
-      <article class="item" aria-roledescription="slide" aria-label="4 of 20">
+      <article class="item" data-cat="syringes" aria-roledescription="slide">
         <div class="art"><span class="itag">For mixing</span><img class="pimg" src="images/syringe-3ml.jpg" alt="Indoplas 3 mL (3cc) Syringe for Reconstitution" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-syr3"/></svg></div>
         <div class="ibody">
           <h3>Indoplas 3 mL (3cc) Syringe for Reconstitution</h3>
           <p>For mixing: adding BAC water to your vial.</p>
+          <div class="uses"><span class="no">Mixing only</span></div>
           <a class="btn solid" href="https://s.shopee.ph/4LFgadsLyV" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
         </div>
       </article>
-      <article class="item" aria-roledescription="slide" aria-label="5 of 20">
+      <article class="item" data-cat="syringes" aria-roledescription="slide">
         <div class="art"><span class="itag">IM, deltoid only</span><img class="pimg" src="images/syringe-1ml.jpg" alt="Indoplas 1 mL (1cc) Syringe for IM" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-syr1"/></svg></div>
         <div class="ibody">
           <h3>Indoplas 1 mL (1cc) Syringe for IM</h3>
           <p>For intramuscular (IM) shots. Deltoid only.</p>
+          <div class="uses"><span class="no">IM only</span></div>
           <a class="btn solid" href="https://s.shopee.ph/4LFgadsLyV" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
         </div>
       </article>
-      <article class="item" aria-roledescription="slide" aria-label="6 of 20">
+      <article class="item" data-cat="syringes" aria-roledescription="slide">
         <div class="art"><span class="itag">For IM</span><img class="pimg" src="images/terumo-syringes.jpg" alt="Terumo Syringes" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-syr2"/></svg></div>
         <div class="ibody">
           <h3>Terumo Syringes</h3>
           <p>Terumo syringes for intramuscular (IM) shots.</p>
+          <div class="uses"><span class="no">IM only</span></div>
           <a class="btn solid" href="https://s.shopee.ph/3g4jXOZruN" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
         </div>
       </article>
-      <article class="item" aria-roledescription="slide" aria-label="7 of 20">
+      <article class="item" data-cat="syringes" aria-roledescription="slide">
+        <div class="art"><span class="itag">For IM</span><img class="pimg" src="images/needles-sureguard.jpg" alt="Sureguard Needles for IM" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-needle"/></svg></div>
+        <div class="ibody">
+          <h3>Sureguard Needles for IM</h3>
+          <p>25G, 1 inch needles for intramuscular (IM) shots.</p>
+          <div class="uses"><span class="no">IM only</span></div>
+          <a class="btn solid" href="https://s.shopee.ph/2qVf6UYcq8" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" data-cat="syringes" aria-roledescription="slide">
         <div class="art"><span class="itag">Must-have</span><img class="pimg" src="images/alcohol-pads.jpg" alt="Alcohol Pads" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-padbox"/></svg></div>
         <div class="ibody">
           <h3>Alcohol Pads</h3>
@@ -484,79 +534,7 @@ input[type="number"]:focus { box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.25); }
           <a class="btn solid" href="https://s.shopee.ph/8pi5wox6JR" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
         </div>
       </article>
-      <article class="item" aria-roledescription="slide" aria-label="8 of 20">
-        <div class="art"><span class="itag">For beginners</span><img class="pimg" src="images/storage-box.jpg" alt="Peptide Storage Box" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-box"/></svg></div>
-        <div class="ibody">
-          <h3>Peptide Storage Box</h3>
-          <p>A storage box for your vials. Great for anyone just starting their peptide journey.</p>
-          <a class="btn solid" href="https://s.shopee.ph/5fndDSKfZd" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
-        </div>
-      </article>
-      <article class="item" aria-roledescription="slide" aria-label="9 of 20">
-        <div class="art"><span class="itag">Storage</span><img class="pimg" src="images/single-peptide-case.jpg" alt="Single Peptide Cases" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-case"/></svg></div>
-        <div class="ibody">
-          <h3>Single Peptide Cases</h3>
-          <p>A small case for one peptide vial.</p>
-          <a class="btn solid" href="https://s.shopee.ph/1qaueWePSM" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
-        </div>
-      </article>
-      <article class="item" aria-roledescription="slide" aria-label="10 of 20">
-        <div class="art"><span class="itag">Handy</span><img class="pimg" src="images/vial-opener.jpg" alt="Cute Vial Opener" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-opener"/></svg></div>
-        <div class="ibody">
-          <h3>Cute Vial Opener</h3>
-          <p>A cute tool for taking the cap off your vial.</p>
-          <a class="btn solid" href="https://s.shopee.ph/3g1wZdB3x1" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
-        </div>
-      </article>
-      <article class="item" aria-roledescription="slide" aria-label="11 of 20">
-        <div class="art"><span class="itag">Vial caps</span><img class="pimg" src="images/vial-caps-5-10ml.jpg" alt="5 mL &amp; 10 mL Vial Caps" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-caps"/></svg></div>
-        <div class="ibody">
-          <h3>5 mL &amp; 10 mL Vial Caps</h3>
-          <p>Caps for 5 mL and 10 mL vials.</p>
-          <a class="btn solid" href="https://s.shopee.ph/3qLMlvJHuV" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
-        </div>
-      </article>
-      <article class="item" aria-roledescription="slide" aria-label="12 of 20">
-        <div class="art"><span class="itag">Cute vial caps</span><img class="pimg" src="images/vial-cap-pink.jpg" alt="Cute Pink Vial Caps" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-cap-pink"/></svg></div>
-        <div class="ibody">
-          <h3>Cute Pink Vial Caps</h3>
-          <p>Pretty pink caps for your vials.</p>
-          <a class="btn solid" href="https://s.shopee.ph/7KvrCepJFS" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
-        </div>
-      </article>
-      <article class="item" aria-roledescription="slide" aria-label="13 of 20">
-        <div class="art"><span class="itag">Cute vial caps</span><img class="pimg" src="images/vial-cap-sanrio.jpg" alt="Sanrio Vial Caps" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-cap-lilac"/></svg></div>
-        <div class="ibody">
-          <h3>Sanrio Vial Caps</h3>
-          <p>Sanrio-themed caps for your vials.</p>
-          <a class="btn solid" href="https://s.shopee.ph/2BD8iq2Xh6" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
-        </div>
-      </article>
-      <article class="item" aria-roledescription="slide" aria-label="14 of 20">
-        <div class="art"><span class="itag">Cute vial caps</span><img class="pimg" src="images/vial-cap-sailor-moon.jpg" alt="Sailor Moon Vial Caps" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-cap-moon"/></svg></div>
-        <div class="ibody">
-          <h3>Sailor Moon Vial Caps</h3>
-          <p>Sailor Moon-themed caps for your vials.</p>
-          <a class="btn solid" href="https://s.shopee.ph/9AMt4a7I1v" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
-        </div>
-      </article>
-      <article class="item" aria-roledescription="slide" aria-label="15 of 20">
-        <div class="art"><span class="itag">Cute vial caps</span><img class="pimg" src="images/vial-cap-one-piece.jpg" alt="One Piece Vial Caps" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-cap-red"/></svg></div>
-        <div class="ibody">
-          <h3>One Piece Vial Caps</h3>
-          <p>One Piece-themed caps for your vials.</p>
-          <a class="btn solid" href="https://s.shopee.ph/qhl9IXsKQ" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
-        </div>
-      </article>
-      <article class="item" aria-roledescription="slide" aria-label="16 of 20">
-        <div class="art"><span class="itag">Cute vial caps</span><img class="pimg" src="images/vial-cap-demon-slayer.jpg" alt="Demon Slayer Vial Caps" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-cap-green"/></svg></div>
-        <div class="ibody">
-          <h3>Demon Slayer Vial Caps</h3>
-          <p>Demon Slayer-themed caps for your vials.</p>
-          <a class="btn solid" href="https://s.shopee.ph/AUsGiEgT6I" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
-        </div>
-      </article>
-      <article class="item" aria-roledescription="slide" aria-label="17 of 20">
+      <article class="item" data-cat="gym" aria-roledescription="slide">
         <div class="art"><span class="itag">Gym + peptides</span><img class="pimg" src="images/whey-protein.jpg" alt="ON Whey Protein" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-whey"/></svg></div>
         <div class="ibody">
           <h3>ON Whey Protein</h3>
@@ -564,7 +542,7 @@ input[type="number"]:focus { box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.25); }
           <a class="btn solid" href="https://s.shopee.ph/6ffTco36ST" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
         </div>
       </article>
-      <article class="item" aria-roledescription="slide" aria-label="18 of 20">
+      <article class="item" data-cat="gym" aria-roledescription="slide">
         <div class="art"><span class="itag">Gym + peptides</span><img class="pimg" src="images/collagen.jpg" alt="Collagen" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-collagen"/></svg></div>
         <div class="ibody">
           <h3>Collagen</h3>
@@ -572,7 +550,7 @@ input[type="number"]:focus { box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.25); }
           <a class="btn solid" href="https://s.shopee.ph/2LWUT2J9Up" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
         </div>
       </article>
-      <article class="item" aria-roledescription="slide" aria-label="19 of 20">
+      <article class="item" data-cat="gym" aria-roledescription="slide">
         <div class="art"><span class="itag">Foxy&#x27;s pick</span><img class="pimg" src="images/electrolytes.jpg" alt="Foxy Electrolytes" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-elec"/></svg></div>
         <div class="ibody">
           <h3>Foxy Electrolytes</h3>
@@ -580,12 +558,108 @@ input[type="number"]:focus { box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.25); }
           <a class="btn solid" href="https://s.shopee.ph/BRztAWcH4" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
         </div>
       </article>
-      <article class="item" aria-roledescription="slide" aria-label="20 of 20">
+      <article class="item" data-cat="gym" aria-roledescription="slide">
         <div class="art"><span class="itag">Gym + peptides</span><img class="pimg" src="images/calcium-magnesium-zinc.jpg" alt="Webbers Calcium Magnesium Zinc" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-calmag"/></svg></div>
         <div class="ibody">
           <h3>Webbers Calcium Magnesium Zinc</h3>
           <p>Another must-have for the gym and peptides combo.</p>
           <a class="btn solid" href="https://s.shopee.ph/2LWUTDnUhw" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" data-cat="cases" aria-roledescription="slide">
+        <div class="art"><span class="itag">For beginners</span><img class="pimg" src="images/storage-box.jpg" alt="Peptide Storage Box" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-box"/></svg></div>
+        <div class="ibody">
+          <h3>Peptide Storage Box</h3>
+          <p>A storage box for your vials. Great for anyone just starting their peptide journey.</p>
+          <a class="btn solid" href="https://s.shopee.ph/5fndDSKfZd" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" data-cat="cases" aria-roledescription="slide">
+        <div class="art"><span class="itag">Storage</span><img class="pimg" src="images/single-peptide-case.jpg" alt="Single Peptide Cases" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-case"/></svg></div>
+        <div class="ibody">
+          <h3>Single Peptide Cases</h3>
+          <p>A small case for one peptide vial.</p>
+          <a class="btn solid" href="https://s.shopee.ph/1qaueWePSM" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" data-cat="cases" aria-roledescription="slide">
+        <div class="art"><span class="itag">Handy</span><img class="pimg" src="images/vial-opener.jpg" alt="Cute Vial Opener" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-opener"/></svg></div>
+        <div class="ibody">
+          <h3>Cute Vial Opener</h3>
+          <p>A cute tool for taking the cap off your vial.</p>
+          <a class="btn solid" href="https://s.shopee.ph/3g1wZdB3x1" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" data-cat="cases" aria-roledescription="slide">
+        <div class="art"><span class="itag">Vial caps</span><img class="pimg" src="images/vial-caps-5-10ml.jpg" alt="5 mL &amp; 10 mL Vial Caps" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-caps"/></svg></div>
+        <div class="ibody">
+          <h3>5 mL &amp; 10 mL Vial Caps</h3>
+          <p>Caps for 5 mL and 10 mL vials.</p>
+          <a class="btn solid" href="https://s.shopee.ph/3qLMlvJHuV" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" data-cat="cases" aria-roledescription="slide">
+        <div class="art"><span class="itag">Cute vial caps</span><img class="pimg" src="images/vial-cap-pink.jpg" alt="Cute Pink Vial Caps" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-cap-pink"/></svg></div>
+        <div class="ibody">
+          <h3>Cute Pink Vial Caps</h3>
+          <p>Pretty pink caps for your vials.</p>
+          <a class="btn solid" href="https://s.shopee.ph/7KvrCepJFS" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" data-cat="cases" aria-roledescription="slide">
+        <div class="art"><span class="itag">Cute vial caps</span><img class="pimg" src="images/vial-cap-sanrio.jpg" alt="Sanrio Vial Caps" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-cap-lilac"/></svg></div>
+        <div class="ibody">
+          <h3>Sanrio Vial Caps</h3>
+          <p>Sanrio-themed caps for your vials.</p>
+          <a class="btn solid" href="https://s.shopee.ph/2BD8iq2Xh6" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" data-cat="cases" aria-roledescription="slide">
+        <div class="art"><span class="itag">Cute vial caps</span><img class="pimg" src="images/vial-cap-sailor-moon.jpg" alt="Sailor Moon Vial Caps" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-cap-moon"/></svg></div>
+        <div class="ibody">
+          <h3>Sailor Moon Vial Caps</h3>
+          <p>Sailor Moon-themed caps for your vials.</p>
+          <a class="btn solid" href="https://s.shopee.ph/9AMt4a7I1v" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" data-cat="cases" aria-roledescription="slide">
+        <div class="art"><span class="itag">Cute vial caps</span><img class="pimg" src="images/vial-cap-one-piece.jpg" alt="One Piece Vial Caps" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-cap-red"/></svg></div>
+        <div class="ibody">
+          <h3>One Piece Vial Caps</h3>
+          <p>One Piece-themed caps for your vials.</p>
+          <a class="btn solid" href="https://s.shopee.ph/qhl9IXsKQ" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" data-cat="cases" aria-roledescription="slide">
+        <div class="art"><span class="itag">Cute vial caps</span><img class="pimg" src="images/vial-cap-demon-slayer.jpg" alt="Demon Slayer Vial Caps" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-cap-green"/></svg></div>
+        <div class="ibody">
+          <h3>Demon Slayer Vial Caps</h3>
+          <p>Demon Slayer-themed caps for your vials.</p>
+          <a class="btn solid" href="https://s.shopee.ph/AUsGiEgT6I" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" data-cat="skin" aria-roledescription="slide">
+        <div class="art"><span class="itag">Best pick</span><img class="pimg" src="images/cosrx-peptide-serum.jpg" alt="COSRX Peptide Serum" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-dropper"/></svg></div>
+        <div class="ibody">
+          <h3>COSRX Peptide Serum</h3>
+          <p>Our best pick for topical peptides.</p>
+          <a class="btn solid" href="https://s.shopee.ph/7faurGW2uz" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" data-cat="skin" aria-roledescription="slide">
+        <div class="art"><span class="itag">For topicals</span><img class="pimg" src="images/torriden-hyaluronic.jpg" alt="Torriden Hyaluronic Acid" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-dropper2"/></svg></div>
+        <div class="ibody">
+          <h3>Torriden Hyaluronic Acid</h3>
+          <p>For mixing with powdered topical peptides.</p>
+          <a class="btn solid" href="https://s.shopee.ph/8KqbeemhkR" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
+        </div>
+      </article>
+      <article class="item" data-cat="skin" aria-roledescription="slide">
+        <div class="art"><span class="itag">For topicals</span><img class="pimg" src="images/dermorepubliq-niacinamide.jpg" alt="DermoRepubliq Niacinamide Hyaluronic" loading="lazy" decoding="async" onerror="this.remove()"><svg class="pic" aria-hidden="true"><use href="#p-pump"/></svg></div>
+        <div class="ibody">
+          <h3>DermoRepubliq Niacinamide Hyaluronic</h3>
+          <p>A niacinamide and hyaluronic option for topicals.</p>
+          <a class="btn solid" href="https://s.shopee.ph/80DlG5YKDG" target="_blank" rel="noopener sponsored nofollow"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>View on Shopee</a>
         </div>
       </article>
       </div>
@@ -967,26 +1041,28 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
   var shop = document.getElementById('shop');
   var track = document.getElementById('track');
   if (!shop || !track) return;
-  var base = Array.prototype.slice.call(track.children);
-  var N = base.length;
   var prev = document.getElementById('prev'), next = document.getElementById('next'), count = document.getElementById('count');
+  var note = document.getElementById('catNote');
+  var cats = Array.prototype.slice.call(shop.querySelectorAll('.cat'));
+  var all = Array.prototype.slice.call(track.children);
+  var NOTES = {
+    syringes: 'SUBQ 8mm syringes are the ones for peptides, Lipovela and Lemon Bottle. IM needles and syringes are for IM shots only.',
+    gym: 'Must-haves for your weight loss journey when you do the gym and peptides together.',
+    cases: 'Keep your vials safe, organized and cute.',
+    skin: 'For topical peptides and everyday skincare.'
+  };
   var reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var N = 0, items = [], cur = 0, raf = 0, timer = 0;
 
   function copy(c) {
     var n = c.cloneNode(true);
     n.setAttribute('aria-hidden', 'true');
     n.removeAttribute('aria-label');
+    n.classList.remove('on');
     n.classList.add('clone');
     Array.prototype.forEach.call(n.querySelectorAll('a, button'), function (x) { x.tabIndex = -1; });
     return n;
   }
-  var before = document.createDocumentFragment(), after = document.createDocumentFragment();
-  base.forEach(function (c) { before.appendChild(copy(c)); after.appendChild(copy(c)); });
-  track.insertBefore(before, track.firstChild);
-  track.appendChild(after);
-  var items = Array.prototype.slice.call(track.children);
-  var cur = N, raf = 0, timer = 0;
-
   function setWidth() { return items[N].offsetLeft - items[0].offsetLeft; }
   function leftFor(i) { var it = items[i]; return it.offsetLeft - (track.clientWidth - it.offsetWidth) / 2; }
   function jump(left) {
@@ -1004,11 +1080,13 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
     return best;
   }
   function mark() {
+    if (!N) return;
     cur = nearest();
     items.forEach(function (it, i) { it.classList.toggle('on', i === cur); });
     count.textContent = (cur % N + 1) + ' / ' + N;
   }
   function recenter() {
+    if (!N) return;
     var k = nearest();
     if (k < N) jump(track.scrollLeft + setWidth());
     else if (k >= 2 * N) jump(track.scrollLeft - setWidth());
@@ -1018,6 +1096,26 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
     i = Math.max(0, Math.min(items.length - 1, i));
     track.scrollTo({ left: leftFor(i), behavior: reduced ? 'auto' : 'smooth' });
     if (reduced) { clearTimeout(timer); timer = setTimeout(recenter, 30); }
+  }
+  function setCat(cat) {
+    var list = all.filter(function (c) { return c.getAttribute('data-cat') === cat; });
+    N = list.length;
+    track.textContent = '';
+    var before = document.createDocumentFragment(), mid = document.createDocumentFragment(), after = document.createDocumentFragment();
+    list.forEach(function (c, i) {
+      c.classList.remove('on', 'clone');
+      c.removeAttribute('aria-hidden');
+      c.setAttribute('aria-label', (i + 1) + ' of ' + N);
+      Array.prototype.forEach.call(c.querySelectorAll('a, button'), function (x) { x.removeAttribute('tabindex'); });
+      before.appendChild(copy(c)); mid.appendChild(c); after.appendChild(copy(c));
+    });
+    track.appendChild(before); track.appendChild(mid); track.appendChild(after);
+    items = Array.prototype.slice.call(track.children);
+    cats.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-cat') === cat)); });
+    note.textContent = NOTES[cat] || '';
+    jump(leftFor(N));
+    mark();
+    track.classList.remove('swap'); void track.offsetWidth; track.classList.add('swap');
   }
 
   track.addEventListener('scroll', function () {
@@ -1031,17 +1129,62 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
   });
   prev.addEventListener('click', function () { go(cur - 1); });
   next.addEventListener('click', function () { go(cur + 1); });
-  window.addEventListener('resize', function () { jump(leftFor(N + (cur % N))); mark(); });
+  cats.forEach(function (b) { b.addEventListener('click', function () { setCat(b.getAttribute('data-cat')); }); });
+  window.addEventListener('resize', function () { if (N) { jump(leftFor(N + (cur % N))); mark(); } });
 
   shop.classList.add('ready');
-  jump(leftFor(N));
-  mark();
+  setCat(cats[0].getAttribute('data-cat'));
+})();
+
+(function () {
+  var box = document.getElementById('chartBox');
+  if (box && window.matchMedia && window.matchMedia('(max-width: 520px)').matches) box.open = false;
 })();
 
 (function () {
   var box = document.getElementById('verse');
   var q = document.getElementById('vtext');
+  var ref = document.getElementById('verse-label');
   if (!box || !q) return;
+  var verses = [
+    ["Hosea 13:5–6", "I knew you in the wilderness, in the land of drought. When they had pasture, they became satisfied; they were satisfied, and their hearts became proud. Therefore they forgot me."],
+    ["Psalm 139:14", "I will praise thee; for I am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well."],
+    ["Proverbs 31:25", "Strength and honour are her clothing; and she shall rejoice in time to come."],
+    ["Philippians 4:13", "I can do all things through Christ which strengtheneth me."],
+    ["Isaiah 40:31", "But they that wait upon the LORD shall renew their strength; they shall mount up with wings as eagles; they shall run, and not be weary; and they shall walk, and not faint."],
+    ["Jeremiah 29:11", "For I know the thoughts that I think toward you, saith the LORD, thoughts of peace, and not of evil, to give you an expected end."],
+    ["Psalm 46:1", "God is our refuge and strength, a very present help in trouble."],
+    ["Proverbs 3:5–6", "Trust in the LORD with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths."],
+    ["Joshua 1:9", "Have not I commanded thee? Be strong and of a good courage; be not afraid, neither be thou dismayed: for the LORD thy God is with thee whithersoever thou goest."],
+    ["Psalm 23:1–3", "The LORD is my shepherd; I shall not want. He maketh me to lie down in green pastures: he leadeth me beside the still waters. He restoreth my soul."],
+    ["1 Corinthians 6:19–20", "What? know ye not that your body is the temple of the Holy Ghost which is in you, which ye have of God, and ye are not your own? For ye are bought with a price: therefore glorify God in your body, and in your spirit, which are God's."],
+    ["3 John 1:2", "Beloved, I wish above all things that thou mayest prosper and be in health, even as thy soul prospereth."],
+    ["Isaiah 41:10", "Fear thou not; for I am with thee: be not dismayed; for I am thy God: I will strengthen thee; yea, I will help thee; yea, I will uphold thee with the right hand of my righteousness."],
+    ["Galatians 6:9", "And let us not be weary in well doing: for in due season we shall reap, if we faint not."],
+    ["Romans 12:2", "And be not conformed to this world: but be ye transformed by the renewing of your mind, that ye may prove what is that good, and acceptable, and perfect, will of God."],
+    ["Matthew 11:28", "Come unto me, all ye that labour and are heavy laden, and I will give you rest."],
+    ["Psalm 118:24", "This is the day which the LORD hath made; we will rejoice and be glad in it."],
+    ["Lamentations 3:22–23", "It is of the LORD's mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness."],
+    ["Proverbs 4:23", "Keep thy heart with all diligence; for out of it are the issues of life."],
+    ["Psalm 37:4", "Delight thyself also in the LORD; and he shall give thee the desires of thine heart."],
+    ["Isaiah 26:3", "Thou wilt keep him in perfect peace, whose mind is stayed on thee: because he trusteth in thee."],
+    ["2 Timothy 1:7", "For God hath not given us the spirit of fear; but of power, and of love, and of a sound mind."],
+    ["Psalm 121:1–2", "I will lift up mine eyes unto the hills, from whence cometh my help. My help cometh from the LORD, which made heaven and earth."],
+    ["Romans 8:28", "And we know that all things work together for good to them that love God, to them who are the called according to his purpose."],
+    ["Proverbs 16:3", "Commit thy works unto the LORD, and thy thoughts shall be established."],
+    ["Psalm 28:7", "The LORD is my strength and my shield; my heart trusted in him, and I am helped: therefore my heart greatly rejoiceth; and with my song will I praise him."],
+    ["Colossians 3:23", "And whatsoever ye do, do it heartily, as to the Lord, and not unto men."],
+    ["1 Peter 5:7", "Casting all your care upon him; for he careth for you."],
+    ["Psalm 30:5", "For his anger endureth but a moment; in his favour is life: weeping may endure for a night, but joy cometh in the morning."],
+    ["Deuteronomy 31:6", "Be strong and of a good courage, fear not, nor be afraid of them: for the LORD thy God, he it is that doth go with thee; he will not fail thee, nor forsake thee."]
+  ];
+  try {
+    var d = new Date();
+    var day = Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 86400000);
+    var v = verses[day % verses.length];
+    if (ref) ref.textContent = v[0];
+    q.textContent = v[1];
+  } catch (err) {}
   var words = q.textContent.trim().split(/\s+/);
   q.textContent = '';
   words.forEach(function (w, i) {
