@@ -289,6 +289,9 @@ input[type="number"]:focus { box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.25); }
 .intro .sf { position: absolute; top: 0; height: auto; color: #8fbfe6; will-change: transform, opacity; }
 .intro .snd { position: fixed; bottom: 16px; right: 16px; width: 38px; height: 38px; padding: 0; border-radius: 50%; border: 1.5px solid var(--gold); background: rgba(255, 255, 255, 0.92); color: var(--gold-deep); display: grid; place-items: center; cursor: pointer; pointer-events: auto; }
 .intro .snd .i { width: 20px; height: 20px; }
+.intro .tap { position: fixed; left: 50%; bottom: 18px; translate: -50% 0; pointer-events: auto; display: inline-flex; align-items: center; gap: 8px; font: inherit; font-weight: 600; font-size: 0.9rem; padding: 10px 16px; border-radius: 999px; border: 1.5px solid var(--gold); background: rgba(255, 255, 255, 0.96); color: var(--gold-deep); cursor: pointer; box-shadow: 0 6px 18px rgba(58, 42, 30, 0.18); animation: pop 0.6s ease 0.3s both; }
+.intro .tap[hidden] { display: none; }
+.intro .tap .i { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .intro .snd .x { display: none; }
 .intro .snd[aria-pressed="true"] .x { display: block; }
 @media (prefers-reduced-motion: reduce) { .intro { display: none; } }
@@ -568,7 +571,7 @@ input[type="number"]:focus { box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.25); }
   <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol>
 </svg>
 
-<div class="intro" id="intro" aria-hidden="true"><button type="button" class="snd" id="introSnd" aria-label="Mute sound" aria-pressed="false"><svg class="i" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 6v12l-4.500-3.500H4z"/><path d="M15.500 9.500a3.500 3.500 0 0 1 0 5"/><path class="x" d="M17 7l4 10M21 7l-4 10" transform="translate(-1 0)"/></svg></button></div>
+<div class="intro" id="intro" aria-hidden="true"><button type="button" class="tap" id="introTap" hidden><svg class="i" viewBox="0 0 24 24"><path d="M6 17h12l-1.500-2V10a4.500 4.500 0 0 0-9 0v5z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span>Tap for jingle bells</span></button><button type="button" class="snd" id="introSnd" aria-label="Mute sound" aria-pressed="false"><svg class="i" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 6v12l-4.500-3.500H4z"/><path d="M15.500 9.500a3.500 3.500 0 0 1 0 5"/><path class="x" d="M17 7l4 10M21 7l-4 10" transform="translate(-1 0)"/></svg></button></div>
 
 <header class="top">
   <div class="in gutter">
@@ -1586,20 +1589,50 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
     try { localStorage.setItem('tbl-sound', muted ? 'off' : 'on'); } catch (e) {}
     wake();
   });
+  var BELLS = [2637, 3136, 3951, 4699, 5588];
+  var master = null, noiseBuf = null;
+  function jingle(c, t, vol) {
+    if (!master) { master = c.createGain(); master.gain.value = 0.9; master.connect(c.destination); }
+    var hits = 3 + Math.floor(Math.random() * 3);
+    var shift = 0.94 + Math.random() * 0.14;
+    for (var h = 0; h < hits; h++) {
+      var ht = t + h * 0.052 + Math.random() * 0.018;
+      var gs = vol * (1 - h * 0.13);
+      BELLS.forEach(function (f, i) {
+        var o = c.createOscillator(), g = c.createGain();
+        o.type = i % 2 ? 'triangle' : 'sine';
+        o.frequency.value = f * shift * (1 + (Math.random() - 0.5) * 0.03);
+        g.gain.setValueAtTime(0.0001, ht);
+        g.gain.exponentialRampToValueAtTime(gs * (1 - i * 0.14), ht + 0.004);
+        g.gain.exponentialRampToValueAtTime(0.0001, ht + (i === 0 ? 0.6 : 0.3));
+        o.connect(g); g.connect(master);
+        o.start(ht); o.stop(ht + 0.7);
+      });
+      if (!noiseBuf) {
+        noiseBuf = c.createBuffer(1, Math.floor(c.sampleRate * 0.09), c.sampleRate);
+        var d = noiseBuf.getChannelData(0);
+        for (var n = 0; n < d.length; n++) d[n] = (Math.random() * 2 - 1) * (1 - n / d.length);
+      }
+      var src = c.createBufferSource(), hp = c.createBiquadFilter(), ng = c.createGain();
+      src.buffer = noiseBuf; hp.type = 'highpass'; hp.frequency.value = 6000; ng.gain.value = gs * 0.9;
+      src.connect(hp); hp.connect(ng); ng.connect(master); src.start(ht);
+    }
+  }
   function bling() {
     if (muted) return;
     var c = audio();
     if (!c || c.state !== 'running') return;
-    var t = c.currentTime;
-    var f = NOTES[Math.floor(Math.random() * NOTES.length)];
-    [[f, 0, 0.05], [f * 1.5, 0.07, 0.035], [f * 2.76, 0, 0.012]].forEach(function (n) {
-      var o = c.createOscillator(), g = c.createGain();
-      o.type = 'sine'; o.frequency.value = n[0];
-      g.gain.setValueAtTime(0.0001, t + n[1]);
-      g.gain.exponentialRampToValueAtTime(n[2], t + n[1] + 0.006);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + n[1] + 0.9);
-      o.connect(g); g.connect(c.destination);
-      o.start(t + n[1]); o.stop(t + n[1] + 1);
+    jingle(c, c.currentTime, 0.05);
+  }
+  var tap = document.getElementById('introTap');
+  function hideTap() { if (tap) tap.hidden = true; }
+  var ac0 = audio();
+  if (tap && ac0 && ac0.state !== 'running' && !muted) {
+    tap.hidden = false;
+    tap.addEventListener('click', function () {
+      hideTap();
+      var c = audio();
+      if (c) c.resume().then(function () { jingle(c, c.currentTime, 0.06); }).catch(function () {});
     });
   }
   function mk(use, cls, size, left) {
@@ -1640,6 +1673,7 @@ function waterOptions(vialMg, doseMg, waters, syringeMl) {
     drop(el2, delay, rnd(2300, 3000), 0, rnd(-50, 50), rnd(-24, 24), rnd(-30, 30), 0.72, H * rnd(0.62, 0.92));
     setTimeout(bling, delay + 380);
   }
+  setTimeout(hideTap, END);
   setTimeout(function () { box.remove(); }, END + 1200);
 })();
 </script>
